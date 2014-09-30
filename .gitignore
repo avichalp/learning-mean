@@ -1,7 +1,4 @@
 staticfiles
 node_modules
 bower_components
-*.js~
-*.json~
-*.html~
-*.css~
+*~
