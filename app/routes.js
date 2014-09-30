@@ -1,9 +1,9 @@
-module.exports = function( app, passport ) {
+module.exports = function(app, passport) {
     
-    var fs = require( 'fs' );
-   
+    var fs = require('fs');
+
     // including Product-model here
-    var Page = require( './models/Product' );       
+    var Page = require('./models/Page');       
 
     // server routes here
     

@@ -1,7 +1,6 @@
 var mongoose = require( 'mongoose' );
 var Schema = mongoose.Schema;
-
-var ProductSchema = new Schema({
+var PageSchema = new Schema({
        
 	about : String,
 	
@@ -29,4 +28,4 @@ var ProductSchema = new Schema({
 	
     });
 
-module.exports = mongoose.model( 'Product' , ProductSchema );
+module.exports = mongoose.model( 'Page' , PageSchema );
