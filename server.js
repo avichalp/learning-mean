@@ -1,53 +1,57 @@
-// modules 
-var express = require( 'express' );
-var app = express();
+// including necessary modules 
+var express = require ('express');
+var mongoose = require ('mongoose');
+var bodyParser = require ('body-parser');
+var methodOverride = require ('method-override');
+var cookieParser = require ('cookie-parser');
 
-var passport = require( 'passport' );
-var flash = require( 'connect-flash' );
-var mongoose = require( 'mongoose' );
-var bodyParser = require( 'body-parser' );
-var methodOverride = require( 'method-override' );
+// including config files
+var db = require ( './config/db' );
 
-var cookieParser = require( 'cookie-parser' );
-var session = require( 'express-session' );
+// including routes 
+var routes = require ('./app/routes');
+
+// calling express() to create an app object
+var app = express ();
 	
-// config files
-var db = require( './config/db' );
-
 // set our port
 var port = process.env.PORT || 8080;
 
 //connect to our mongoDB database
-mongoose.connect(db.url); 
+mongoose.connect (db.url); 
 
 // get all stuff of the body (POST) parameters
 
 // parse application/json
-app.use( bodyParser.json() );
-// parse application/vnd.api+json as json  
-app.use( bodyParser.json( { type: 'application/vnd.api+json' } ));
-// parse application/x-www-form-urlencoded 
-app.use( bodyParser.urlencoded( { extended: true } ) );
-// to parse cookies 
-app.use( cookieParser() );
+app.use (bodyParser.json());
 
-//passport(auth) related 
-//app.use( session({ secret: 'App123456' }) ); 
-//app.use( passport.initialize() );
-//app.use( passport.session() ); 
-//app.use( flash() );
+// parse application/vnd.api+json as json  
+app.use (bodyParser.json (
+			  { 
+			      type: 'application/vnd.api+json'
+				  }
+			  ));
+
+// parse application/x-www-form-urlencoded 
+app.use (bodyParser.urlencoded (
+				{ 
+				    extended: true
+					}
+				));
+// to parse cookies 
+app.use (cookieParser());
 
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
-app.use( methodOverride( 'X-HTTP-Method-Override' ) );
+app.use (methodOverride( 'X-HTTP-Method-Override'));
 
 // set the static files location /public/img will be /img for users
-app.use( express.static( __dirname + '/public' ) ); 
+app.use (express.static ( __dirname + '/public' )); 
 
-// routes 
-var routes = require( './app/routes' )
-    routes( app ); 
+routes (app).call(); 
 
-// start app 
-app.listen( port );	
-console.log( 'Magic happens on port ' + port ); 		      
+// to start 'app' 
+app.listen (port);	
+console.log ('server running at ' + port); 		      
+
+// exporting as module
 exports = module.exports = app; 					      
