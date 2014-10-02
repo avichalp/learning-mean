@@ -24,27 +24,15 @@ mongoose.connect (db.url);
 
 // parse application/json
 app.use (bodyParser.json());
-
 // parse application/vnd.api+json as json  
-app.use (bodyParser.json (
-			  { 
-			      type: 'application/vnd.api+json'
-				  }
-			  ));
-
+app.use (bodyParser.json ({type: 'application/vnd.api+json'}));
 // parse application/x-www-form-urlencoded 
-app.use (bodyParser.urlencoded (
-				{ 
-				    extended: true
-					}
-				));
+app.use (bodyParser.urlencoded ({extended: true}));
 // to parse cookies 
 app.use (cookieParser());
-
-// override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
+// override with the X-HTTP-Method-Override header in the request.
 app.use (methodOverride( 'X-HTTP-Method-Override'));
-
-// set the static files location /public/img will be /img for users
+// set the static files location /public/img 
 app.use (express.static ( __dirname + '/public' )); 
 
 routes (app).call(); 
