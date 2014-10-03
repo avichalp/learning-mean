@@ -1,8 +1,11 @@
 module.exports = function (app) {
     
-    var fs = require('fs');
-    var Page = require('./models/Page');
-
+    var fs = require ('fs');
+    var Page = require ('./models/Page');
+    var redis = require ('redis');
+    var client = redis.createClient();
+    client.auth('somepass');
+   
     var insertParams = function (req, page) {
     	
 	page.about = req.body.about;
@@ -14,34 +17,37 @@ module.exports = function (app) {
 
 	page.product.name = req.body.productName;
 	page.product.description = req.body.description;
-	
 	//page.product.img.data = fs.readFileSync( req.body.path );
 	//page.product.img.contentType = req.body.contentType;
     }
 
-   
-    return (function () {
+    var website = {};
 
-	     // server routes here
+    return (function () {
+	    
+	    Page.find( function( err, page ){
+		    if(err)
+			console.log ('error->' + err);
+		    website = page;
+		    console.log (website);
+		    
+		});	    
+	    
+	    if(website == [] ){
+		var page = new Page;
+		//insertParams(req, page);
+		page.save (function(err){
+			if(err)
+			    console.log ('error->' + err);
+			console.log ('page created');
+		    });
+	    }
+
+	    // server routes here
 	    // Page - GET & POST
 	    app.route ('/api/page/')
-
-	    .get (function (req, res){
-		    Page.find( function( err, pages ){
-			    if(err)
-				res.send ('error->' + err);
-			    res.json (pages);
-			});	
-		})
-   
-	    .post (function (req, res){
-		    var page = new Page;
-		    insertParams(req, page);
-		    page.save (function(err){
-			    if(err)
-				res.send ('error->' + err);
-			    res.json ({ message : 'page created' });
-			});
+	    .get (function (req, res){		   
+		    res.json (website);
 		});
 
 	    // Page - PUT & DELETE 

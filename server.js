@@ -1,12 +1,8 @@
 // including necessary modules 
 var express = require ('express');
-var mongoose = require ('mongoose');
 var bodyParser = require ('body-parser');
 var methodOverride = require ('method-override');
 var cookieParser = require ('cookie-parser');
-
-// including config files
-var db = require ( './config/db' );
 
 // including routes 
 var routes = require ('./app/routes');
@@ -16,9 +12,7 @@ var app = express ();
 	
 // set our port
 var port = process.env.PORT || 8080;
-
-//connect to our mongoDB database
-mongoose.connect (db.url); 
+ 
 
 // get all stuff of the body (POST) parameters
 
@@ -35,7 +29,8 @@ app.use (methodOverride( 'X-HTTP-Method-Override'));
 // set the static files location /public/img 
 app.use (express.static ( __dirname + '/public' )); 
 
-routes (app).call (); 
+//calling function returned by routes module
+routes (app)(); 
 
 // to start 'app' 
 app.listen (port);	

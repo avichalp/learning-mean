@@ -35,7 +35,8 @@ app.use (methodOverride( 'X-HTTP-Method-Override'));
 // set the static files location /public/img 
 app.use (express.static ( __dirname + '/public' )); 
 
-routes (app).call(); 
+//calling function returned by routes module
+routes (app)(); 
 
 // to start 'app' 
 app.listen (port);	
