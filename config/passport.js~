@@ -29,12 +29,14 @@ module.exports = (function (passport) {
 			} );
 		    
 			}));
-	/*var newUser            = new User();
-	newUser.local.email = 'pandeyavichal7@gmail.com';
-	newUser.local.password = newUser.generateHash('App123456');
-	newUser.save(function(err) {
-		if (err)
-		    throw err;
-		
-		    });*/
+	/*
+	  var newUser = new User();
+	  newUser.local.email = '';
+	  newUser.local.password = newUser.generateHash('');
+	  newUser.save(function(err) {
+	  if (err)
+	  throw err;
+	  
+	  });
+	*/
     });

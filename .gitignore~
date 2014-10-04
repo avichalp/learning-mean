@@ -12,5 +12,5 @@ logs
 results
 build
 
-./node_modules/
-./public/libs/
+node_modules/
+public/libs/

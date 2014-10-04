@@ -1,20 +1,16 @@
 (function () {
-
     var redis = require ('redis');
     var client = redis.createClient();
     
     var isLoggedIn = (function (req, res, next) {
-	    
 	    if (req.isAuthenticated())
 		return next();
 	    res.json({ message : 'restricted area' });
-	
 	});
 
     module.exports = (function (app, passport) {
 	    
 	    var apiCall = (function (apiType) {	
-		   
 		    app.route('/api/' + apiType + '/' )
 		    .get(function (req, res){
 			    client.get(apiType + 'key', function (err, reply) {
@@ -36,12 +32,15 @@
 				    if (err)
 					res.json(reply);
 				});
-			
 			});
-		
 		});
-
-	    app.route('/login')
+	
+	    return (function () {
+		    // server routes here
+		    ['home', 'about', 'product', 'contact' ].map(apiCall);
+		    // frontend(angular) routes here
+		    
+		    app.route('/login')
 			.get(function (req, res) {
 				res.sendfile('./public/views/login.html');
 			    })
@@ -51,24 +50,21 @@
 					failureFlash : true 
 					}));
 		    
-	    app.get('/logout', function (req, res){
-		    req.logout();
-		    res.redirect('/');
-		});
+		    app.get('/logout', function (req, res){
+			    req.logout();
+			    res.redirect('/');
+			});
 
-	    app.get('/admin', isLoggedIn, function (req, res) {
-		    res.sendfile('./public/views/admin.html');
-		});
-	    
-	    app.get('*', function (req, res) {
-		    res.sendfile('./public/index.html');
-		});	
-
-	    //return a function which provides our basic api
-	    return (function () {
+		    app.get('/admin', isLoggedIn, function (req, res) {
+			    res.sendfile('./public/views/admin.html')
+			});
 		    
-		    ['home', 'about', 'product', 'contact' ].map(apiCall);
-		    		    	    
+		    app.get('*', function (req, res) {
+			    res.sendfile('./public/index.html');
+			});
+		    
+		    
 		});    
 	});
+    
 })();
