@@ -39,9 +39,29 @@
 		    // server routes here
 		    ['home', 'about', 'product', 'contact' ].map(apiCall);
 		    // frontend(angular) routes here
-		    app.get ('*', function (req, res) {
-			    res.sendfile ('./public/index.html');
+		    
+		    app.get('/login', function (req, res) {
+			    res.sendfile('./public/views/login.html');
 			});
+		    app.post('/login', passport.authenticate('local-login', {
+				successRedirect : '/admin', 
+				    failureRedirect : '/login', 
+				    failureFlash : true 
+				    }));
+		    app.get('/admin', isLoggedIn, function (req, res) {
+			    res.sendfile('./public/views/admin.html')
+			});
+
+		    app.get('/logout', function (req, res){
+			    req.logout();
+			    res.redirect('/');
+			});
+
+		    app.get('*', function (req, res) {
+			    res.sendfile('./public/index.html');
+			});
+		    
+		    
 		});    
 	});
     
