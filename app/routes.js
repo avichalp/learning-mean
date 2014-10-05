@@ -42,14 +42,14 @@
 		});
 
 	    app.route('/login')
-			.get(function (req, res) {
-				res.sendfile('./public/views/login.html');
-			    })
-			.post(passport.authenticate('local-login', {
-				    successRedirect : '/admin', 
-					failureRedirect : '/login', 
-					failureFlash : true 
-					}));
+	    .get(function (req, res) {
+		    res.sendfile('./public/views/login.html');
+		})
+	    .post(passport.authenticate('local-login', {
+			successRedirect : '/admin', 
+			    failureRedirect : '/login', 
+			    failureFlash : true 
+			    }));
 		    
 	    app.get('/logout', function (req, res){
 		    req.logout();
@@ -59,6 +59,16 @@
 	    app.get('/admin', isLoggedIn, function (req, res) {
 		    res.sendfile('./public/views/admin.html');
 		});
+	    
+	    app.route('/addadmin')
+	    .get(isLoggedIn, function (req, res) {
+		    res.sendfile('./public/views/addadmin.html');
+		})
+	    .post(isLoggedIn, passport.authenticate('local-signup', {
+			successRedirect : '/admin', 
+			    failureRedirect : '/addadmin', 
+			    failureFlash : true 
+			    }));
 	    
 	    app.get('*', function (req, res) {
 		    res.sendfile('./public/index.html');
