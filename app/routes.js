@@ -2,6 +2,8 @@
 
     var redis = require ('redis');
     var client = redis.createClient();
+
+    var viewsUrl = './public/views/'
     
     var isLoggedIn = (function (req, res, next) {
 	    
@@ -40,45 +42,44 @@
 			});
 		
 		});
-
-	    app.route('/login')
-	    .get(function (req, res) {
-		    res.sendfile('./public/views/login.html');
-		})
-	    .post(passport.authenticate('local-login', {
-			successRedirect : '/admin', 
-			    failureRedirect : '/login', 
-			    failureFlash : true 
-			    }));
-		    
-	    app.get('/logout', function (req, res){
-		    req.logout();
-		    res.redirect('/');
-		});
-
-	    app.get('/admin', isLoggedIn, function (req, res) {
-		    res.sendfile('./public/views/admin.html');
-		});
-	    
-	    app.route('/addadmin')
-	    .get(isLoggedIn, function (req, res) {
-		    res.sendfile('./public/views/addadmin.html');
-		})
-	    .post(isLoggedIn, passport.authenticate('local-signup', {
-			successRedirect : '/admin', 
-			    failureRedirect : '/addadmin', 
-			    failureFlash : true 
-			    }));
-	    
-	    app.get('*', function (req, res) {
-		    res.sendfile('./public/index.html');
-		});	
-
-	    //return a function which provides our basic api
+       	    		    	           	    	   
 	    return (function () {
 		    
 		    ['home', 'about', 'product', 'contact' ].map(apiCall);
-		    		    	    
+		    
+		    app.route('/login')
+			.get( function (req, res) {
+				res.sendfile(viewsUrl + 'login.html');
+			    })
+			.post(passport.authenticate('local-login', {
+				successRedirect : '/admin', 
+				    failureRedirect : '/login', 
+				    failureFlash : true 
+				    }));
+	    
+		    app.get('/logout', function (req, res){
+			    req.logout();
+			    res.redirect('/');
+			});
+	
+		    app.get('/admin', isLoggedIn, function (req, res) {
+			    res.sendfile('./public/admin.html');
+			});
+
+		    app.route('/addadmin')
+			.get(isLoggedIn, function (req, res) {
+				res.sendfile(viewsUrl+'addadmin.html');
+			    })
+			.post(isLoggedIn, passport.authenticate('local-signup', {
+				    successRedirect : '/', 
+					failureRedirect : '/addadmin', 
+					failureFlash : true 
+					}));
+		    
+		    app.get('*', function (req, res) {
+			    res.sendfile('./public/index.html');
+			});	
+		    
 		});    
 	});
 })();
