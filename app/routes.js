@@ -46,14 +46,10 @@
 	    return (function () {
 		    
 		    ['home', 'about', 'product', 'contact' ].map(apiCall);
-		    
-		    app.route('/api/login/')
-			.get( function (req, res) {
-				res.sendfile(viewsUrl + 'login.html');
-			    })
-			.post(passport.authenticate('local-login', {
+		   
+		    app.post('/api/login/' ,passport.authenticate('local-login', {
 				successRedirect : '/api/admin/', 
-				    failureRedirect : '/api/login/', 
+				    failureRedirect : '/', 
 				    failureFlash : true 
 				    }));
 	    
@@ -61,11 +57,11 @@
 			    req.logout();
 			    res.json({status : 'loggedout'});
 			});
-	
+		    // todo: implement get in angular
 		    app.get('/api/admin/', isLoggedIn, function (req, res) {
 			    res.sendfile('./public/admin.html');
 			});
-
+		    // todo: implement get in angular
 		    app.route('/api/addadmin/')
 			.get(isLoggedIn, function (req, res) {
 				res.sendfile(viewsUrl+'addadmin.html');

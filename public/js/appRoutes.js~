@@ -20,11 +20,7 @@ angular.module('appRoutes', []).config (['$routeProvider', '$locationProvider', 
 		.when('/product', {
 			templateUrl: 'views/product.html',
 			    controller: 'ProductController'
-			    })
-		.when('/login', {
-			templateUrl: 'views/login.html',
-			    controller: 'LoginController'
-		    });
+			    });
 		
 	$locationProvider.html5Mode(true);
 

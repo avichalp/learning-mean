@@ -47,32 +47,32 @@
 		    
 		    ['home', 'about', 'product', 'contact' ].map(apiCall);
 		    
-		    app.route('/login')
+		    app.route('/api/login/')
 			.get( function (req, res) {
 				res.sendfile(viewsUrl + 'login.html');
 			    })
 			.post(passport.authenticate('local-login', {
-				successRedirect : '/admin', 
-				    failureRedirect : '/login', 
+				successRedirect : '/api/admin/', 
+				    failureRedirect : '/api/login/', 
 				    failureFlash : true 
 				    }));
 	    
-		    app.get('/logout', function (req, res){
+		    app.get('/api/logout/', function (req, res){
 			    req.logout();
-			    res.json({status : loggedout});
+			    res.json({status : 'loggedout'});
 			});
 	
-		    app.get('/admin', isLoggedIn, function (req, res) {
+		    app.get('/api/admin/', isLoggedIn, function (req, res) {
 			    res.sendfile('./public/admin.html');
 			});
 
-		    app.route('/addadmin')
+		    app.route('/api/addadmin/')
 			.get(isLoggedIn, function (req, res) {
 				res.sendfile(viewsUrl+'addadmin.html');
 			    })
 			.post(isLoggedIn, passport.authenticate('local-signup', {
 				    successRedirect : '/', 
-					failureRedirect : '/addadmin', 
+					failureRedirect : '/api/addadmin/', 
 					failureFlash : true 
 					}));
 		    
