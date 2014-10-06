@@ -1,3 +1,3 @@
-angular.module('AddAdminCtrl',[]).controller('AddAdminController', function ($scope){
+angular.module('AddAdminCtrl',[]).controller('AddAdminController', ['$scope', function ($scope){
 	
-    });
+    }]);
