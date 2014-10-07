@@ -47,11 +47,9 @@
 		    
 		    ['home', 'about', 'product', 'contact' ].map(apiCall);
 		   
-		    app.post('/api/login/' ,passport.authenticate('local-login', {
-				successRedirect : '/api/admin/', 
-				    failureRedirect : '/', 
-				    failureFlash : true 
-				    }));
+		    app.post('/api/login/' ,passport.authenticate('local-login'), function (req, res) {
+			    res.json({message: 'OK'});
+			});
 	    
 		    app.get('/api/logout/', function (req, res){
 			    req.logout();
