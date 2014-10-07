@@ -49,27 +49,17 @@
 		   
 		    app.post('/api/login/' ,passport.authenticate('local-login'), function (req, res) {
 			    res.json({message: 'OK'});
+			});	    		    
+		    
+		    app.post('/api/addadmin/',isLoggedIn, passport.authenticate('local-signup'), function (req, res) {
+				    res.json( {message: 'admin-added'} );
 			});
-	    
+		    
 		    app.get('/api/logout/', function (req, res){
 			    req.logout();
 			    res.json({status : 'loggedout'});
 			});
-		    // todo: implement get in angular
-		    app.get('/api/admin/', isLoggedIn, function (req, res) {
-			    res.sendfile('./public/admin.html');
-			});
-		    // todo: implement get in angular
-		    app.route('/api/addadmin/')
-			.get(isLoggedIn, function (req, res) {
-				res.sendfile(viewsUrl+'addadmin.html');
-			    })
-			.post(isLoggedIn, passport.authenticate('local-signup', {
-				    successRedirect : '/', 
-					failureRedirect : '/api/addadmin/', 
-					failureFlash : true 
-					}));
-		    
+
 		    app.get('*', function (req, res) {
 			    res.sendfile('./public/index.html');
 			});	

@@ -1,6 +1,7 @@
 <div class="">
   <div class="col-sm-6 col-sm-offset-3">
-    <h1><span class="fa fa-sign-in"></span>New Admin </h1> 
+    <h1><span class="fa fa-sign-in"></span> Signup</h1> 
+    
     <!-- REGISTER FORM -->
     <form>
       <div class="form-group">

@@ -1,18 +1,18 @@
 angular.module('LoginCtrl', []).controller('LoginController', ['$scope', 'Login', function ($scope, Login) {
 	
-	    $scope.form = {};
-	    $scope.form.email = 'pandeyavichal7@gmail.com';
-	    $scope.form.password = '';
+	    $scope.loginForm = {};
+	    $scope.loginForm.email = 'pandeyavichal7@gmail.com';
+	    $scope.loginForm.password = '';
 	    
-	    $scope.form.submit = function () {
+	    $scope.loginForm.submit = function () {
 		
-       		email = $scope.form.email;
-		password = $scope.form.password;
+       		email = $scope.loginForm.email;
+		password = $scope.loginForm.password;
 		
 		Login.postLogin(function (data) {
 			console.log(data.message);
 			if (data.message === 'OK')
-			    window.location = "http://localhost:8080/about";
+			    window.location = "http://localhost:8080/admin";
 		    } ,{ email : email, password : password });
 		
 	    }
