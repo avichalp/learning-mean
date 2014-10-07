@@ -54,8 +54,11 @@
 		    app.post('/api/addadmin/',isLoggedIn, passport.authenticate('local-signup'), function (req, res) {
 				    res.json( {message: 'admin-added'} );
 			});
-		    
-		    app.get('/api/logout/', function (req, res){
+		    app.get('/api/admin/', isLoggedIn, function (req, res) {
+			    res.json( {message: 'OK'} );
+			});
+
+		    app.get('/api/logout/', isLoggedIn, function (req, res){
 			    req.logout();
 			    res.json({status : 'loggedout'});
 			});

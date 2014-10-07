@@ -23,8 +23,9 @@ angular.module('appRoutes', []).config (['$routeProvider', '$locationProvider', 
 		    })
 		.when('/admin', {
 			templateUrl: 'views/admin.html',
-			    controller: 'AdminController'
-		    })
+			    controller: 'AdminController' 
+			}
+		    )
 		.when('/addadmin', {
 			templateUrl: 'views/addadmin.html',
 			    controller: 'AddAdminController'
