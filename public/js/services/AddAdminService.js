@@ -3,6 +3,11 @@ app.factory('AddAdmin',
 	    ['$http', function ($http) {
 	    
 		 return {
+		     
+		     getAddAdmin : function (callBack) {
+			 $http.get('http://localhost:8080/api/addadmin/')
+			     .success(callBack);
+		     },
 		
 		     postAddAdmin : function (msg, callBack) {		    
 			

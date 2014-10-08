@@ -21,7 +21,7 @@ app.controller('AddAdminController',
 					       
 			var email = $scope.registerForm.email;
 			var password = $scope.registerForm.password;
-		
+			
 			AddAdmin.postAddAdmin({email : email, password : password }, function (data) {
 						  
 						  if (data.message === 'OK')
@@ -30,10 +30,14 @@ app.controller('AddAdminController',
 					      });
 		
 		    };
+		    
+		    AddAdmin.getAddAdmin(function (data) {
+					     if (data.message !== 'OK')
+						 window.location = "http://localhost:8080/login";
+					 });
 
 		    $scope.admins = [];
 		    AdminList.getAdminList(function (data){
-					       console.log(data);
 					       $scope.admins = data;
 					   });
 		    

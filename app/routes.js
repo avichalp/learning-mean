@@ -58,8 +58,10 @@ function routes(app, passport) {
 	app.post('/api/addadmin/',isLoggedIn, passport.authenticate('local-signup'), function (req, res) {
 		     res.json( {message: 'OK'} );
 		 });
-	
-	// url map to GET list of admins 
+	app.get('/api/addadmin/', isLoggedIn, function (req, res) {
+		    res.json({message : 'OK'});
+		});
+		// map to GET list of admins 
 	app.get('/api/adminlist/', isLoggedIn, function (req, res) {
 		    User.find(function (err, admins) {
 				  if (err)
