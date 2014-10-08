@@ -2,4 +2,43 @@
   
   <button id="btn1" style="display:none" ng-click="addAdmin()" >add-admin</button>
   <button id="btn2" style="display:none" ng-click="logout()" >logout</button>
+
+<!-- HOME FORM -->  
+<form>
+  <div class="form-group">
+    <label>Home</label>
+    <input type="text" class="form-control" name="home-text" ng-model="homeForm.homeText">
+  </div> 
+  <button type="submit" class="btn btn-warning btn-lg" ng-click="homeForm.submit()">Submit</button>
+</form>
+
+<!-- ABOUT FORM -->
+<form>
+  <div class="form-group">
+    <label>About-Text</label>
+    <input type="text" class="form-control" name="about-text" ng-model="aboutForm.aboutText">
+  </div>
+  <button type="submit" class="btn btn-warning btn-lg" ng-click="aboutForm.submit()">Submit</button>
+</form>
+
+<!-- CONTACT FORM-->
+
+<form>
+  <div class="form-group">
+    <label>Contact</label>
+    <input type="text" class="form-control" name="contact" ng-model="contactForm.contactText">
+  </div>
+  <button type="submit" class="btn btn-warning btn-lg" ng-click="contactForm.submit()">Submit</button>
+</form>
+
+<!-- PRODUCT FORM-->
+
+<form>
+  <div class="form-group">
+    <label>Product</label>
+    <input type="text" class="form-control" name="product-text" ng-model="productForm.productText">
+  </div>  
+  <button type="submit" class="btn btn-warning btn-lg" ng-click="productForm.submit()">Submit</button>
+</form>
+
 </div>

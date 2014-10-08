@@ -1,5 +1,5 @@
 angular.module('AdminCtrl', [])
-    .controller('AdminController', ['$scope', 'Logout', 'Admin', function ($scope, Logout, Admin) {
+    .controller('AdminController', ['$scope', 'Logout', 'Admin', 'Main', 'About', 'Contact', 'Product', function ($scope, Logout, Admin, Main, About, Contact, Product) {
 	    
 		$scope.addAdmin = function () {
 		   
@@ -15,7 +15,7 @@ angular.module('AdminCtrl', [])
 				  
 				    });
 		}
-	    		
+
 		Admin.getAdmin(function (data) {
 		  		    		    
 			if (data.message === 'OK'){
@@ -26,6 +26,54 @@ angular.module('AdminCtrl', [])
 		    
 			else 
 			    window.location = "http://localhost:8080/login";
-		    });	    	  	   	    
-	    
+		    });
+		
+		$scope.homeForm = {};
+		$scope.homeForm.homeText = '';
+		$scope.homeForm.submit = function () {
+		    
+		    var homeText = $scope.homeForm.homeText;
+		    
+		    Main.postHome({ homeText: homeText }, function (data) {
+			    if (data)
+				window.location = "http://localhost:8080/";
+			});
+		    
+		};
+		
+		$scope.aboutForm = {};
+		$scope.aboutForm.aboutText = '';
+		$scope.aboutForm.submit = function () {
+		    
+		    var aboutText = $scope.aboutForm.aboutText;
+		    About.postAbout({ aboutText: aboutText }, function (data){
+			    if (data)
+				window.location = "http://localhost:8080/about";
+			});
+		};
+		
+		$scope.contactForm = {};
+		$scope.contactForm.contactText = '';
+		$scope.contactForm.submit = function () {
+		    
+		    var contactText = $scope.contactForm.contactText;
+		    
+		    Contact.postContact({ contactText : contactText }, function (data) {
+			    if (data)
+				window.location = "http://localhost:8080/contact";
+			});
+		};
+		
+		$scope.productForm = {};
+		$scope.productForm.productText = '';
+		$scope.productForm.submit = function () {
+		    
+		    var productText = $scope.productForm.productText;
+
+		    Product.postProduct({ productText : productText }, function (data) {
+			    if (data)
+				window.location = "http://localhost:8080/product"
+			});
+		};
+							    	  	   	    	    
 	    }]);
