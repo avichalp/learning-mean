@@ -1,14 +1,15 @@
-angular.module('LogoutService', [])
-   .factory('Logout', ['$http', function ($http) {
-		return {
+var app = angular.module('LogoutService', []);
+app.factory('Logout',
+	    ['$http', function ($http) {
+		 return {
 		
-		    getLogout : function (callBack) {
+		     getLogout : function (callBack) {
 			
-			$http.get('http://localhost:8080/api/logout/')
-			    .success(callBack);
-		
-		    }
+			 $http.get('http://localhost:8080/api/logout/')
+			     .success(callBack);
+			 
+		     }
 	    
-		};
+		 };
 	
-	    }]);
+	     }]);

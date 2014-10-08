@@ -1,20 +1,21 @@
-angular.module('MainService', [])
-    .factory('Main', ['$http', function ($http) {
+var app = angular.module('MainService', []);
+app.factory('Main',
+	    ['$http', function ($http) {
 		
-		return {
+		 return {
 		    
-		    getHome : function (callBack) {
+		     getHome : function (callBack) {
 			
-			$http.get('http://localhost:8080/api/home/')
-			    .success(callBack);		    
+			 $http.get('http://localhost:8080/api/home/')
+			     .success(callBack);		    
 		       
-		    },	
+		     },	
 		    
-			postHome : function (msg, callBack) {
+		     postHome : function (msg, callBack) {
 			
-			$http.post('http://localhost:8080/api/home/', { home : msg.homeText })
-			    .success(callBack);
-		    }
-		};
+			 $http.post('http://localhost:8080/api/home/', { home : msg.homeText })
+			     .success(callBack);
+		     }
+		 };
 	
-	    }]);
+	     }]);

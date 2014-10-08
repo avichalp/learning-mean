@@ -1,6 +1,11 @@
 <div class="">
   <div class="col-sm-6 col-sm-offset-3">
-    <h1><span class="fa fa-sign-in"></span>New Admin </h1> 
+    <h1><span class="fa fa-sign-in"></span>New Admin </h1>
+    
+    <ul>Admin List
+      <li ng-repeat="admin in admins">{{ admin }}<button ng-click="">delete</button></li>
+    </ul>
+ 
     <!-- REGISTER FORM -->
     <form>
       <div class="form-group">
@@ -11,8 +16,7 @@
 	<label>Password</label>
 	<input type="password" class="form-control" name="password" ng-model="registerForm.password">
       </div>
-
-      <button type="submit" class="btn btn-warning btn-lg" ng-click="registerForm.submit()">Signup</button>
+      <button type="submit" class="btn btn-warning btn-lg" ng-click="registerForm.submit()">Register</button>
     </form>
 
   </div>

@@ -1,15 +1,16 @@
-angular.module('LoginService', [])
-    .factory('Login', ['$http', function ($http) {
+var app = angular.module('LoginService', []);
+app.factory('Login',
+	    ['$http', function ($http) {
 	
-		return {
+		 return {
 
-		    postLogin : function (msg, callBack) {
+		     postLogin : function (msg, callBack) {
 			
-			$http.post('http://localhost:8080/api/login/', {email : msg.email, password : msg.password })
-			    .success(callBack);
+			 $http.post('http://localhost:8080/api/login/', {email : msg.email, password : msg.password })
+			     .success(callBack);
 		
-		    }
+		     }
 	    
-		};
+		 };
 	
-	    }]);
+	     }]);
