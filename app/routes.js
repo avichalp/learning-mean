@@ -82,6 +82,14 @@ function routes(app, passport) {
 	app.get('/api/admin/', isLoggedIn, function (req, res) {
 		    res.json( {message: 'OK'} );
 		});
+	
+	app.delete('/api/admin/:user_id', isLoggedIn, function (req, res) {
+		       User.remove({_id : req.params.user_id}, function (err, user) {
+				       if (err)
+					   res.send(err);
+				       res.json({message : 'OK'});
+				   });
+		   });
 				       
 	// url map for logging-out
 	app.get('/api/logout/', isLoggedIn, function (req, res){
