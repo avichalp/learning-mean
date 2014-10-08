@@ -1,6 +1,10 @@
-angular.module('AboutCtrl', []).controller('AboutController', ['$scope','About', function ($scope, About) {
+angular.module('AboutCtrl', [])
+    .controller('AboutController', ['$scope','About', function ($scope, About) {
 	
-	About.getAbout(function (data) {
-		$scope.data = data;
-	    });	    
-    }]);
+		About.getAbout(function (data) {
+			
+			$scope.data = data;
+		    
+		    });	    
+	    
+	    }]);

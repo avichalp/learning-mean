@@ -1,7 +1,10 @@
-angular.module ('ProductCtrl', []).controller ('ProductController', ['$scope', 'Product', function ($scope, Product) {
+angular.module ('ProductCtrl', [])
+    .controller ('ProductController', ['$scope', 'Product', function ($scope, Product) {
     
-	Product.getProduct(function (data) {
-		$scope.data = data;
-	    });
+	    Product.getProduct(function (data) {
+		   
+		    $scope.data = data;
+	    
+		});
 	
-    }]);
+	}]);
