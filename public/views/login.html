@@ -4,18 +4,22 @@
     
     <!-- LOGIN FORM -->
     <form name="loginForm"  novalidate>
-      <div class="form-group">
+      
+      <div class="form-group" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
 	<label>Email</label>
 	<input type="email" class="form-control" name="email" ng-model="login.email" required>
-	<p ng-show="loginForm.email.$invalid && !adminLoginForm.email.$pristine" class="help-block">enter a valid email.</p>
+	<p ng-show="loginForm.email.$invalid && !loginForm.email.$pristine" class="help-block">enter a valid email.</p>
       </div>
-      <div class="form-group">
+     
+      <div class="form-group" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
 	<label>Password</label>
 	<input type="password" class="form-control" name="password" ng-model="login.password" ng-minlength="3" ng-maxlength="20" required>	
 	<p ng-show="loginForm.password.$error.minlength" class="help-block">Password is too short.</p>
         <p ng-show="loginForm.password.$error.maxlength" class="help-block">Password is too long.</p>
       </div>
+      
       <button type="submit" class="btn btn-warning btn-lg" ng-click="login.submit(loginForm.$valid)"  ng-disabled="loginForm.$invalid" >Login</button>
+    
     </form>
   
   </div>

@@ -13,25 +13,24 @@ return undefined;
 
 function AddAdminController($scope, AddAdmin, AdminList, Admin) {
 	    
-    $scope.registerForm = {};
-    $scope.registerForm.email = '';
-    $scope.registerForm.password = '';					   
-    $scope.registerForm.submit = function () {
+    $scope.addAdmin = {					   
 	
-	var email = $scope.registerForm.email;
-	var password = $scope.registerForm.password;
-	
-	AddAdmin.postAddAdmin(
-	    {
-		email : email,
-		password : password
-	    },
-	    function (data) {				
-		if (data.message === 'OK')
-		    window.location = "http://localhost:8080/admin";				
-	    });		
+	submit : function (isValid) {
+	    if (isValid){
+		AddAdmin.postAddAdmin(
+		    {
+			email : $scope.addAdmin.email,
+			password : $scope.addAdmin.password
+		    },
+		    function (data) {				
+			if (data.message === 'OK')
+			    window.location = "http://localhost:8080/admin";				
+		    });		
+	    }
+	}
+	    
     };
-		    
+    
     AddAdmin.getAddAdmin(function (data) {
 			     if (data.message !== 'OK')
 				 window.location = "http://localhost:8080/login";
