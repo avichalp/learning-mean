@@ -6,6 +6,4 @@ function AboutController($scope, About) {
 
 angular
     .module('AboutCtrl',[])
-//angular
-//    .module('cmsApp')
     .controller('AboutController', AboutController);

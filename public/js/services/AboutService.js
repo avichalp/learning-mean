@@ -19,6 +19,4 @@ function About($http) {
 
 angular
     .module('AboutService', [])
-//angular
-//  .module('cmsApp')
     .factory('About', About);

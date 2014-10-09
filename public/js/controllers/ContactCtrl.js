@@ -7,5 +7,4 @@ function ContactController($scope, Contact) {
 
 angular
     .module('ContactCtrl', [])
-//angular.module('cmsApp')
     .controller('ContactController', ContactController);

@@ -20,5 +20,4 @@ function Main($http) {
 
 angular
     .module('MainService', [])
-//angular.module('cmsApp')
     .factory('Main', Main );

@@ -21,5 +21,4 @@ function Admin($http) {
 
 angular
     .module('AdminService', [])
-//angular.module('cmsApp')
     .factory('Admin', Admin );

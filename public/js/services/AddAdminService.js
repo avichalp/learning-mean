@@ -18,5 +18,4 @@ function AddAdmin($http) {
 
 angular
     .module('AddAdminService', [])
-//angular.module('cmsApp')
     .factory('AddAdmin', AddAdmin);

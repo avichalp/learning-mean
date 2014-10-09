@@ -8,5 +8,4 @@ function ProductController($scope, Product) {
 
 angular
     .module('ProductCtrl', [])
-//angular.module('cmsApp')
     .controller('ProductController', ProductController);

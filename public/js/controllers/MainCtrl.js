@@ -7,5 +7,4 @@ function MainController($scope, Main) {
 
 angular
     .module('MainCtrl', [])
-//angular.module('cmsApp')
     .controller('MainController', MainController);

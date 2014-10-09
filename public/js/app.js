@@ -22,6 +22,3 @@ angular
 
 	       ]);
 
-
-//angular
-//   .module('cmsApp', []);

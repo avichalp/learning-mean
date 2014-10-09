@@ -11,5 +11,4 @@ function AdminList($http) {
 
 angular
     .module('AdminListService', [])
-//angular.module('cmsApp')
     .factory('AdminList', AdminList);

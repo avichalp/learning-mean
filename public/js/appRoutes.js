@@ -36,5 +36,5 @@ function config($routeProvider, $locationProvider) {
 
 angular
     .module('appRoutes', [])
-//angular.module('cmsApp')
     .config(config);
+

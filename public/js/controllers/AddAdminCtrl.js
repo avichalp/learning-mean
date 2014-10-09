@@ -58,5 +58,4 @@ function AddAdminController($scope, AddAdmin, AdminList, Admin) {
 	
 angular
     .module('AddAdminCtrl', [])
-//angular.module('cmsApp')
     .controller('AddAdminController', AddAdminController);

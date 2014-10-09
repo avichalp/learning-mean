@@ -15,5 +15,4 @@ function Logout($http) {
 
 angular
     .module('LogoutService', [])
-//angular.module('cmsApp')
     .factory('Logout', Logout);

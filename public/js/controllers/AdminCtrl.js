@@ -86,5 +86,4 @@ function AdminController($scope, Logout, Admin, Main, About, Contact, Product) {
 
 angular
     .module('AdminCtrl', [])
-//angular.module('cmsApp')
     .controller('AdminController', AdminController );

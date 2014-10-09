@@ -15,5 +15,4 @@ function Login ($http) {
 
 angular
     .module('LoginService', [])
-//angular.module('cmsApp')
     .factory('Login', Login);

@@ -20,5 +20,4 @@ function Contact($http) {
 
 angular
     .module('ContactService', [])
-//angular.module('cmsApp').
     .factory('Contact', Contact);

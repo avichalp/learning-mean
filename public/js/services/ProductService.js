@@ -19,5 +19,4 @@ function Product($http) {
 
 angular
     .module('ProductService', [])
-//angular.module('cmsApp')
     .factory('Product', Product);
