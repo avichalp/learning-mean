@@ -4,41 +4,41 @@
   <button id="btn2" ng-click="logout()" >logout</button>
 
 <!-- HOME FORM -->  
-<form>
-  <div class="form-group">
+<form name="homeForm" novalidate>
+  <div class="form-group" ng-class="{ 'has-error' : homeForm.hometext.$invalid && !homeForm.hometext.$pristine} ">
     <label>Home</label>
-    <input type="text" class="form-control" name="home-text" ng-model="homeForm.homeText">
+    <input type="text" class="form-control" name="hometext" ng-model="home.homeText" required>
   </div> 
-  <button type="submit" class="btn btn-warning btn-lg" ng-click="homeForm.submit()">Submit</button>
+  <button type="submit" class="btn btn-warning btn-lg" ng-click="home.submit(homeForm.$valid)" ng-disabled="homeForm.$invalid">Submit</button>
 </form>
 
 <!-- ABOUT FORM -->
-<form>
-  <div class="form-group">
+<form name="aboutForm" novalidate>
+  <div class="form-group" ng-class="{ 'has-error' : aboutForm.abouttext.$invalid && !aboutForm.abouttext.$pristine }">
     <label>About-Text</label>
-    <input type="text" class="form-control" name="about-text" ng-model="aboutForm.aboutText">
+    <input type="text" class="form-control" name="abouttext" ng-model="about.aboutText" required>
   </div>
-  <button type="submit" class="btn btn-warning btn-lg" ng-click="aboutForm.submit()">Submit</button>
+  <button type="submit" class="btn btn-warning btn-lg" ng-click="about.submit(aboutForm.$valid)" ng-disabled="aboutForm.$invalid">Submit</button>
 </form>
 
 <!-- CONTACT FORM-->
 
-<form>
-  <div class="form-group">
+<form name="contactForm" novalidate>
+  <div class="form-group"  ng-class="{'has-error' : contactForm.contacttext.$invalid && !contactForm.contacttext.$pristine }"> 
     <label>Contact</label>
-    <input type="text" class="form-control" name="contact" ng-model="contactForm.contactText">
+    <input type="text" class="form-control" name="contacttext" ng-model="contact.contactText" required>
   </div>
-  <button type="submit" class="btn btn-warning btn-lg" ng-click="contactForm.submit()">Submit</button>
+  <button type="submit" class="btn btn-warning btn-lg" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">Submit</button>
 </form>
 
 <!-- PRODUCT FORM-->
 
-<form>
-  <div class="form-group">
+<form name="productForm" novalidate>
+  <div class="form-group" ng-class="{ 'has-error' : productForm.produttext.$invalid && !productForm.produttext.$pristine }">
     <label>Product</label>
-    <input type="text" class="form-control" name="product-text" ng-model="productForm.productText">
+    <input type="text" class="form-control" name="producttext" ng-model="product.productText" required>
   </div>  
-  <button type="submit" class="btn btn-warning btn-lg" ng-click="productForm.submit()">Submit</button>
+  <button type="submit" class="btn btn-warning btn-lg" ng-click="product.submit(productForm.$valid)" ng-disabled="productForm.$invalid">Submit</button>
 </form>
 
 </div>
