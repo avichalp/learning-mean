@@ -1,9 +1,12 @@
-var app = angular.module ('ProductCtrl', []);
-app.controller ('ProductController',
-		['$scope', 'Product', function ($scope, Product) {
+function ProductController($scope, Product) {
 		     
-		     Product.getProduct(function (data) {
-		   			    $scope.data = data;	    
-					});
-		     
-		 }]);
+    Product.getProduct(function (data) {
+		   	   $scope.data = data;	    
+		       });
+    
+}
+
+angular
+    .module('ProductCtrl', [])
+//angular.module('cmsApp')
+    .controller('ProductController', ProductController);

@@ -1,4 +1,5 @@
-angular.module('meanApp', [			    
+angular
+    .module('cmsApp', [			    
 
 		   'ngRoute',
 		   'appRoutes',
@@ -20,3 +21,7 @@ angular.module('meanApp', [
 		   'AdminListService'
 
 	       ]);
+
+
+//angular
+//   .module('cmsApp', []);

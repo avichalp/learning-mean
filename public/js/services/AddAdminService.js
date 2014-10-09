@@ -1,20 +1,22 @@
-var app = angular.module('AddAdminService', []);
-app.factory('AddAdmin',
-	    ['$http', function ($http) {
+function AddAdmin($http) {
 	    
-		 return {
+    return {
 		     
-		     getAddAdmin : function (callBack) {
-			 $http.get('http://localhost:8080/api/addadmin/')
-			     .success(callBack);
-		     },
+	getAddAdmin : function (callBack) {
+	    $http.get('http://localhost:8080/api/addadmin/')
+		.success(callBack);
+	},
+		     
+	postAddAdmin : function (msg, callBack) {		    
+	    
+	    $http.post('http://localhost:8080/api/addadmin/', {email : msg.email, password : msg.password})
+		.success(callBack);		
 		
-		     postAddAdmin : function (msg, callBack) {		    
-			
-			 $http.post('http://localhost:8080/api/addadmin/', {email : msg.email, password : msg.password})
-			     .success(callBack);		
-		
-		     }
-		 };
+	}
+    };
+}
 
-	     }]);
+angular
+    .module('AddAdminService', [])
+//angular.module('cmsApp')
+    .factory('AddAdmin', AddAdmin);

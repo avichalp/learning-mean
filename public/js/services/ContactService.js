@@ -1,20 +1,24 @@
-var app = angular.module('ContactService', []);
-app.factory('Contact',
-	    ['$http', function ($http) {
+function Contact($http) {
 	    
-		 return {
+    return {
 
-		     getContact : function (callBack) {
-			
-			 $http.get('http://localhost:8080/api/contact/')
-			     .success(callBack);
-		     },
+	getContact : function (callBack) {
+	    
+	    $http.get('http://localhost:8080/api/contact/')
+		.success(callBack);
+	},
 		    
-		     postContact : function (msg, callBack) {
+	postContact : function (msg, callBack) {
 			 
-			 $http.post('http://localhost:8080/api/contact/', { contact : msg.contactText})
-			     .success(callBack);
-		     }
-		 };
-	
-	     }]);
+	    $http.post('http://localhost:8080/api/contact/', { contact : msg.contactText})
+		.success(callBack);
+	    
+	}
+    };
+    
+}
+
+angular
+    .module('ContactService', [])
+//angular.module('cmsApp').
+    .factory('Contact', Contact);

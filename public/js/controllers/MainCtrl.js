@@ -1,8 +1,11 @@
-var app = angular.module('MainCtrl', []);
-app.controller('MainController',
-	       ['$scope', 'Main', function($scope, Main) {
+function MainController($scope, Main) {
 		     
-		    Main.getHome(function (data) {			
-				     $scope.data = data;
-				 });
-		}]);
+    Main.getHome(function (data) {			
+		     $scope.data = data;
+		 });
+}
+
+angular
+    .module('MainCtrl', [])
+//angular.module('cmsApp')
+    .controller('MainController', MainController);

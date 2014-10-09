@@ -1,21 +1,24 @@
-var app = angular.module('AboutService', []);
-app.factory('About',
-	    ['$http' ,function ($http) {
+function About($http) {
 	    	    	    	  
-		 return {
-		
-		     getAbout : function (callBack) {
+    return {
 		    
-			 $http.get('http://localhost:8080/api/about/')
-			     .success(callBack);
-		
-		     },
-		     postAbout : function (msg, callBack) {
-			
-			 $http.post('http://localhost:8080/api/about/', { about : msg.aboutText })
-			     .success(callBack);
-		     }
-		    	   
-		 };
+	getAbout : function (callBack) {
 	    
-	    }]);
+	    $http.get('http://localhost:8080/api/about/')
+		.success(callBack);
+	    
+	},
+	postAbout : function (msg, callBack) {
+	    
+	    $http.post('http://localhost:8080/api/about/', { about : msg.aboutText })
+		.success(callBack);
+	}
+		    	   
+    };	    
+}
+
+angular
+    .module('AboutService', [])
+//angular
+//  .module('cmsApp')
+    .factory('About', About);
