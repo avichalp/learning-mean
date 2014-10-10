@@ -8,7 +8,13 @@
   <div class="form-group" ng-class="{ 'has-error' : homeForm.hometext.$invalid && !homeForm.hometext.$pristine} ">
     <label>Home</label>
     <input type="text" class="form-control" name="hometext" ng-model="home.homeText" required>
-  </div> 
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-error' : homeForm.homeUrl.$invalid && !homeForm.homeUrl.$pristine} ">
+    <label>Home</label>
+    <input type="text" class="form-control" name="homeUrl" ng-model="home.homeUrl" required>
+  </div>
+  
   <button type="submit" class="btn btn-warning btn-lg" ng-click="home.submit(homeForm.$valid)" ng-disabled="homeForm.$invalid">Submit</button>
 </form>
 
@@ -18,6 +24,12 @@
     <label>About-Text</label>
     <input type="text" class="form-control" name="abouttext" ng-model="about.aboutText" required>
   </div>
+
+  <div class="form-group" ng-class="{ 'has-error' : aboutForm.aboutUrl.$invalid && !aboutForm.aboutUrl.$pristine }">
+    <label>About-Text</label>
+    <input type="text" class="form-control" name="aboutUrl" ng-model="about.aboutUrl" required>
+  </div>
+
   <button type="submit" class="btn btn-warning btn-lg" ng-click="about.submit(aboutForm.$valid)" ng-disabled="aboutForm.$invalid">Submit</button>
 </form>
 
@@ -28,6 +40,11 @@
     <label>Contact</label>
     <input type="text" class="form-control" name="contacttext" ng-model="contact.contactText" required>
   </div>
+
+   <div class="form-group"  ng-class="{'has-error' : contactForm.contactUrl.$invalid && !contactForm.contactUrl.$pristine }"> 
+    <label>Contact</label>
+    <input type="text" class="form-control" name="contactUrl" ng-model="contact.contactUrl" required>
+  </div>
   <button type="submit" class="btn btn-warning btn-lg" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">Submit</button>
 </form>
 
@@ -37,7 +54,13 @@
   <div class="form-group" ng-class="{ 'has-error' : productForm.produttext.$invalid && !productForm.produttext.$pristine }">
     <label>Product</label>
     <input type="text" class="form-control" name="producttext" ng-model="product.productText" required>
-  </div>  
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-error' : productForm.produtUrl.$invalid && !productForm.produtUrl.$pristine }">
+    <label>Product</label>
+    <input type="text" class="form-control" name="productUrl" ng-model="product.productUrl" required>
+  </div>
+
   <button type="submit" class="btn btn-warning btn-lg" ng-click="product.submit(productForm.$valid)" ng-disabled="productForm.$invalid">Submit</button>
 </form>
 

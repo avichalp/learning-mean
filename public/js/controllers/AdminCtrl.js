@@ -30,7 +30,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product) {
 		// using Main service to POST homepage data
 		Main.postHome(
 		    { 
-			homeText: $scope.home.homeText
+			homeText: $scope.home.homeText,
+			homeImgUrl: $scope.home.homeUrl
 		    },
 		    function (data) {
 			if (data)
@@ -48,7 +49,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product) {
 		// using About service to POST aboutpage data
 		About.postAbout(
 		    { 
-			aboutText: $scope.about.aboutText
+			aboutText: $scope.about.aboutText,
+			aboutImgUrl: $scope.about.aboutUrl 
 		    },
 		    function (data){
 			if (data)
@@ -66,7 +68,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product) {
 		// using Contact service to POST contactpage data
 		Contact.postContact(
 		    {
-			contactText : $scope.contact.contactText
+			contactText : $scope.contact.contactText,
+			contactImgUrl : $scope.contact.contactUrl
 		    },
 		    function (data) {
 			if (data)
@@ -84,7 +87,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product) {
 		// using Product service to POST productpage data
 		Product.postProduct(
 		    {
-			productText : $scope.product.productText
+			productText : $scope.product.productText,
+			productImgUrl : $scope.product.productUrl
 		    },
 		    function (data) {
 			if (data)

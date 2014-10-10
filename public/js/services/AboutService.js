@@ -10,7 +10,7 @@ function About($http) {
 	},
 	postAbout : function (msg, callBack) {
 	    
-	    $http.post('http://localhost:8080/api/about/', { about : msg.aboutText })
+	    $http.post('http://localhost:8080/api/about/',  msg)
 		.success(callBack);
 	}
 		    	   

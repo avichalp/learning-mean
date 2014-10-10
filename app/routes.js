@@ -13,115 +13,38 @@ function isLoggedIn(req, res, next) {
     return undefined;	    	 
 }
  
-// fuction for maping GET/POST/DELETE on Content    
+// routes fuction returns a functon with all maping     
 function routes(app, passport) {
 
+    
+    function contentRoutes(contentType){
+
+	app.route('/api/'+ contentType + '/')
+	    .get(function (req, res){
+		     client.hgetall(contentType + 'Key',
+				    function (err, reply) {
+					if (err)
+					    console.log(err);
+					res.json(reply);
+				    });
+		 })			
+	    .post(isLoggedIn, function (req, res) {
+		      console.log(req.body);
+		      client.HMSET(contentType + 'Key', req.body,			  
+				   function (err, reply) {
+				       if (err)
+					   console.log(err);
+				       res.json(reply);
+				   });
+		  
+		  });
+	
+    }
+   
     return function () {
-			
-	app.route('/api/home/')
-	    .get(function (req, res){
-		     client.get('homeKey',
-				function (err, reply) {
-				    if (err)
-					console.log(err);
-				    res.json(reply);
-				});
-		 })			
-	    .post(isLoggedIn, function (req, res) {
-		      console.log(req.body);
-		      client.set('homeKey',
-				 req.body['home'], function (err, reply) {
-				     if (err)
-					 console.log(err);
-				     res.json(reply);
-				 });
-		  })
-	    .delete(isLoggedIn, function(req, res){
-			client.del('homeKey',
-				   function (err, reply) {
-				       if (err)
-					   res.json(reply);
-				   });
-		    });
-
-	app.route('/api/about/')
-	    .get(function (req, res){
-		     client.get('aboutKey',
-				function (err, reply) {
-				    if (err)
-					console.log(err);
-				    res.json(reply);
-				});
-		 })			
-	    .post(isLoggedIn, function (req, res) {
-		      console.log(req.body);
-		      client.set('aboutKey',
-				 req.body['about'], function (err, reply) {
-				     if (err)
-					 console.log(err);
-				     res.json(reply);
-				 });
-		  })
-	    .delete(isLoggedIn, function(req, res){
-			client.del('aboutKey',
-				   function (err, reply) {
-				       if (err)
-					   res.json(reply);
-				   });
-		    });
-
-	app.route('/api/contact/')
-	    .get(function (req, res){
-		     client.get('contactKey',
-				function (err, reply) {
-				    if (err)
-					console.log(err);
-				    res.json(reply);
-				});
-		 })			
-	    .post(isLoggedIn, function (req, res) {
-		      console.log(req.body);
-		      client.set('contactKey',
-				 req.body['contact'], function (err, reply) {
-				     if (err)
-					 console.log(err);
-				     res.json(reply);
-				 });
-		  })
-	    .delete(isLoggedIn, function(req, res){
-			client.del('contactKey',
-				   function (err, reply) {
-				       if (err)
-					   res.json(reply);
-				   });
-		    });
-
-	app.route('/api/product/')
-	    .get(function (req, res){
-		     client.get('productKey',
-				function (err, reply) {
-				    if (err)
-					console.log(err);
-				    res.json(reply);
-				});
-		 })			
-	    .post(isLoggedIn, function (req, res) {
-		      console.log(req.body);
-		      client.set('productKey',
-				 req.body['product'], function (err, reply) {
-				     if (err)
-					 console.log(err);
-				     res.json(reply);
-				 });
-		  })
-	    .delete(isLoggedIn, function(req, res){
-			client.del('productKey',
-				   function (err, reply) {
-				       if (err)
-					   res.json(reply);
-				   });
-		    });
-
+	
+	['home','about','contact','product'].map(contentRoutes);
+	
 	// url map to POST login details
 	app.post('/api/login/' ,passport.authenticate('local-login'), function (req, res) {
 		     res.json({message: 'OK'});
@@ -181,4 +104,3 @@ function routes(app, passport) {
 	    		            	    
 module.exports = routes;
 
- 

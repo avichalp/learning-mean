@@ -10,7 +10,7 @@ function Contact($http) {
 		    
 	postContact : function (msg, callBack) {
 			 
-	    $http.post('http://localhost:8080/api/contact/', { contact : msg.contactText})
+	    $http.post('http://localhost:8080/api/contact/',  msg)
 		.success(callBack);
 	    
 	}

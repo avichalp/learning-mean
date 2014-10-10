@@ -11,7 +11,7 @@ function Main($http) {
 		    
 	postHome : function (msg, callBack) {
 			
-	    $http.post('http://localhost:8080/api/home/', { home : msg.homeText })
+	    $http.post('http://localhost:8080/api/home/', msg)
 		.success(callBack);
 	}
     };

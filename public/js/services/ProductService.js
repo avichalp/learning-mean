@@ -9,7 +9,7 @@ function Product($http) {
 	},
 	postProduct : function (msg, callBack) {
 			 
-	    $http.post('http://localhost:8080/api/product/', { product : msg.productText })
+	    $http.post('http://localhost:8080/api/product/', msg)
 		.success(callBack);
 	} 
 		
