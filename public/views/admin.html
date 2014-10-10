@@ -11,7 +11,7 @@
   </div>
 
   <div class="form-group" ng-class="{ 'has-error' : homeForm.homeUrl.$invalid && !homeForm.homeUrl.$pristine} ">
-    <label>Home</label>
+    <label>Home image</label>
     <input type="text" class="form-control" name="homeUrl" ng-model="home.homeUrl" required>
   </div>
   
@@ -26,7 +26,7 @@
   </div>
 
   <div class="form-group" ng-class="{ 'has-error' : aboutForm.aboutUrl.$invalid && !aboutForm.aboutUrl.$pristine }">
-    <label>About-Text</label>
+    <label>About-imaget</label>
     <input type="text" class="form-control" name="aboutUrl" ng-model="about.aboutUrl" required>
   </div>
 
@@ -42,7 +42,7 @@
   </div>
 
    <div class="form-group"  ng-class="{'has-error' : contactForm.contactUrl.$invalid && !contactForm.contactUrl.$pristine }"> 
-    <label>Contact</label>
+    <label>Contact-image</label>
     <input type="text" class="form-control" name="contactUrl" ng-model="contact.contactUrl" required>
   </div>
   <button type="submit" class="btn btn-warning btn-lg" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">Submit</button>
@@ -53,12 +53,17 @@
 <form name="productForm" novalidate>
   <div class="form-group" ng-class="{ 'has-error' : productForm.produttext.$invalid && !productForm.produttext.$pristine }">
     <label>Product</label>
-    <input type="text" class="form-control" name="producttext" ng-model="product.productText" required>
+    <input type="text" class="form-control" name="producttext" ng-model="product.name" required>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-error' : productForm.produtDescription.$invalid && !productForm.produtDescription.$pristine }">
+    <label>Product-description</label>
+    <input type="text" class="form-control" name="productDescription" ng-model="product.description" required>
   </div>
 
   <div class="form-group" ng-class="{ 'has-error' : productForm.produtUrl.$invalid && !productForm.produtUrl.$pristine }">
-    <label>Product</label>
-    <input type="text" class="form-control" name="productUrl" ng-model="product.productUrl" required>
+    <label>Product-image</label>
+    <input type="text" class="form-control" name="productUrl" ng-model="product.url" required>
   </div>
 
   <button type="submit" class="btn btn-warning btn-lg" ng-click="product.submit(productForm.$valid)" ng-disabled="productForm.$invalid">Submit</button>

@@ -1,7 +1,7 @@
 function ProductController($scope, Product) {
 		     
     Product.getProduct(function (data) {
-		   	   $scope.data = data;	    
+		   	   $scope.products = data;	    
 		       });
     
 }

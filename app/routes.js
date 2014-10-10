@@ -1,8 +1,10 @@
 // configuring redis
 var redis = require('redis');
 var client = redis.createClient();
+
 // including modles
 var User = require('./models/user');
+var Product = require('./models/product');
     
 // private method : implements auth middleware
 function isLoggedIn(req, res, next) {
@@ -15,35 +17,107 @@ function isLoggedIn(req, res, next) {
  
 // routes fuction returns a functon with all maping     
 function routes(app, passport) {
-
     
-    function contentRoutes(contentType){
-
-	app.route('/api/'+ contentType + '/')
-	    .get(function (req, res){
-		     client.hgetall(contentType + 'Key',
-				    function (err, reply) {
-					if (err)
-					    console.log(err);
-					res.json(reply);
-				    });
-		 })			
-	    .post(isLoggedIn, function (req, res) {
-		      console.log(req.body);
-		      client.HMSET(contentType + 'Key', req.body,			  
+    function contentGetRoutes(contentType){
+	//client.del(contentType+'Key');
+	app.get('/api/'+ contentType + '/', function (req, res){
+		    client.hgetall(contentType + 'Key',
 				   function (err, reply) {
 				       if (err)
 					   console.log(err);
 				       res.json(reply);
 				   });
-		  
-		  });
-	
+		});			
+	   
     }
    
     return function () {
 	
-	['home','about','contact','product'].map(contentRoutes);
+	['home','about','contact'].map(contentGetRoutes);
+			
+	app.post('/api/home/',isLoggedIn, function (req, res) {
+		     console.log(req.body);
+		     client.HMSET('homeKey', req.body,			  
+				  function (err, reply) {
+				      if (err)
+					  console.log(err);
+				      res.json(reply);
+				  });
+		     
+		 });
+
+	app.post('/api/about/',isLoggedIn, function (req, res) {
+		     console.log(req.body);
+		     client.HMSET('aboutKey', req.body,			  
+				  function (err, reply) {
+				      if (err)
+					  console.log(err);
+				      res.json(reply);
+				  });
+		     
+		 });
+	
+	app.post('/api/contact/',isLoggedIn, function (req, res) {
+		     console.log(req.body);
+		     client.HMSET('contactKey', req.body,			  
+				  function (err, reply) {
+				      if (err)
+					  console.log(err);
+				      res.json(reply);
+				  });
+		     
+		 });
+	
+
+	app.get('/api/product/', function (req, res) {
+		   
+		    Product.find(function (err, products) {
+				  if (err)
+				      res.send(err);
+				  
+				  var productList = {};
+				  
+				  for (var i =0; i<= products.length -1; i++)
+				      productList[products[i]["id"]] = {
+					  name : products[i]["name"],
+					  description : products[i]["description"],
+					  imgUrl : products[i]["imgUrl"]
+				      }; 
+				  
+				  res.json(productList);
+			      }
+			     
+			     );	
+		});
+	    
+	app.post('/api/product/',isLoggedIn, function (req, res, done) {
+		     console.log(req.body);
+		     Product.findOne(
+			 {
+			     'name' : req.body.name
+			 },
+			 function (err, product) {
+			     if (err)
+				 return done(err);
+			     if (product)
+				 return done(null, false, req, console.log('alredy there'));
+			     
+		     else{
+			 var newProduct = new Product();
+			 newProduct.name = req.body.name;
+			 newProduct.description = req.body.description;
+			 newProduct.imgUrl = req.body.imgUrl;
+			 newProduct.save(function (err) {
+					     if (err)
+						 throw err;
+					     return done(null, newProduct);
+					 }); 
+		     }
+			     return undefined;
+			 }   
+		     );
+		 });
+	
 	
 	// url map to POST login details
 	app.post('/api/login/' ,passport.authenticate('local-login'), function (req, res) {
@@ -72,8 +146,7 @@ function routes(app, passport) {
 				  res.json(adminList);
 			      }
 			     
-			     );
-		    
+			     );		    
 		});   
 	
 	// url map to GET  admin page

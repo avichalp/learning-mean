@@ -87,8 +87,10 @@ function AdminController($scope,  Admin, Main, About, Contact, Product) {
 		// using Product service to POST productpage data
 		Product.postProduct(
 		    {
-			productText : $scope.product.productText,
-			productImgUrl : $scope.product.productUrl
+			name : $scope.product.name,
+			description : $scope.product.description,
+			imgUrl : $scope.product.url
+			
 		    },
 		    function (data) {
 			if (data)

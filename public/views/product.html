@@ -1,5 +1,9 @@
 <div class="jumbotron text-center">
-  <h1>Product</h1>
-
-  <p>{{ data }}</p>
+  Product List
+  <ul ng-repeat="product in products">
+    <h5>{{ product.name }}</h5>
+    <li>{{ product.description }}</li>
+    <img src={{product.imgUrl}}>
+  </ul>
+  <img src={{data.productImgUrl}}>
 </div>
