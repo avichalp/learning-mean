@@ -1,5 +1,7 @@
-function AdminController($scope, Logout, Admin, Main, About, Contact, Product) {		    		    		    
+// controller
+function AdminController($scope,  Admin, Main, About, Contact, Product) {		    		    		    
     
+    // using Admin service to GET admin page   
     Admin.getAdmin(function (data) {
 		       
 		       if (data.message !== 'OK')
@@ -11,19 +13,21 @@ function AdminController($scope, Logout, Admin, Main, About, Contact, Product) {
     };
 		    
     $scope.logout = function (){
-					    
-	Logout.getLogout(function (data) {
+	
+	// using Admin service to send GET request on /logout
+	Admin.getLogout(function (data) {
 			     
 			     if (data.message === 'OK')
-				 window.location = "http://localhost:8080/about";
-			     
+				 window.location = "http://localhost:8080/about";			     
 			 });
     };
 		    
     $scope.home = {
 	
 	submit : function (isValid) {
+	    
 	    if (isValid){
+		// using Main service to POST homepage data
 		Main.postHome(
 		    { 
 			homeText: $scope.home.homeText
@@ -39,7 +43,9 @@ function AdminController($scope, Logout, Admin, Main, About, Contact, Product) {
     $scope.about = {
 	
 	submit : function (isValid) {
+	    
 	    if (isValid){			    
+		// using About service to POST aboutpage data
 		About.postAbout(
 		    { 
 			aboutText: $scope.about.aboutText
@@ -55,7 +61,9 @@ function AdminController($scope, Logout, Admin, Main, About, Contact, Product) {
     $scope.contact = {
 	    
 	submit : function (isValid) {
+	    
 	    if (isValid){
+		// using Contact service to POST contactpage data
 		Contact.postContact(
 		    {
 			contactText : $scope.contact.contactText
@@ -71,7 +79,9 @@ function AdminController($scope, Logout, Admin, Main, About, Contact, Product) {
     $scope.product = {
 	
 	submit : function (isValid) {
-	    if (isValid){  
+	    
+	    if (isValid){
+		// using Product service to POST productpage data
 		Product.postProduct(
 		    {
 			productText : $scope.product.productText

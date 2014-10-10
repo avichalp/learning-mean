@@ -1,11 +1,12 @@
-function LoginController($scope, Login) {
+function LoginController($scope, Admin) {
 								   
     $scope.login = {
 	
 	submit : function (isValid) {
 	    
 	    if(isValid){
-		Login.postLogin(
+		//using Admin service to POST login data
+		Admin.postLogin(
 		    {
 			email : $scope.login.email,
 			password : $scope.login.password

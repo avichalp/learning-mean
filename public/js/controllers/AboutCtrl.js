@@ -1,4 +1,5 @@
 function AboutController($scope, About) {
+    
     About.getAbout(function (data) {							   
 		       $scope.data = data;
 		   });

@@ -1,3 +1,4 @@
+// defining a function to get keys from value
 Object.prototype.getKeyByValue = function( value ) {
     
     for( var prop in this ) {
@@ -11,13 +12,28 @@ Object.prototype.getKeyByValue = function( value ) {
 return undefined;
 };
 
-function AddAdminController($scope, AddAdmin, AdminList, Admin) {
-	    
+// Controller
+function AddAdminController($scope, Admin) {
+	
+    // using Admin service to GET addadmin page 
+    Admin.getAddAdmin(function (data) {
+			     if (data.message !== 'OK')
+				 window.location = "http://localhost:8080/login";
+			 });    
+                  
+    // using Admin service to GET a list of existing admins
+    Admin.getAdminList(function (data){
+			       $scope.admins = data;
+			   });
+    
+    // binding addAdmin object with view-template
     $scope.addAdmin = {					   
 	
 	submit : function (isValid) {
+	    
 	    if (isValid){
-		AddAdmin.postAddAdmin(
+		// using Admin service to POST new admin details
+		Admin.postAddAdmin(
 		    {
 			email : $scope.addAdmin.email,
 			password : $scope.addAdmin.password
@@ -27,33 +43,25 @@ function AddAdminController($scope, AddAdmin, AdminList, Admin) {
 			    window.location = "http://localhost:8080/admin";				
 		    });		
 	    }
+	},
+	
+	delete : function (admin) {
+	 
+	    var user_id = $scope.admins.getKeyByValue(admin);
+	    //using Admin Service to DELETE specified admin
+	    Admin.deleteAdmin(
+		{
+		    user_id : user_id
+		},
+		function (data){
+		    if (data.message === 'OK')
+			window.location = "http://localhost:8080/admin";
+		});
 	}
-	    
-    };
+    }; 
+};
     
-    AddAdmin.getAddAdmin(function (data) {
-			     if (data.message !== 'OK')
-				 window.location = "http://localhost:8080/login";
-			 });
     
-    $scope.admins = [];
-    AdminList.getAdminList(function (data){
-			       $scope.admins = data;
-			   });
-		    
-    $scope.delete = function (admin) {
-	console.log(admin);
-	var user_id = $scope.admins.getKeyByValue(admin);
-	Admin.deleteAdmin(
-	    {
-		user_id : user_id
-	    },
-	    function (data){
-		if (data.message === 'OK')
-		    window.location = "http://localhost:8080/admin";
-	    });
-    };
-}
 	
 angular
     .module('AddAdminCtrl', [])

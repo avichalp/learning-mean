@@ -12,13 +12,9 @@ angular
 		   'ContactCtrl',
 		   'ContactService',
 		   'LoginCtrl',
-		   'LoginService',
 		   'AddAdminCtrl',
-		   'AddAdminService',
 		   'AdminCtrl',
-		   'LogoutService',
-		   'AdminService',
-		   'AdminListService'
-
+		   'AdminService'
+		   
 	       ]);
 
