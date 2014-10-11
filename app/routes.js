@@ -5,7 +5,8 @@ var client = redis.createClient();
 // including modles
 var User = require('./models/user');
 var Product = require('./models/product');
-    
+var Client = require('./models/client');
+     
 // private method : implements auth middleware
 function isLoggedIn(req, res, next) {
 	    
@@ -113,6 +114,54 @@ function routes(app, passport) {
 					     return done(null, newProduct);
 					 }); 
 		     }
+			     return undefined;
+			 }   
+		     );
+		 });
+
+	
+	app.get('/api/client/', function (req, res) {
+		   
+		    Client.find(function (err, clients) {
+				  if (err)
+				      res.send(err);
+				  
+				  var clientList = {};
+				  
+				  for (var i =0; i<= clients.length -1; i++)
+				      clientList[clients[i]["id"]] = {
+					  name : clients[i]["name"],
+					  imgUrl : clients[i]["imgUrl"]
+				      }; 
+				  
+				  res.json(clientList);
+				 }
+			     
+				);	
+		});
+	    
+	app.post('/api/client/',isLoggedIn, function (req, res, done) {
+		     console.log(req.body);
+		     Client.findOne(
+			 {
+			     'name' : req.body.name
+			 },
+			 function (err, product) {
+			     if (err)
+				 return done(err);
+			     if (product)
+				 return done(null, false, req, console.log('alredy there'));
+			     
+			     else{
+				 var newClient = new Client();
+				 newClient.name = req.body.name;
+				 newClient.imgUrl = req.body.imgUrl;
+				 newClient.save(function (err) {
+						    if (err)
+						    throw err;
+						    return done(null, newClient);
+						}); 
+			     }
 			     return undefined;
 			 }   
 		     );

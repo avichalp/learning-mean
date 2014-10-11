@@ -98,7 +98,27 @@ function AdminController($scope,  Admin, Main, About, Contact, Product) {
 		    });
 	    }
 	}
-    };    
+    };
+    
+    $scope.client = {
+	
+	submit : function(isValid) {
+	    
+	    if (isValid){
+		
+		Client.postClient(
+		    {
+			name : $scope.client.name,
+			imgUrl : $scope.client.url
+			},
+		    function (data) {
+			if (data)
+			    window.location = "http://localhost:8080/client";
+		    });
+	    }
+	}
+    };
+    
 }
 
 angular

@@ -17,6 +17,10 @@ function config($routeProvider, $locationProvider) {
 		  templateUrl: 'views/product.html',
 		  controller: 'ProductController'
 	      })
+	.when('/client', {
+		  templateUrl : 'views/client.html',
+		  controller : 'ClientController'
+	      })
 	.when('/login', {
 		  templateUrl: 'views/login.html',
 		  controller: 'LoginController'

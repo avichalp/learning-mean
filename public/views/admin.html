@@ -69,4 +69,21 @@
   <button type="submit" class="btn btn-warning btn-lg" ng-click="product.submit(productForm.$valid)" ng-disabled="productForm.$invalid">Submit</button>
 </form>
 
+<!-- Client-->
+
+<form name="clientForm" novalidate>
+  <div class="form-group" ng-class="{ 'has-error' : clientForm.clienttext.$invalid && !clientForm.clienttext.$pristine }">
+    <label>Product</label>
+    <input type="text" class="form-control" name="clienttext" ng-model="client.name" required>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-error' : clientForm.clientUrl.$invalid && !clientForm.clientUrl.$pristine }">
+    <label>Product-image</label>
+    <input type="text" class="form-control" name="clientUrl" ng-model="client.url" required>
+  </div>
+
+  <button type="submit" class="btn btn-warning btn-lg" ng-click="client.submit(clientForm.$valid)" ng-disabled="clientForm.$invalid">Submit</button>
+</form>
+
+
 </div>
