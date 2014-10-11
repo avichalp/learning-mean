@@ -118,8 +118,15 @@ function routes(app, passport) {
 			 }   
 		     );
 		 });
-
 	
+	app.delete('/api/product/:product_id', isLoggedIn, function (req, res) {
+		       Product.remove({_id : req.params.product_id}, function (err, user) {
+				       if (err)
+					   res.send(err);
+				       res.json({message : 'OK'});
+				   });
+		   });
+
 	app.get('/api/client/', function (req, res) {
 		   
 		    Client.find(function (err, clients) {
@@ -166,6 +173,15 @@ function routes(app, passport) {
 			 }   
 		     );
 		 });
+	
+	app.delete('/api/client/:client_id', isLoggedIn, function (req, res) {
+		       Client.remove({_id : req.params.client_id}, function (err, user) {
+				       if (err)
+					   res.send(err);
+				       res.json({message : 'OK'});
+				   });
+		   });	
+
 	
 	
 	// url map to POST login details

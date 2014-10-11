@@ -1,14 +1,26 @@
+
 // controller
-function AdminController($scope,  Admin, Main, About, Contact, Product) {		    		    		    
+function AdminController($scope,  Admin, Main, About, Contact, Product, Client) {		    		    		    
     
     // using Admin service to GET admin page   
     Admin.getAdmin(function (data) {
 		       
 		       if (data.message !== 'OK')
-			   window.location = "http://localhost:8080/login";					  
+			   window.location = "http://localhost:8080/login";					  	
 		   });
-		    
+		   
+    Product.getProduct(function (data) {
+			   $scope.products = data;
+		       });       
+		  
+    Client.getClient(function (data){
+			 console.log(data);
+			 $scope.clients = data;
+			 
+		     });
+    
     $scope.addAdmin = function () {		   
+	
 	window.location = "http://localhost:8080/addadmin";
     };
 		    
@@ -20,8 +32,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product) {
 			     if (data.message === 'OK')
 				 window.location = "http://localhost:8080/about";			     
 			 });
-    };
-		    
+    };	    
+
     $scope.home = {
 	
 	submit : function (isValid) {
@@ -97,11 +109,31 @@ function AdminController($scope,  Admin, Main, About, Contact, Product) {
 			    window.location = "http://localhost:8080/product";
 		    });
 	    }
-	}
+	},
+
+	delete : function (product) {
+	    
+	    //var product_id = $scope.products.getKeyByVlaue(product);
+	    var productKeys = Object.keys($scope.products);
+	    for(var i=0; i<= productKeys.length -1; i++){
+		if ($scope.products[productKeys[i]]['name'] === product['name']){
+		    Product.deleteProduct(
+			{
+			    product_id : productKeys[i]
+			}, function (data) {
+			    if (data.message === 'OK')
+				console.log('deleted');
+			});
+		}
+	    }		
+		
+		    
+	}		
+	
     };
     
-    $scope.client = {
-	
+    $scope.client = {			
+
 	submit : function(isValid) {
 	    
 	    if (isValid){
@@ -116,9 +148,32 @@ function AdminController($scope,  Admin, Main, About, Contact, Product) {
 			    window.location = "http://localhost:8080/client";
 		    });
 	    }
+	},
+	
+	delete : function (client) {
+	    
+	    //var product_id = $scope.products.getKeyByVlaue(product);
+	    var clientKeys = Object.keys($scope.clients);
+	    console.log('check1');
+	    for(var i=0; i<= clientKeys.length -1; i++){
+		console.log('check2');
+		if ($scope.clients[clientKeys[i]]['name'] === client['name']){
+		    console.log('check3');
+		    Client.deleteClient(
+			{
+			    client_id : clientKeys[i]
+			}, function (data) {
+			    if (data.message === 'OK')
+				console.log('deleted');
+			});
+		}
+	    }		
+		
+		    
 	}
+	
+	    
     };
-    
 }
 
 angular

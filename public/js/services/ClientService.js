@@ -11,7 +11,12 @@ function Client($http) {
 			 
 	    $http.post('http://localhost:8080/api/client/', msg)
 		.success(callBack);
-	} 
+	},
+	deleteClient : function (msg, callBack) {
+	    
+	    $http.delete('http://localhost:8080/api/client/' + msg.client_id)
+		.success(callBack);
+	}
 		
     };
 		

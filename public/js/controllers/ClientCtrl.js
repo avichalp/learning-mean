@@ -1,7 +1,10 @@
-angular.module('ClientCtrl', []).controller('ClientController', function ($scope, Client){
-	
-						Client.getClient(function (data) {
-		   						       $scope.clients = data;	    
-								   });
-					    } );
+function ClientController ($scope, Client){
     
+    Client.getClient(function (data) {
+		   	 $scope.clients = data;	    
+		     });
+}
+    
+angular
+    .module('ClientCtrl', [])
+    .controller('ClientController', ClientController);

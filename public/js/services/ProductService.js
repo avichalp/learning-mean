@@ -11,7 +11,11 @@ function Product($http) {
 			 
 	    $http.post('http://localhost:8080/api/product/', msg)
 		.success(callBack);
-	} 
+	},
+	deleteProduct : function (msg, callBack) {
+	    $http.delete('http://localhost:8080/api/product/' + msg.product_id)
+		.success(callBack);
+	}
 		
     };
 		

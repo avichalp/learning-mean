@@ -55,7 +55,7 @@ function AddAdminController($scope, Admin) {
 		},
 		function (data){
 		    if (data.message === 'OK')
-			window.location = "http://localhost:8080/admin";
+			console.log('deleted');
 		});
 	}
     }; 

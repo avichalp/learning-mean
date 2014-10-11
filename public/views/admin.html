@@ -48,7 +48,13 @@
   <button type="submit" class="btn btn-warning btn-lg" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">Submit</button>
 </form>
 
-<!-- PRODUCT FORM-->
+<!-- PRODUCT--> 
+
+<ul>Product List
+  <li ng-repeat="someProduct in products" >{{ prod.name }}  <button ng-click="product.delete(someProduct)">delete</button></li>
+</ul>
+
+<!-- FORM-->
 
 <form name="productForm" novalidate>
   <div class="form-group" ng-class="{ 'has-error' : productForm.produttext.$invalid && !productForm.produttext.$pristine }">
@@ -71,9 +77,15 @@
 
 <!-- Client-->
 
+ <ul>Client List
+      <li ng-repeat="someClient in clients" >{{ client.name }}<button ng-click="client.delete(someClient)">delete</button></li>
+ </ul>
+
+<!-- Form-->
+
 <form name="clientForm" novalidate>
   <div class="form-group" ng-class="{ 'has-error' : clientForm.clienttext.$invalid && !clientForm.clienttext.$pristine }">
-    <label>Product</label>
+    <label>Client</label>
     <input type="text" class="form-control" name="clienttext" ng-model="client.name" required>
   </div>
 
