@@ -14,7 +14,7 @@ function Client($http) {
 	},
 	deleteClient : function (msg, callBack) {
 	    
-	    $http.delete('http://localhost:8080/api/client/' + msg.client_id)
+	    $http.delete('http://localhost:8080/api/client/' + msg.id)
 		.success(callBack);
 	}
 		

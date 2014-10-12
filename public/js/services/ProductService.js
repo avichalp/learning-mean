@@ -13,7 +13,7 @@ function Product($http) {
 		.success(callBack);
 	},
 	deleteProduct : function (msg, callBack) {
-	    $http.delete('http://localhost:8080/api/product/' + msg.product_id)
+	    $http.delete('http://localhost:8080/api/product/' + msg.id)
 		.success(callBack);
 	}
 		

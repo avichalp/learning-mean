@@ -177,7 +177,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		if ($scope.products[productKeys[i]]['name'] === product['name']){
 		    Product.deleteProduct(
 			{
-			    product_id : productKeys[i]
+			    id : productKeys[i]
 			}, function (data) {
 			    if (data.message === 'OK')
 				console.log('deleted');
@@ -199,6 +199,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		Client.postClient(
 		    {
 			name : $scope.client.name,
+			description : $scope.client.description,
 			imgUrl : $scope.client.url
 			},
 		    function (data) {
@@ -219,7 +220,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		    console.log('check3');
 		    Client.deleteClient(
 			{
-			    client_id : clientKeys[i]
+			    id : clientKeys[i]
 			}, function (data) {
 			    if (data.message === 'OK')
 				console.log('deleted');
