@@ -1,3 +1,16 @@
+// defining a function to get keys from value
+Object.prototype.getKeyByValue = function( value ) {
+    
+    for( var prop in this ) {
+	
+        if( this.hasOwnProperty( prop ) ) {
+	    
+             if( this[ prop ] === value )
+                 return prop;
+        }
+    }
+return undefined;
+};
 
 // controller
 function AdminController($scope,  Admin, Main, About, Contact, Product, Client) {		    		    		    
@@ -8,20 +21,60 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		       if (data.message !== 'OK')
 			   window.location = "http://localhost:8080/login";					  	
 		   });
-		   
+    //
     Product.getProduct(function (data) {
 			   $scope.products = data;
 		       });       
-		  
+    
+    //
     Client.getClient(function (data){
 			 console.log(data);
 			 $scope.clients = data;
 			 
 		     });
     
+    // using Admin service to GET a list of existing admins
+    Admin.getAdminList(function (data){
+			       $scope.admins = data;
+			   });
+    
     $scope.addAdmin = function () {		   
 	
 	window.location = "http://localhost:8080/addadmin";
+    };
+
+     // binding addAdmin object with view-template
+    $scope.addAdmin = {					   
+	
+	submit : function (isValid) {
+	    
+	    if (isValid){
+		// using Admin service to POST new admin details
+		Admin.postAddAdmin(
+		    {
+			email : $scope.addAdmin.email,
+			password : $scope.addAdmin.password
+		    },
+		    function (data) {				
+			if (data.message === 'OK')
+			    window.location = "http://localhost:8080/admin";				
+		    });		
+	    }
+	},
+	
+	delete : function (admin) {
+	 
+	    var user_id = $scope.admins.getKeyByValue(admin);
+	    //using Admin Service to DELETE specified admin
+	    Admin.deleteAdmin(
+		{
+		    user_id : user_id
+		},
+		function (data){
+		    if (data.message === 'OK')
+			console.log('deleted');
+		});
+	}
     };
 		    
     $scope.logout = function (){
@@ -29,9 +82,9 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	// using Admin service to send GET request on /logout
 	Admin.getLogout(function (data) {
 			     
-			     if (data.message === 'OK')
-				 window.location = "http://localhost:8080/about";			     
-			 });
+			    if (data.message === 'OK')
+				window.location = "http://localhost:8080/about";			     
+			});
     };	    
 
     $scope.home = {
@@ -81,11 +134,16 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		Contact.postContact(
 		    {
 			contactText : $scope.contact.contactText,
+			contactPhone : $scope.contact.contactPhone,
+			contactEmail : $scope.contact.contactEmail,
+			contactAddress : $scope.contact.contactAddress,
 			contactImgUrl : $scope.contact.contactUrl
 		    },
 		    function (data) {
 			if (data)
-			    window.location = "http://localhost:8080/contact";
+			    window.location = "http://localhost:8080/contact";			    
+			
+			    
 		    });
 	   } 
 	}

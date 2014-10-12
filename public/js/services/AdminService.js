@@ -19,7 +19,7 @@ function Admin($http) {
 	// to POST info of new admin
 	postAddAdmin : function (msg, callBack) {		    
 	    
-	    $http.post('http://loca lhost:8080/api/addadmin/', {email : msg.email, password : msg.password})
+	    $http.post('http://localhost:8080/api/addadmin/', {email : msg.email, password : msg.password})
 		.success(callBack);		
 		
 	},

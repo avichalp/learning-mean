@@ -28,10 +28,6 @@ function config($routeProvider, $locationProvider) {
 	.when('/admin', {
 		  templateUrl: 'views/admin.html',
 		  controller: 'AdminController' 
-	      })
-	.when('/addadmin', {
-		  templateUrl: 'views/addadmin.html',
-		  controller: 'AddAdminController'
 	      });
     
     $locationProvider.html5Mode(true);

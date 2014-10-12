@@ -12,7 +12,6 @@ angular
 		'ContactCtrl',
 		'ContactService',
 		'LoginCtrl',
-		'AddAdminCtrl',
 		'AdminCtrl',
 		'AdminService',
 		'ClientCtrl',

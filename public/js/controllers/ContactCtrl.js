@@ -1,7 +1,9 @@
 function ContactController($scope, Contact) {
 		    
-    Contact.getContact(function (data) {
-			   $scope.data = data;		 
+    Contact.getContact(function (data) {			   
+			   $scope.imgUrl = data['contactImgUrl'];
+			   delete data['contactImgUrl'];
+			   $scope.data = data;
 		       });
 }
 
