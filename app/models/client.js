@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 var clienttSchema = new Schema(
     {
 	name  : String,
+	description : String,
 	imgUrl : String	
     });
 

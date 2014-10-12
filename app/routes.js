@@ -7,7 +7,7 @@ var User = require('./models/user');
 var Product = require('./models/product');
 var Client = require('./models/client');
      
-// private method : implements auth middleware
+// helper function : implements auth middleware
 function isLoggedIn(req, res, next) {
 	    
     if (req.isAuthenticated())
@@ -16,7 +16,7 @@ function isLoggedIn(req, res, next) {
     return undefined;	    	 
 }
  
-// routes fuction returns a functon with all maping     
+// routes fuction returns a functon with all mapings     
 function routes(app, passport) {
     
     function contentGetRoutes(contentType){
@@ -28,161 +28,83 @@ function routes(app, passport) {
 					   console.log(err);
 				       res.json(reply);
 				   });
-		});			
+		});
+	app.post('/api/' + contentType + '/', function (req, res) {
+		     console.log(req.body);
+		     client.HMSET(contentType + 'Key', req.body,
+				  function (req, res) {
+				      if (err)
+					  console.log(err);
+				      res.json(reply);
+				  });
+		 }); 
+					   
 	   
     }
    
+    function helperRouter(type,productOrClient){
+	
+	app.get('/api/' + type + '/', function (req, res) {
+		    productOrClient.find(function (err, list) {
+					     if(err)
+						 res.send(err);
+					     var anObject = {};
+					     
+					     for (var i=0; i<= list.length -1; i++)
+						 anObject[list[i]["id"]] = {
+						     name : list[i]["name"],
+						     description : list[i]["description"],
+						     ingUrl : list[i]["imgUrl"]
+						 };
+					     
+					 res.json(anObject);    
+					 });
+		    
+		} );
+
+	app.post('/api/' + type + '/', isLoggedIn, function (req, res, done) {
+		     console.log(req.body);
+		     productOrClient.findOne({
+						 'name' : req.body.name
+					     },
+					    function (err, someThing) {
+						if (err)
+						    return done(err);
+						console.log(someThing);
+						if (someThing)
+						    done(null, false, req, console.log('alredy there'));
+						else{
+						    var newObject = new productOrClient;
+						    newObject.name = req.body.name;
+						    newObject.description = req.body.description;
+						    newObject.imgUrl = req.body.imgUrl;
+						    newObject.save(function (err) {
+								       if (err)
+									   throw err;
+								       return done(null, newObject);
+								   });
+						}
+						console.log(newObject);
+						return undefined;
+					    });
+		 });
+	
+	app.delete('/api/' + type + '/:id', isLoggedIn, function (req, res) {
+		       productOrClient.remove({ _id : req.params.id }, function (err, someThing){
+						  if (err)
+						      res.send(err);
+						  res.json({message : 'OK'});
+					      });
+		   });
+	
+    }
+
     return function () {
 	
 	['home','about','contact'].map(contentGetRoutes);
-			
-	app.post('/api/home/',isLoggedIn, function (req, res) {
-		     console.log(req.body);
-		     client.HMSET('homeKey', req.body,			  
-				  function (err, reply) {
-				      if (err)
-					  console.log(err);
-				      res.json(reply);
-				  });
-		     
-		 });
 
-	app.post('/api/about/',isLoggedIn, function (req, res) {
-		     console.log(req.body);
-		     client.HMSET('aboutKey', req.body,			  
-				  function (err, reply) {
-				      if (err)
-					  console.log(err);
-				      res.json(reply);
-				  });
-		     
-		 });
-	
-	app.post('/api/contact/',isLoggedIn, function (req, res) {
-		     console.log(req.body);
-		     client.HMSET('contactKey', req.body,			  
-				  function (err, reply) {
-				      if (err)
-					  console.log(err);
-				      res.json(reply);
-				  });
-		     
-		 });
-	
-
-	app.get('/api/product/', function (req, res) {
-		   
-		    Product.find(function (err, products) {
-				  if (err)
-				      res.send(err);
-				  
-				  var productList = {};
-				  
-				  for (var i =0; i<= products.length -1; i++)
-				      productList[products[i]["id"]] = {
-					  name : products[i]["name"],
-					  description : products[i]["description"],
-					  imgUrl : products[i]["imgUrl"]
-				      }; 
-				  
-				  res.json(productList);
-			      }
-			     
-			     );	
-		});
-	    
-	app.post('/api/product/',isLoggedIn, function (req, res, done) {
-		     console.log(req.body);
-		     Product.findOne(
-			 {
-			     'name' : req.body.name
-			 },
-			 function (err, product) {
-			     if (err)
-				 return done(err);
-			     if (product)
-				 return done(null, false, req, console.log('alredy there'));
-			     
-		     else{
-			 var newProduct = new Product();
-			 newProduct.name = req.body.name;
-			 newProduct.description = req.body.description;
-			 newProduct.imgUrl = req.body.imgUrl;
-			 newProduct.save(function (err) {
-					     if (err)
-						 throw err;
-					     return done(null, newProduct);
-					 }); 
-		     }
-			     return undefined;
-			 }   
-		     );
-		 });
-	
-	app.delete('/api/product/:product_id', isLoggedIn, function (req, res) {
-		       Product.remove({_id : req.params.product_id}, function (err, user) {
-				       if (err)
-					   res.send(err);
-				       res.json({message : 'OK'});
-				   });
-		   });
-
-	app.get('/api/client/', function (req, res) {
-		   
-		    Client.find(function (err, clients) {
-				  if (err)
-				      res.send(err);
-				  
-				  var clientList = {};
-				  
-				  for (var i =0; i<= clients.length -1; i++)
-				      clientList[clients[i]["id"]] = {
-					  name : clients[i]["name"],
-					  imgUrl : clients[i]["imgUrl"]
-				      }; 
-				  
-				  res.json(clientList);
-				 }
-			     
-				);	
-		});
-	    
-	app.post('/api/client/',isLoggedIn, function (req, res, done) {
-		     console.log(req.body);
-		     Client.findOne(
-			 {
-			     'name' : req.body.name
-			 },
-			 function (err, product) {
-			     if (err)
-				 return done(err);
-			     if (product)
-				 return done(null, false, req, console.log('alredy there'));
-			     
-			     else{
-				 var newClient = new Client();
-				 newClient.name = req.body.name;
-				 newClient.imgUrl = req.body.imgUrl;
-				 newClient.save(function (err) {
-						    if (err)
-						    throw err;
-						    return done(null, newClient);
-						}); 
-			     }
-			     return undefined;
-			 }   
-		     );
-		 });
-	
-	app.delete('/api/client/:client_id', isLoggedIn, function (req, res) {
-		       Client.remove({_id : req.params.client_id}, function (err, user) {
-				       if (err)
-					   res.send(err);
-				       res.json({message : 'OK'});
-				   });
-		   });	
-
-	
+        helperRouter('product', Product);
+	helperRouter('client', Client);	
 	
 	// url map to POST login details
 	app.post('/api/login/' ,passport.authenticate('local-login'), function (req, res) {

@@ -3,6 +3,35 @@
   <button id="btn1" ng-click="addAdmin()" >add-admin</button>
   <button id="btn2" ng-click="logout()" >logout</button>
 
+<!-- -->
+
+<ul>Admin List
+  <li ng-repeat="admin in admins" >{{ admin }}<button ng-click="addAdmin.delete(admin)">delete</button></li>
+</ul>
+ 
+    <!-- REGISTER FORM -->
+    <form name="addAdminForm" novalidate>
+      
+      <div class="form-group" ng-class="{ 'has-error' : addAdminForm.email.$invalid && !addAdminForm.email.$pristine}">
+	<label>Email</label>
+	<input type="email" class="form-control" name="email" ng-model="addAdmin.email" required>
+	<p ng-show="addAdminForm.email.$invalid && !addAdminForm.email.$pristine" class="help-block">enter a valid email.</p>
+      </div>
+      
+      <div class="form-group" ng-class="{ 'has-error' : addAdminForm.password.$invalid && !addAdminForm.password.$pristine }">
+	<label>Password</label>
+	<input type="password" class="form-control" name="password" ng-model="addAdmin.password" ng-minlength="3" ng-maxlength="20" required>
+	<p ng-show="addAdminForm.password.$error.minlength" class="help-block">Password is too short.</p>
+        <p ng-show="addAdminForm.password.$error.maxlength" class="help-block">Password is too long.</p>
+      </div>
+
+      <button type="submit" class="btn btn-warning btn-lg" ng-click="addAdmin.submit(addAdminForm.$valid)" ng-disabled="addAdminForm.$invalid">Register</button>
+    
+    </form>
+
+
+<!-- -->
+
 <!-- HOME FORM -->  
 <form name="homeForm" novalidate>
   <div class="form-group" ng-class="{ 'has-error' : homeForm.hometext.$invalid && !homeForm.hometext.$pristine} ">
@@ -41,7 +70,22 @@
     <input type="text" class="form-control" name="contacttext" ng-model="contact.contactText" required>
   </div>
 
-   <div class="form-group"  ng-class="{'has-error' : contactForm.contactUrl.$invalid && !contactForm.contactUrl.$pristine }"> 
+  <div class="form-group"  ng-class="{'has-error' : contactForm.contactPhone.$invalid && !contactForm.contactPhone.$pristine }"> 
+    <label>Contact-image</label>
+    <input type="text" class="form-control" name="contactPhone" ng-model="contact.contactPhone" required>
+  </div>
+
+  <div class="form-group"  ng-class="{'has-error' : contactForm.contactEmail.$invalid && !contactForm.contactEmail.$pristine }"> 
+    <label>Contact-image</label>
+    <input type="text" class="form-control" name="contactEmail" ng-model="contact.contactEmail" required>
+  </div>
+  
+  <div class="form-group"  ng-class="{'has-error' : contactForm.contactAddress.$invalid && !contactForm.contactAddress.$pristine }"> 
+    <label>Contact-image</label>
+    <input type="text" class="form-control" name="contactAddress" ng-model="contact.contactAddress" required>
+  </div>
+
+  <div class="form-group"  ng-class="{'has-error' : contactForm.contactUrl.$invalid && !contactForm.contactUrl.$pristine }"> 
     <label>Contact-image</label>
     <input type="text" class="form-control" name="contactUrl" ng-model="contact.contactUrl" required>
   </div>
@@ -87,6 +131,11 @@
   <div class="form-group" ng-class="{ 'has-error' : clientForm.clienttext.$invalid && !clientForm.clienttext.$pristine }">
     <label>Client</label>
     <input type="text" class="form-control" name="clienttext" ng-model="client.name" required>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-error' : clientForm.clientDescription.$invalid && !clientForm.clientDescription.$pristine }">
+    <label>Product-description</label>
+    <input type="text" class="form-control" name="clientDescription" ng-model="client.description" required>
   </div>
 
   <div class="form-group" ng-class="{ 'has-error' : clientForm.clientUrl.$invalid && !clientForm.clientUrl.$pristine }">

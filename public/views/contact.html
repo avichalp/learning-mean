@@ -1,4 +1,4 @@
 <div class="jumbotron text-center">
-  <p>{{ data.contactText  }}</p>
+  <p ng-repeat="someData in data">{{ someData  }}</p>
   <img src={{data.contactImgUrl}}>
 </div>
