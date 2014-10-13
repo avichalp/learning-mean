@@ -19,7 +19,8 @@ function isLoggedIn(req, res, next) {
 // routes fuction returns a functon with all mapings     
 function routes(app, passport) {
     
-    function contentGetRoutes(contentType){
+    // helper function : implements mappings for content routes
+    function contentRoutes(contentType){
 	//client.del(contentType+'Key');
 	app.get('/api/'+ contentType + '/', function (req, res){
 		    client.hgetall(contentType + 'Key',
@@ -41,7 +42,8 @@ function routes(app, passport) {
 					   
 	   
     }
-   
+
+    // helper function : implemnts product and client mapping
     function helperRouter(type,productOrClient){
 	
 	app.get('/api/' + type + '/', function (req, res) {
@@ -60,7 +62,7 @@ function routes(app, passport) {
 					 res.json(anObject);    
 					 });
 		    
-		} );
+		});
 
 	app.post('/api/' + type + '/', isLoggedIn, function (req, res) {
 		     console.log(req.body);
@@ -99,26 +101,27 @@ function routes(app, passport) {
 	
     }
 
-    return function () {
+    function router() {
 	
-	['home','about','contact'].map(contentGetRoutes);
-
+	['home','about','contact'].map(contentRoutes);
         helperRouter('product', Product);
 	helperRouter('client', Client);	
 	
 	// url map to POST login details
 	app.post('/api/login/' ,passport.authenticate('local-login'), function (req, res) {
-		     res.json({message: 'OK'});
-		 });	    		    
-	
-	app.post('/api/addadmin/',isLoggedIn, passport.authenticate('local-signup'), function (req, res) {
 		     res.json( {message: 'OK'} );
 		 });
 	
-	// url  map to GET list of admins 
-	app.get('/api/adminlist/', isLoggedIn, function (req, res) {
+	//  logging-out
+	app.get('/api/logout/', isLoggedIn, function (req, res){
+		    req.logout();
+		    res.json({message : 'OK'});
+		});
+	
+	// url map to GET  admin page(list of admins)
+	app.get('/api/admin/', isLoggedIn, function (req, res) {
 		    User.find(function (err, admins) {
-				  if (err)
+			  	  if (err)
 				      res.send(err);
 				  
 				  var adminList = {};
@@ -127,17 +130,15 @@ function routes(app, passport) {
 				      adminList[admins[i]["id"]] = admins[i]["local"]["email"]; 
 				  
 				  res.json(adminList);
-			      }
-			     
-			     );		    
-		});   
-	
-	// url map to GET  admin page
-	app.get('/api/admin/', isLoggedIn, function (req, res) {
-		    res.json( {message: 'OK'} );
+			      });
+		    
 		});
 
-
+	// url map to add a new admin
+	app.post('/api/admin/',isLoggedIn, passport.authenticate('local-signup'), function (req, res) {
+		     res.json( {message: 'OK'} );
+		 });
+	   		
 	// url map to DELETE a admin
 	app.delete('/api/admin/:user_id', isLoggedIn, function (req, res) {
 		       User.remove({_id : req.params.user_id}, function (err, user) {
@@ -146,18 +147,14 @@ function routes(app, passport) {
 				       res.json({message : 'OK'});
 				   });
 		   });
-				       
-	//  logging-out
-	app.get('/api/logout/', isLoggedIn, function (req, res){
-		    req.logout();
-		    res.json({message : 'OK'});
-		});
-				       
+				       					       
 	// default GET
 	app.get('*', function (req, res) {
 		    res.sendfile('./public/index.html');
 		});
-    };
+    }
+
+    return router;
 }    
 	    		            	    
 module.exports = routes;

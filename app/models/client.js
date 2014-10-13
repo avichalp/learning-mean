@@ -4,7 +4,7 @@ var mongoose = require( 'mongoose' );
 
 // Schema defination
 var Schema = mongoose.Schema;    
-var clienttSchema = new Schema(
+var clientSchema = new Schema(
     {
 	name  : String,
 	description : String,
@@ -12,4 +12,4 @@ var clienttSchema = new Schema(
     });
 
 // exorting Schema
-module.exports = mongoose.model( 'Client' , clienttSchema );
+module.exports = mongoose.model( 'Client' , clientSchema );

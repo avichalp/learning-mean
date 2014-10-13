@@ -18,8 +18,9 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
     // using Admin service to GET admin page   
     Admin.getAdmin(function (data) {
 		       
-		       if (data.message !== 'OK')
+		       if (data.message === 'restricted area')
 			   window.location = "http://localhost:8080/login";					  	
+		       $scope.admins = data;
 		   });
    
     $scope.logout = function (){
@@ -40,13 +41,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
     //
     Client.getClient(function (data){			 
 			 $scope.clients = data;		 
-		     });
-    
-    // using Admin service to GET a list of existing admins
-    Admin.getAdminList(function (data){
-			       $scope.admins = data;
-			   });
-    
+		     });       
 
      // binding addAdmin object with view-template
     $scope.admin = {					   
@@ -55,7 +50,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	    
 	    if (isValid){
 		// using Admin service to POST new admin details
-		Admin.postAddAdmin(
+		Admin.postAdmin(
 		    {
 			email : $scope.admin.email,
 			password : $scope.admin.password

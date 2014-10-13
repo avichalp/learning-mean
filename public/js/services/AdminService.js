@@ -10,26 +10,15 @@ function Admin($http) {
 			 
 	},
 	
-	// to GET addadmin page
-	getAddAdmin : function (callBack) {
-	    $http.get('http://localhost:8080/api/addadmin/')
-		.success(callBack);
-	},
 
 	// to POST info of new admin
-	postAddAdmin : function (msg, callBack) {		    
+	postAdmin : function (msg, callBack) {		    
 	    
-	    $http.post('http://localhost:8080/api/addadmin/', {email : msg.email, password : msg.password})
+	    $http.post('http://localhost:8080/api/admin/', {email : msg.email, password : msg.password})
 		.success(callBack);		
 		
 	},
 	
-	// to GET list of admins
-	getAdminList : function (callBack){
-	    $http.get('http://localhost:8080/api/adminlist/')
-		.success(callBack);
-	},
-
 	// to POST admin-login info
 	postLogin : function (msg, callBack) {
 	    
