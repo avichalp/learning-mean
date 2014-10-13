@@ -32,7 +32,7 @@ function routes(app, passport) {
 	app.post('/api/' + contentType + '/', function (req, res) {
 		     console.log(req.body);
 		     client.HMSET(contentType + 'Key', req.body,
-				  function (req, res) {
+				  function (err, reply) {
 				      if (err)
 					  console.log(err);
 				      res.json(reply);
@@ -62,30 +62,30 @@ function routes(app, passport) {
 		    
 		} );
 
-	app.post('/api/' + type + '/', isLoggedIn, function (req, res, done) {
+	app.post('/api/' + type + '/', isLoggedIn, function (req, res) {
 		     console.log(req.body);
 		     productOrClient.findOne({
 						 'name' : req.body.name
 					     },
 					    function (err, someThing) {
 						if (err)
-						    return done(err);
-						console.log(someThing);
+						    res.send(err);
+						//console.log(someThing);
 						if (someThing)
-						    done(null, false, req, console.log('alredy there'));
+						    res.json({ message : 'already exist'});
 						else{
 						    var newObject = new productOrClient;
 						    newObject.name = req.body.name;
 						    newObject.description = req.body.description;
 						    newObject.imgUrl = req.body.imgUrl;
 						    newObject.save(function (err) {
-								       if (err)
+								       if (err)  
 									   throw err;
-								       return done(null, newObject);
+			        				       res.json({ message: 'OK' });
 								   });
 						}
 						console.log(newObject);
-						return undefined;
+					
 					    });
 		 });
 	
@@ -111,10 +111,6 @@ function routes(app, passport) {
 		     res.json({message: 'OK'});
 		 });	    		    
 	
-	// url map for GET addadmin view & POST new admin
-	app.get('/api/addadmin/', isLoggedIn, function (req, res) {
-		    res.json({message : 'OK'});
-		});
 	app.post('/api/addadmin/',isLoggedIn, passport.authenticate('local-signup'), function (req, res) {
 		     res.json( {message: 'OK'} );
 		 });
@@ -140,6 +136,8 @@ function routes(app, passport) {
 	app.get('/api/admin/', isLoggedIn, function (req, res) {
 		    res.json( {message: 'OK'} );
 		});
+
+
 	// url map to DELETE a admin
 	app.delete('/api/admin/:user_id', isLoggedIn, function (req, res) {
 		       User.remove({_id : req.params.user_id}, function (err, user) {

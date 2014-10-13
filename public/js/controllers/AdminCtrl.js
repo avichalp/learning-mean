@@ -21,16 +21,25 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		       if (data.message !== 'OK')
 			   window.location = "http://localhost:8080/login";					  	
 		   });
+   
+    $scope.logout = function (){
+	
+	// using Admin service to send GET request on /logout
+	Admin.getLogout(function (data) {
+			     
+			    if (data.message === 'OK')
+				window.location = "http://localhost:8080/about";			     
+			});
+    };
+    
     //
     Product.getProduct(function (data) {
 			   $scope.products = data;
 		       });       
     
     //
-    Client.getClient(function (data){
-			 console.log(data);
-			 $scope.clients = data;
-			 
+    Client.getClient(function (data){			 
+			 $scope.clients = data;		 
 		     });
     
     // using Admin service to GET a list of existing admins
@@ -38,13 +47,9 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			       $scope.admins = data;
 			   });
     
-    $scope.addAdmin = function () {		   
-	
-	window.location = "http://localhost:8080/addadmin";
-    };
 
      // binding addAdmin object with view-template
-    $scope.addAdmin = {					   
+    $scope.admin = {					   
 	
 	submit : function (isValid) {
 	    
@@ -52,8 +57,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		// using Admin service to POST new admin details
 		Admin.postAddAdmin(
 		    {
-			email : $scope.addAdmin.email,
-			password : $scope.addAdmin.password
+			email : $scope.admin.email,
+			password : $scope.admin.password
 		    },
 		    function (data) {				
 			if (data.message === 'OK')
@@ -61,7 +66,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		    });		
 	    }
 	},
-	
+					
 	delete : function (admin) {
 	 
 	    var user_id = $scope.admins.getKeyByValue(admin);
@@ -72,20 +77,10 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		},
 		function (data){
 		    if (data.message === 'OK')
-			console.log('deleted');
+			window.location = "http://localhost:8080/admin";
 		});
 	}
-    };
-		    
-    $scope.logout = function (){
-	
-	// using Admin service to send GET request on /logout
-	Admin.getLogout(function (data) {
-			     
-			    if (data.message === 'OK')
-				window.location = "http://localhost:8080/about";			     
-			});
-    };	    
+    };		           
 
     $scope.home = {
 	
@@ -163,7 +158,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			
 		    },
 		    function (data) {
-			if (data)
+			console.log(data);
+			if (data.message === 'OK')   
 			    window.location = "http://localhost:8080/product";
 		    });
 	    }
@@ -180,7 +176,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			    id : productKeys[i]
 			}, function (data) {
 			    if (data.message === 'OK')
-				console.log('deleted');
+				window.location = "http://localhost:8080/admin";
 			});
 		}
 	    }		
@@ -203,7 +199,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			imgUrl : $scope.client.url
 			},
 		    function (data) {
-			if (data)
+			console.log(data);
+			if (data.message === 'OK')
 			    window.location = "http://localhost:8080/client";
 		    });
 	    }
@@ -223,7 +220,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			    id : clientKeys[i]
 			}, function (data) {
 			    if (data.message === 'OK')
-				console.log('deleted');
+				window.location = "http://localhost:8080/admin" ;
 			});
 		}
 	    }		

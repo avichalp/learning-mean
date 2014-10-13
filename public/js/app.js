@@ -11,8 +11,8 @@ angular
 		'ProductService',
 		'ContactCtrl',
 		'ContactService',
-		'LoginCtrl',
 		'AdminCtrl',
+		'LoginCtrl',
 		'AdminService',
 		'ClientCtrl',
 		'ClientService'

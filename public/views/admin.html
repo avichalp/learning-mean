@@ -1,12 +1,11 @@
 <div>
   
-  <button id="btn1" ng-click="addAdmin()" >add-admin</button>
   <button id="btn2" ng-click="logout()" >logout</button>
 
 <!-- -->
 
 <ul>Admin List
-  <li ng-repeat="admin in admins" >{{ admin }}<button ng-click="addAdmin.delete(admin)">delete</button></li>
+  <li ng-repeat="someAdmin in admins" >{{ someAdmin }}<button ng-click="admin.delete(someAdmin)">delete</button></li>
 </ul>
  
     <!-- REGISTER FORM -->
@@ -14,18 +13,18 @@
       
       <div class="form-group" ng-class="{ 'has-error' : addAdminForm.email.$invalid && !addAdminForm.email.$pristine}">
 	<label>Email</label>
-	<input type="email" class="form-control" name="email" ng-model="addAdmin.email" required>
+	<input type="email" class="form-control" name="email" ng-model="admin.email" required>
 	<p ng-show="addAdminForm.email.$invalid && !addAdminForm.email.$pristine" class="help-block">enter a valid email.</p>
       </div>
       
       <div class="form-group" ng-class="{ 'has-error' : addAdminForm.password.$invalid && !addAdminForm.password.$pristine }">
 	<label>Password</label>
-	<input type="password" class="form-control" name="password" ng-model="addAdmin.password" ng-minlength="3" ng-maxlength="20" required>
+	<input type="password" class="form-control" name="password" ng-model="admin.password" ng-minlength="3" ng-maxlength="20" required>
 	<p ng-show="addAdminForm.password.$error.minlength" class="help-block">Password is too short.</p>
         <p ng-show="addAdminForm.password.$error.maxlength" class="help-block">Password is too long.</p>
       </div>
 
-      <button type="submit" class="btn btn-warning btn-lg" ng-click="addAdmin.submit(addAdminForm.$valid)" ng-disabled="addAdminForm.$invalid">Register</button>
+      <button type="submit" class="btn btn-warning btn-lg" ng-click="admin.submit(addAdminForm.$valid)" ng-disabled="addAdminForm.$invalid">Register</button>
     
     </form>
 
@@ -95,7 +94,7 @@
 <!-- PRODUCT--> 
 
 <ul>Product List
-  <li ng-repeat="someProduct in products" >{{ prod.name }}  <button ng-click="product.delete(someProduct)">delete</button></li>
+  <li ng-repeat="someProduct in products" >{{ someProduct.name }}  <button ng-click="product.delete(someProduct)">delete</button></li>
 </ul>
 
 <!-- FORM-->
@@ -122,7 +121,7 @@
 <!-- Client-->
 
  <ul>Client List
-      <li ng-repeat="someClient in clients" >{{ client.name }}<button ng-click="client.delete(someClient)">delete</button></li>
+      <li ng-repeat="someClient in clients" >{{ someClient.name }}<button ng-click="client.delete(someClient)">delete</button></li>
  </ul>
 
 <!-- Form-->

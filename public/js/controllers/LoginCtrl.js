@@ -1,7 +1,6 @@
 function LoginController($scope, Admin) {
 								   
     $scope.login = {
-	
 	submit : function (isValid) {
 	    
 	    if(isValid){
