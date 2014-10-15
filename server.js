@@ -49,7 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //calling function returned by routes module
-routes(app, passport)(); 
+routes(app, passport); 
 
 // to start 'app' 
 app.listen(port);	

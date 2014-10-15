@@ -12,11 +12,11 @@ function isLoggedIn(req, res, next) {
 	    
     if (req.isAuthenticated())
 	return next();	 
-    res.json({ message : 'restricted area' });
+    res.json({message : 'restricted area'});
     return undefined;	    	 
 }
  
-// routes fuction returns a functon with all mapings     
+// routes     
 function routes(app, passport) {
     
     // helper function : implements mappings for content routes
@@ -52,7 +52,7 @@ function routes(app, passport) {
 						 res.send(err);
 					     var anObject = {};
 					     
-					     for (var i=0; i<= list.length -1; i++)
+					     for(var i in list)
 						 anObject[list[i]["id"]] = {
 						     name : list[i]["name"],
 						     description : list[i]["description"],
@@ -119,7 +119,8 @@ function routes(app, passport) {
 				  
 				  var adminList = {};
 				  
-				  for (var i =0; i<= admins.length -1; i++)
+				  //for (var i =0; i<= admins.length -1; i++)
+				  for (var i in admins)
 				      adminList[admins[i]["id"]] = admins[i]["local"]["email"]; 
 				  
 				  res.json(adminList);
@@ -141,26 +142,21 @@ function routes(app, passport) {
    
     }
 
-    function generalRoutes(){
+    function generalRoutes(){	
 	
 	// default GET
 	app.get('*', function (req, res) {
 		    res.sendfile('./public/index.html');
-	});
+		});
     
     }
-         
-    function router() {
-	
-	['home','about','contact'].map(contentRoutes);
-        contentHelperRoutes('product', Product);
-	contentHelperRoutes('client', Client);	
-	adminRoutes();
-	generalRoutes();
-					       					       	
-    }
+            	
+    ['home','about','contact'].map(contentRoutes);
+    contentHelperRoutes('product', Product);
+    contentHelperRoutes('client', Client);	
+    adminRoutes();
+    generalRoutes();					       					       	    
 
-    return router;
 }    
 	    		            	    
 module.exports = routes;

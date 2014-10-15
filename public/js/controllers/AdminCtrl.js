@@ -17,10 +17,11 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
     
     // using Admin service to GET admin page   
     Admin.getAdmin(function (data) {
-		       
-		       if (data.message === 'restricted area')
-			   window.location = "http://localhost:8080/login";					  	
-		       $scope.admins = data;
+    		       
+    		       if (data.message === 'restricted area')
+    			   window.location = "http://localhost:8080/login";					  	
+    		       $scope.admins = data;
+    		 
 		   });
    
     $scope.logout = function (){
