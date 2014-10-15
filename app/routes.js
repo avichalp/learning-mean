@@ -21,6 +21,7 @@ function routes(app, passport) {
     
     // helper function : implements mappings for content routes
     function contentRoutes(contentType){
+	
 	//client.del(contentType+'Key');
 	app.get('/api/'+ contentType + '/', function (req, res){
 		    client.hgetall(contentType + 'Key',
@@ -39,12 +40,11 @@ function routes(app, passport) {
 				      res.json(reply);
 				  });
 		 }); 
-					   
-	   
+					   	   
     }
 
     // helper function : implemnts product and client mapping
-    function helperRouter(type,productOrClient){
+    function contentHelperRoutes(type, productOrClient){
 	
 	app.get('/api/' + type + '/', function (req, res) {
 		    productOrClient.find(function (err, list) {
@@ -63,34 +63,30 @@ function routes(app, passport) {
 					 });
 		    
 		});
-
 	app.post('/api/' + type + '/', isLoggedIn, function (req, res) {
 		     console.log(req.body);
-		     productOrClient.findOne({
-						 'name' : req.body.name
-					     },
-					    function (err, someThing) {
-						if (err)
-						    res.send(err);
-						//console.log(someThing);
-						if (someThing)
-						    res.json({ message : 'already exist'});
-						else{
-						    var newObject = new productOrClient;
-						    newObject.name = req.body.name;
-						    newObject.description = req.body.description;
-						    newObject.imgUrl = req.body.imgUrl;
-						    newObject.save(function (err) {
-								       if (err)  
-									   throw err;
-			        				       res.json({ message: 'OK' });
-								   });
-						}
-						console.log(newObject);
-					
-					    });
-		 });
-	
+		     productOrClient.findOne(
+			 {
+			     'name' : req.body.name
+			 },
+			 function (err, someThing) {
+			     if (err)
+				 res.send(err);
+			     if (someThing)
+				 res.json({ message : 'already exist'});
+			     else{
+				 var newObject = new productOrClient;
+				 newObject.name = req.body.name;
+				 newObject.description = req.body.description;
+				 newObject.imgUrl = req.body.imgUrl;
+				 newObject.save(function (err) {
+						    if (err)  
+							throw err;
+			        		    res.json({ message: 'OK' });
+						});
+			     }					
+			 });
+		 });	
 	app.delete('/api/' + type + '/:id', isLoggedIn, function (req, res) {
 		       productOrClient.remove({ _id : req.params.id }, function (err, someThing){
 						  if (err)
@@ -101,11 +97,8 @@ function routes(app, passport) {
 	
     }
 
-    function router() {
-	
-	['home','about','contact'].map(contentRoutes);
-        helperRouter('product', Product);
-	helperRouter('client', Client);	
+    // helper function : implements admin related routes
+    function adminRoutes(){
 	
 	// url map to POST login details
 	app.post('/api/login/' ,passport.authenticate('local-login'), function (req, res) {
@@ -130,10 +123,8 @@ function routes(app, passport) {
 				      adminList[admins[i]["id"]] = admins[i]["local"]["email"]; 
 				  
 				  res.json(adminList);
-			      });
-		    
+			      });		    
 		});
-
 	// url map to add a new admin
 	app.post('/api/admin/',isLoggedIn, passport.authenticate('local-signup'), function (req, res) {
 		     res.json( {message: 'OK'} );
@@ -147,11 +138,26 @@ function routes(app, passport) {
 				       res.json({message : 'OK'});
 				   });
 		   });
-				       					       
+   
+    }
+
+    function generalRoutes(){
+	
 	// default GET
 	app.get('*', function (req, res) {
 		    res.sendfile('./public/index.html');
-		});
+	});
+    
+    }
+         
+    function router() {
+	
+	['home','about','contact'].map(contentRoutes);
+        contentHelperRoutes('product', Product);
+	contentHelperRoutes('client', Client);	
+	adminRoutes();
+	generalRoutes();
+					       					       	
     }
 
     return router;

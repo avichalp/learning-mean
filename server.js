@@ -11,11 +11,11 @@ var session = require('express-session');
 // including routes 
 var routes = require('./app/routes');
 
-// including and configuring mongo
+// configuring mongo
 var configDB = require('./config/db.js');
 mongoose.connect(configDB.url);
 
-// including and configuring passport
+// configuring passport
 require('./config/passport')(passport);
 
 // calling express() to create an app object
@@ -40,7 +40,7 @@ app.use(methodOverride( 'X-HTTP-Method-Override'));
 app.use(express.static( __dirname + '/public' ));
 
 // to manage sessions
-app.use(session({ secret:'App123456' }));
+app.use(session({ secret:'123456' }));
 // to flash msgs
 app.use(flash());
 // to initailise passport
