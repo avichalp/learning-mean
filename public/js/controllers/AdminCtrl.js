@@ -14,291 +14,208 @@ return undefined;
 
 // controller
 function AdminController($scope,  Admin, Main, About, Contact, Product, Client) {		    		    		    
-                          
- // binding addAdmin object with view-template
-    $scope.admin = {					   
-	
-	edit : false,
 
-	editToggle : function () {
-	    
-	    if (this.edit == false)
-		this.edit = true;
-	    else
-		this.edit = false;
-	},
+    var page = Object.create(Object);    
+    page.edit = false;
+    page.editToggle = function () {
+	if (this.edit == false)
+	    this.edit = true;
+	else
+	    this.edit = false;	
+    };
+   
+    $scope.admin = Object.create(page);
+    $scope.admin.list = function () {
 	
-	list : function () {
-	    
- 	    Admin.getAdmin(function (data) {
+	Admin.getAdmin(function (data) {
     		       
-    			       if (data.message === 'restricted area')
-    				   window.location = "http://localhost:8080/login";					  	
-    			      
-			       $scope.admins = data;  
-    			        
-			   });    
-	},
+    			   if (data.message === 'restricted area')
+    			       window.location = "http://localhost:8080/login";					  	
+    			   
+			   $scope.admins = data;  
+    		       
+		       });    
+    };
+    $scope.admin.logout = function (){
 	
-
-	logout : function (){
-	
-	    // using Admin service to send GET request on /logout
-	    Admin.getLogout(function (data) {
-				
-				if (data.message === 'OK')
-				    window.location = "http://localhost:8080/about";			     
-			    });
-	},
-
-	submit : function (isValid) {
+	// using Admin service to send GET request on /logout
+	Admin.getLogout(function (data) {
+			    
+			    if (data.message === 'OK')
+				window.location = "http://localhost:8080/about";			     
+			});
+    };
+    $scope.admin.submit = function (isValid) {
 	    
-	    if (isValid){
-		// using Admin service to POST new admin details
-		Admin.postAdmin(
-		    {
-			email : $scope.admin.email,
-			password : $scope.admin.password
-		    },
-		    function (data) {				
-			if (data.message === 'OK')
-			    window.location = "http://localhost:8080/admin";				
-		    });		
-	    }
-	},
-					
-	delete : function (admin) {
-	 
-	    var user_id = $scope.admins.getKeyByValue(admin);
-	    //using Admin Service to DELETE specified admin
-	    Admin.deleteAdmin(
+	if (isValid){
+	    // using Admin service to POST new admin details
+	    Admin.postAdmin(
 		{
-		    user_id : user_id
+		    email : $scope.admin.email,
+		    password : $scope.admin.password
 		},
-		function (data){
+		function (data) {				
 		    if (data.message === 'OK')
-			window.location = "http://localhost:8080/admin";
+			window.location = "http://localhost:8080/admin";				
+		});		
+	}
+    };
+    $scope.admin.delete =  function (admin) {
+	 
+	var user_id = $scope.admins.getKeyByValue(admin);
+	//using Admin Service to DELETE specified admin
+	Admin.deleteAdmin(
+	    {
+		user_id : user_id
+	    },
+	    function (data){
+		if (data.message === 'OK')
+		    window.location = "http://localhost:8080/admin";
+	    });
+    };		           
+    
+    $scope.home = Object.create(page);
+    $scope.home.submit = function (isValid) {
+	    
+	if (isValid){
+	    // using Main service to POST homepage data
+	    Main.postHome(
+		{ 
+		    homeText: $scope.home.homeText,
+		    homeImgUrl: $scope.home.homeUrl
+		},
+		function (data) {
+		    if (data)
+			window.location = "http://localhost:8080/";
 		});
 	}
-    };		           
-
-    $scope.home = {
-	
-	edit : false,
-	
-	editToggle : function () {
+    };	
+   
+    $scope.about = Object.create(page);		
+    $scope.about.submit = function (isValid) {
 	    
-	    if (this.edit == false)
-		this.edit = true;
-	    else
-		this.edit = false;
-	},
-
-	submit : function (isValid) {
-	    
-	    if (isValid){
-		// using Main service to POST homepage data
-		Main.postHome(
-		    { 
-			homeText: $scope.home.homeText,
-			homeImgUrl: $scope.home.homeUrl
-		    },
-		    function (data) {
-			if (data)
-			    window.location = "http://localhost:8080/";
-		    });
-	   }
-	}		    
+	if (isValid){			    
+	    // using About service to POST aboutpage data
+	    About.postAbout(
+		{ 
+		    aboutText: $scope.about.aboutText,
+		    aboutImgUrl: $scope.about.aboutUrl 
+		},
+		function (data){
+		    if (data)
+			window.location = "http://localhost:8080/about";
+		});
+	} 
     };
-		
-    $scope.about = {
 	
-	edit : false,	
-
-	editToggle : function () {
+    $scope.contact = Object.create(page);
+    $scope.contact.submit = function (isValid) {
 	    
-	    if (this.edit == false)
-		this.edit = true;
-	    else
-		this.edit = false;
-	},
-
-	submit : function (isValid) {
+	if (isValid){
+	    // using Contact service to POST contactpage data
+	    Contact.postContact(
+		{
+		    contactText : $scope.contact.contactText,
+		    contactPhone : $scope.contact.contactPhone,
+		    contactEmail : $scope.contact.contactEmail,
+		    contactAddress : $scope.contact.contactAddress,
+		    contactImgUrl : $scope.contact.contactUrl
+		},
+		function (data) {
+		    if (data)
+			window.location = "http://localhost:8080/contact";			    
+		});
+	} 
+    };	
+    
+    $scope.product = Object.create(page, {name : {writable: true, configurable: true} });
+    $scope.product.list = function () {
 	    
-	    if (isValid){			    
-		// using About service to POST aboutpage data
-		About.postAbout(
-		    { 
-			aboutText: $scope.about.aboutText,
-			aboutImgUrl: $scope.about.aboutUrl 
-		    },
-		    function (data){
-			if (data)
-			    window.location = "http://localhost:8080/about";
-		    });
-	   } 
-	}
+	Product.getProduct(function (data) {
+			       $scope.products = data;
+			   });
     };
     
-    $scope.contact = {
+    $scope.product.submit = function (isValid) {
 	    
-	edit : false,
-	
-	editToggle : function () {
-	    
-	    if (this.edit == false)
-		this.edit = true;
-	    else
-		this.edit = false;
-	},
-
-	submit : function (isValid) {
-	    
-	    if (isValid){
-		// using Contact service to POST contactpage data
-		Contact.postContact(
-		    {
-			contactText : $scope.contact.contactText,
-			contactPhone : $scope.contact.contactPhone,
-			contactEmail : $scope.contact.contactEmail,
-			contactAddress : $scope.contact.contactAddress,
-			contactImgUrl : $scope.contact.contactUrl
-		    },
-		    function (data) {
-			if (data)
-			    window.location = "http://localhost:8080/contact";			    
-			
-			    
-		    });
-	   } 
-	}
-    };	
-
-    $scope.product = {
-	
-	edit : false,
-	
-	editToggle : function () {
-	    
-	    if (this.edit == false)
-		this.edit = true;
-	    else
-		this.edit = false;
-	},
-
-	list : function () {
-	    
-	    Product.getProduct(function (data) {
-				   $scope.products = data;
-			       });
-	},
-
-	submit : function (isValid) {
-	    
-	    if (isValid){
-		// using Product service to POST productpage data
-		Product.postProduct(
-		    {
-			name : $scope.product.name,
-			description : $scope.product.description,
-			imgUrl : $scope.product.url
-			
-		    },
-		    function (data) {
-			console.log(data);
-			if (data.message === 'OK')   
-			    window.location = "http://localhost:8080/product";
-		    });
-	    }
-	},
-
-	delete : function (product) {
-	    
-	    //var product_id = $scope.products.getKeyByVlaue(product);
-	    var productKeys = Object.keys($scope.products);
-	    for(var i=0; i<= productKeys.length -1; i++){
-		if ($scope.products[productKeys[i]]['name'] === product['name']){
-		    Product.deleteProduct(
-			{
-			    id : productKeys[i]
-			}, function (data) {
-			    if (data.message === 'OK')
-				window.location = "http://localhost:8080/admin";
-			});
-		}
-	    }		
-		
+	if (isValid){
+	    // using Product service to POST productpage data
+	    Product.postProduct(
+		{
+		    name : $scope.product.name,
+		    description : $scope.product.description,
+		    imgUrl : $scope.product.url
 		    
-	}		
-	
-    };
-            
-    $scope.client = {			
-
-	edit : false,
-
-	editToggle : function () {
+		},
+		function (data) {
+		    console.log(data);
+		    if (data.message === 'OK')   
+			window.location = "http://localhost:8080/product";
+		});
+	}
+    };   
+    $scope.product.delete = function (product) {
 	    
-	    if (this.edit == false)
-		this.edit = true;
-	    else
-		this.edit = false;
-	},
-	
-	list : function (){
-	      
-	    Client.getClient(function (data){			 
-				 $scope.clients = data;		 
-			     });
-
-	},
-	
-	submit : function(isValid) {
-	    
-	    if (isValid){
-		
-		Client.postClient(
+	//var product_id = $scope.products.getKeyByVlaue(product);
+	var productKeys = Object.keys($scope.products);
+	for(var i=0; i<= productKeys.length -1; i++){
+	    if ($scope.products[productKeys[i]]['name'] === product['name']){
+		Product.deleteProduct(
 		    {
-			name : $scope.client.name,
-			description : $scope.client.description,
-			imgUrl : $scope.client.url
-			},
-		    function (data) {
-			console.log(data);
+			id : productKeys[i]
+		    }, function (data) {
 			if (data.message === 'OK')
-			    window.location = "http://localhost:8080/client";
+			    window.location = "http://localhost:8080/admin";
 		    });
 	    }
-	},
-	
-	delete : function (client) {
+	}		
+    };		 	
+  
+    $scope.client = Object.create(page, {name : {writable: true, configurable: true}} );
+    $scope.client.list =  function (){
+	      
+	Client.getClient(function (data){			 
+			     $scope.clients = data;		 
+			 });
+    };
+    $scope.client.submit = function(isValid) {
 	    
-	    //var product_id = $scope.products.getKeyByVlaue(product);
-	    var clientKeys = Object.keys($scope.clients);
-	    for(var i=0; i<= clientKeys.length -1; i++){
-		if ($scope.clients[clientKeys[i]]['name'] === client['name']){
-		    Client.deleteClient(
-			{
-			    id : clientKeys[i]
-			}, function (data) {
-			    if (data.message === 'OK')
-				window.location = "http://localhost:8080/admin" ;
-			});
-		}
-	    }		
-				    
+	if (isValid){
+		
+	    Client.postClient(
+		{
+		    name : $scope.client.name,
+		    description : $scope.client.description,
+		    imgUrl : $scope.client.url
+		},
+		function (data) {
+		    console.log(data);
+		    if (data.message === 'OK')
+			window.location = "http://localhost:8080/client";
+		});
 	}
-		    
+    };    
+    $scope.client.delete = function (client) {
+	    
+	//var product_id = $scope.products.getKeyByVlaue(product);
+	var clientKeys = Object.keys($scope.clients);
+	for(var i=0; i<= clientKeys.length -1; i++){
+	    if ($scope.clients[clientKeys[i]]['name'] === client['name']){
+		Client.deleteClient(
+		    {
+			id : clientKeys[i]
+		    }, function (data) {
+			if (data.message === 'OK')
+			    window.location = "http://localhost:8080/admin" ;
+		    });
+	    }
+	}		
+				    
     };
 
     $scope.admin.list();
     $scope.product.list();
     $scope.client.list();
-    console.log($scope.admin);
-    console.log($scope.product);
-    console.log($scope.client);
-    console.log($scope.contact);
-
     
 }
 
