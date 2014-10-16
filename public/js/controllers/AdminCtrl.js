@@ -14,37 +14,8 @@ return undefined;
 
 // controller
 function AdminController($scope,  Admin, Main, About, Contact, Product, Client) {		    		    		    
-    
-    // using Admin service to GET admin page   
-    Admin.getAdmin(function (data) {
-    		       
-    		       if (data.message === 'restricted area')
-    			   window.location = "http://localhost:8080/login";					  	
-    		       $scope.admins = data;
-    		 
-		   });
-   
-    $scope.logout = function (){
-	
-	// using Admin service to send GET request on /logout
-	Admin.getLogout(function (data) {
-			     
-			    if (data.message === 'OK')
-				window.location = "http://localhost:8080/about";			     
-			});
-    };
-    
-    //
-    Product.getProduct(function (data) {
-			   $scope.products = data;
-		       });       
-    
-    //
-    Client.getClient(function (data){			 
-			 $scope.clients = data;		 
-		     });       
-
-     // binding addAdmin object with view-template
+                          
+ // binding addAdmin object with view-template
     $scope.admin = {					   
 	
 	edit : false,
@@ -57,6 +28,29 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		this.edit = false;
 	},
 	
+	list : function () {
+	    
+ 	    Admin.getAdmin(function (data) {
+    		       
+    			       if (data.message === 'restricted area')
+    				   window.location = "http://localhost:8080/login";					  	
+    			      
+			       $scope.admins = data;  
+    			        
+			   });    
+	},
+	
+
+	logout : function (){
+	
+	    // using Admin service to send GET request on /logout
+	    Admin.getLogout(function (data) {
+				
+				if (data.message === 'OK')
+				    window.location = "http://localhost:8080/about";			     
+			    });
+	},
+
 	submit : function (isValid) {
 	    
 	    if (isValid){
@@ -192,6 +186,13 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		this.edit = false;
 	},
 
+	list : function () {
+	    
+	    Product.getProduct(function (data) {
+				   $scope.products = data;
+			       });
+	},
+
 	submit : function (isValid) {
 	    
 	    if (isValid){
@@ -231,7 +232,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	}		
 	
     };
-    
+            
     $scope.client = {			
 
 	edit : false,
@@ -243,7 +244,15 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	    else
 		this.edit = false;
 	},
+	
+	list : function (){
+	      
+	    Client.getClient(function (data){			 
+				 $scope.clients = data;		 
+			     });
 
+	},
+	
 	submit : function(isValid) {
 	    
 	    if (isValid){
@@ -266,11 +275,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	    
 	    //var product_id = $scope.products.getKeyByVlaue(product);
 	    var clientKeys = Object.keys($scope.clients);
-	    console.log('check1');
 	    for(var i=0; i<= clientKeys.length -1; i++){
-		console.log('check2');
 		if ($scope.clients[clientKeys[i]]['name'] === client['name']){
-		    console.log('check3');
 		    Client.deleteClient(
 			{
 			    id : clientKeys[i]
@@ -280,12 +286,20 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			});
 		}
 	    }		
-		
-		    
+				    
 	}
-	
-	    
+		    
     };
+
+    $scope.admin.list();
+    $scope.product.list();
+    $scope.client.list();
+    console.log($scope.admin);
+    console.log($scope.product);
+    console.log($scope.client);
+    console.log($scope.contact);
+
+    
 }
 
 angular

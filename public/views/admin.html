@@ -1,11 +1,11 @@
 <div>
   
-  <button id="btn2" ng-click="logout()" >logout</button>
+  <button class="btn btn-warning " ng-click="admin.logout()" >logout</button>
 
 <!-- -->
 
 <ul>Admin List
-  <li ng-repeat="someAdmin in admins" >{{ someAdmin }}<button ng-click="admin.delete(someAdmin)">delete</button></li>
+  <li ng-repeat="someAdmin in admins" >{{ someAdmin }}<button class="btn btn-warning " ng-click="admin.delete(someAdmin)">delete</button></li>
 </ul>
  
     <!-- REGISTER FORM -->
@@ -103,7 +103,7 @@
 <!-- PRODUCT--> 
 
 <ul>Product List
-  <li ng-repeat="someProduct in products" >{{ someProduct.name }}  <button ng-click="product.delete(someProduct)">delete</button></li>
+  <li ng-repeat="someProduct in products" >{{ someProduct.name }}  <button class="btn btn-warning" ng-click="product.delete(someProduct)">delete</button></li>
 </ul>
 
 <!-- FORM-->
@@ -132,7 +132,7 @@
 <!-- Client-->
 
  <ul>Client List
-      <li ng-repeat="someClient in clients" >{{ someClient.name }}<button ng-click="client.delete(someClient)">delete</button></li>
+      <li ng-repeat="someClient in clients" >{{ someClient.name }}<button class="btn btn-warning" ng-click="client.delete(someClient)">delete</button></li>
  </ul>
 
 <!-- Form-->
