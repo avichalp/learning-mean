@@ -9,7 +9,8 @@
 </ul>
  
     <!-- REGISTER FORM -->
-    <form name="addAdminForm" novalidate>
+    <button class="btn btn-warning btn-lg" ng-click="admin.editToggle()" >add an admin</button>
+    <form ng-show="admin.edit" name="addAdminForm" novalidate>
       
       <div class="form-group" ng-class="{ 'has-error' : addAdminForm.email.$invalid && !addAdminForm.email.$pristine}">
 	<label>Email</label>
@@ -25,14 +26,15 @@
       </div>
 
       <button type="submit" class="btn btn-warning btn-lg" ng-click="admin.submit(addAdminForm.$valid)" ng-disabled="addAdminForm.$invalid">Register</button>
-    
     </form>
 
 
 <!-- -->
+<br>
+<!-- HOME FORM --> 
 
-<!-- HOME FORM -->  
-<form name="homeForm" novalidate>
+<button class="btn btn-warning btn-lg" ng-click="home.editToggle()" >edit home</button> 
+<form ng-show="home.edit" name="homeForm" novalidate>
   <div class="form-group" ng-class="{ 'has-error' : homeForm.hometext.$invalid && !homeForm.hometext.$pristine} ">
     <label>Home</label>
     <input type="text" class="form-control" name="hometext" ng-model="home.homeText" required>
@@ -43,11 +45,14 @@
     <input type="text" class="form-control" name="homeUrl" ng-model="home.homeUrl" required>
   </div>
   
-  <button type="submit" class="btn btn-warning btn-lg" ng-click="home.submit(homeForm.$valid)" ng-disabled="homeForm.$invalid">Submit</button>
+  <button type="submit" class="btn btn-warning btn-lg" ng-click="home.submit(homeForm.$valid)" ng-disabled="homeForm.$invalid">Submit</button>  
 </form>
 
+<br>
+
 <!-- ABOUT FORM -->
-<form name="aboutForm" novalidate>
+<button class="btn btn-warning btn-lg" ng-click="about.editToggle()" >edit about</button>
+<form  ng-show="about.edit" name="aboutForm" novalidate>
   <div class="form-group" ng-class="{ 'has-error' : aboutForm.abouttext.$invalid && !aboutForm.abouttext.$pristine }">
     <label>About-Text</label>
     <input type="text" class="form-control" name="abouttext" ng-model="about.aboutText" required>
@@ -61,9 +66,11 @@
   <button type="submit" class="btn btn-warning btn-lg" ng-click="about.submit(aboutForm.$valid)" ng-disabled="aboutForm.$invalid">Submit</button>
 </form>
 
+<br>
 <!-- CONTACT FORM-->
 
-<form name="contactForm" novalidate>
+<button class="btn btn-warning btn-lg" ng-click="contact.editToggle()" >edit contact</button>
+<form  ng-show="contact.edit" name="contactForm" novalidate>
   <div class="form-group"  ng-class="{'has-error' : contactForm.contacttext.$invalid && !contactForm.contacttext.$pristine }"> 
     <label>Contact</label>
     <input type="text" class="form-control" name="contacttext" ng-model="contact.contactText" required>
@@ -89,8 +96,10 @@
     <input type="text" class="form-control" name="contactUrl" ng-model="contact.contactUrl" required>
   </div>
   <button type="submit" class="btn btn-warning btn-lg" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">Submit</button>
+  
 </form>
 
+<br>
 <!-- PRODUCT--> 
 
 <ul>Product List
@@ -98,8 +107,8 @@
 </ul>
 
 <!-- FORM-->
-
-<form name="productForm" novalidate>
+<button class="btn btn-warning btn-lg" ng-click="product.editToggle()"> add  product </button>
+<form ng-show="product.edit" name="productForm" novalidate>
   <div class="form-group" ng-class="{ 'has-error' : productForm.produttext.$invalid && !productForm.produttext.$pristine }">
     <label>Product</label>
     <input type="text" class="form-control" name="producttext" ng-model="product.name" required>
@@ -116,8 +125,10 @@
   </div>
 
   <button type="submit" class="btn btn-warning btn-lg" ng-click="product.submit(productForm.$valid)" ng-disabled="productForm.$invalid">Submit</button>
+ 
 </form>
 
+<br>
 <!-- Client-->
 
  <ul>Client List
@@ -125,8 +136,8 @@
  </ul>
 
 <!-- Form-->
-
-<form name="clientForm" novalidate>
+<button class="btn btn-warning btn-lg" ng-click="client.editToggle()"> add client </button>
+<form ng-show="client.edit" name="clientForm" novalidate>
   <div class="form-group" ng-class="{ 'has-error' : clientForm.clienttext.$invalid && !clientForm.clienttext.$pristine }">
     <label>Client</label>
     <input type="text" class="form-control" name="clienttext" ng-model="client.name" required>
@@ -143,6 +154,7 @@
   </div>
 
   <button type="submit" class="btn btn-warning btn-lg" ng-click="client.submit(clientForm.$valid)" ng-disabled="clientForm.$invalid">Submit</button>
+ 
 </form>
 
 

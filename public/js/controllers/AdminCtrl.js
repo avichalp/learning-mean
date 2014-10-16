@@ -47,6 +47,16 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
      // binding addAdmin object with view-template
     $scope.admin = {					   
 	
+	edit : false,
+
+	editToggle : function () {
+	    
+	    if (this.edit == false)
+		this.edit = true;
+	    else
+		this.edit = false;
+	},
+	
 	submit : function (isValid) {
 	    
 	    if (isValid){
@@ -80,6 +90,16 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 
     $scope.home = {
 	
+	edit : false,
+	
+	editToggle : function () {
+	    
+	    if (this.edit == false)
+		this.edit = true;
+	    else
+		this.edit = false;
+	},
+
 	submit : function (isValid) {
 	    
 	    if (isValid){
@@ -99,6 +119,16 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		
     $scope.about = {
 	
+	edit : false,	
+
+	editToggle : function () {
+	    
+	    if (this.edit == false)
+		this.edit = true;
+	    else
+		this.edit = false;
+	},
+
 	submit : function (isValid) {
 	    
 	    if (isValid){			    
@@ -118,6 +148,16 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
     
     $scope.contact = {
 	    
+	edit : false,
+	
+	editToggle : function () {
+	    
+	    if (this.edit == false)
+		this.edit = true;
+	    else
+		this.edit = false;
+	},
+
 	submit : function (isValid) {
 	    
 	    if (isValid){
@@ -142,6 +182,16 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 
     $scope.product = {
 	
+	edit : false,
+	
+	editToggle : function () {
+	    
+	    if (this.edit == false)
+		this.edit = true;
+	    else
+		this.edit = false;
+	},
+
 	submit : function (isValid) {
 	    
 	    if (isValid){
@@ -183,6 +233,16 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
     };
     
     $scope.client = {			
+
+	edit : false,
+
+	editToggle : function () {
+	    
+	    if (this.edit == false)
+		this.edit = true;
+	    else
+		this.edit = false;
+	},
 
 	submit : function(isValid) {
 	    
