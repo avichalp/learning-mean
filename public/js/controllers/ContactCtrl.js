@@ -5,7 +5,7 @@ function ContactController($scope, Contact) {
 			   $scope.contactImgUrl = data['contactImgUrl'];
 			   delete data['contactImgUrl'];
 			   console.log(data);
-			   $scope.data = data;
+			   $scope.contactData = data;
 			   
 		       });
 }
