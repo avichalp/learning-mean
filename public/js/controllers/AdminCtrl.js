@@ -32,8 +32,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
     			   if (data.message === 'restricted area')
     			       window.location = "http://localhost:8080/login";					  	
     			   
-			   $scope.admins = data;  
-    		       
+			   $scope.admins = data;
+			  
 		       });    
     };
     $scope.admin.logout = function (){
@@ -51,13 +51,14 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	    // using Admin service to POST new admin details
 	    Admin.postAdmin(
 		{
-		    email : $scope.admin.email,
-		    password : $scope.admin.password
+		    email : this.email,
+		    password : this.password
 		},
 		function (data) {				
 		    if (data.message === 'OK')
-			window.location = "http://localhost:8080/admin";				
-		});		
+			$scope.admin.list();				
+		    }
+	    );
 	}
     };
     $scope.admin.delete =  function (admin) {
@@ -69,8 +70,9 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		user_id : user_id
 	    },
 	    function (data){
+		
 		if (data.message === 'OK')
-		    window.location = "http://localhost:8080/admin";
+		    $scope.admin.list();	
 	    });
     };		           
     
@@ -81,8 +83,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	    // using Main service to POST homepage data
 	    Main.postHome(
 		{ 
-		    homeText: $scope.home.homeText,
-		    homeImgUrl: $scope.home.homeUrl
+		    homeText: this.homeText,
+		    homeImgUrl: this.homeUrl
 		},
 		function (data) {
 		    if (data)
@@ -98,8 +100,8 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	    // using About service to POST aboutpage data
 	    About.postAbout(
 		{ 
-		    aboutText: $scope.about.aboutText,
-		    aboutImgUrl: $scope.about.aboutUrl 
+		    aboutText: this.aboutText,
+		    aboutImgUrl: this.aboutUrl 
 		},
 		function (data){
 		    if (data)
@@ -115,11 +117,11 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	    // using Contact service to POST contactpage data
 	    Contact.postContact(
 		{
-		    contactText : $scope.contact.contactText,
-		    contactPhone : $scope.contact.contactPhone,
-		    contactEmail : $scope.contact.contactEmail,
-		    contactAddress : $scope.contact.contactAddress,
-		    contactImgUrl : $scope.contact.contactUrl
+		    contactText : this.contactText,
+		    contactPhone : this.contactPhone,
+		    contactEmail : this.contactEmail,
+		    contactAddress : this.contactAddress,
+		    contactImgUrl : this.contactUrl
 		},
 		function (data) {
 		    if (data)
@@ -142,15 +144,15 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	    // using Product service to POST productpage data
 	    Product.postProduct(
 		{
-		    name : $scope.product.name,
-		    description : $scope.product.description,
-		    imgUrl : $scope.product.url
+		    name : this.name,
+		    description : this.description,
+		    imgUrl : this.url
 		    
 		},
 		function (data) {
 		    console.log(data);
 		    if (data.message === 'OK')   
-			window.location = "http://localhost:8080/product";
+			$scope.product.list();
 		});
 	}
     };   
@@ -165,7 +167,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			id : productKeys[i]
 		    }, function (data) {
 			if (data.message === 'OK')
-			    window.location = "http://localhost:8080/admin";
+			    $scope.product.list();
 		    });
 	    }
 	}		
@@ -184,14 +186,14 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		
 	    Client.postClient(
 		{
-		    name : $scope.client.name,
-		    description : $scope.client.description,
-		    imgUrl : $scope.client.url
+		    name : this.name,
+		    description : this.description,
+		    imgUrl : this.url
 		},
 		function (data) {
 		    console.log(data);
 		    if (data.message === 'OK')
-			window.location = "http://localhost:8080/client";
+			$scope.client.list();
 		});
 	}
     };    
@@ -206,7 +208,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			id : clientKeys[i]
 		    }, function (data) {
 			if (data.message === 'OK')
-			    window.location = "http://localhost:8080/admin" ;
+			    $scope.client.list();
 		    });
 	    }
 	}		

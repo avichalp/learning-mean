@@ -56,7 +56,7 @@ function routes(app, passport) {
 						 anObject[list[i]["id"]] = {
 						     name : list[i]["name"],
 						     description : list[i]["description"],
-						     ingUrl : list[i]["imgUrl"]
+						     imgUrl : list[i]["imgUrl"]
 						 };
 					     
 					 res.json(anObject);    

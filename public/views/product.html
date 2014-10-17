@@ -1,9 +1,9 @@
-<div class="jumbotron text-center">
-  Product List
-  <ul ng-repeat="product in products">
-    <h5>{{ product.name }}</h5>
-    <li>{{ product.description }}</li>
-    <img src={{product.imgUrl}}>
+<div class="col-sm-12 col-sm-offset-0 text-justify text-info">
+
+  <ul class="row" ng-repeat="product in products">
+    <h3 class="col-sm-4">{{ product.name }}</h3>
+    <li class="col-sm-4">{{ product.description }}</li>
+    <img class="col-sm-4" src={{product.imgUrl}}>
   </ul>
  
 </div>

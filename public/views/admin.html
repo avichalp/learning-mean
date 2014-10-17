@@ -1,161 +1,169 @@
-<div>
+<div class="col-sm-6 col-sm-offset-3">
+  <div class="conatiner">
+  <button class="btn btn-xs" ng-click="admin.logout()" >logout</button>
+
   
-  <button class="btn btn-warning " ng-click="admin.logout()" >logout</button>
-
-<!-- -->
-
-<ul>Admin List
-  <li ng-repeat="someAdmin in admins" >{{ someAdmin }}<button class="btn btn-warning " ng-click="admin.delete(someAdmin)">delete</button></li>
-</ul>
+  <ul class="">Admin List
+    <li class="" ng-repeat="someAdmin in admins" >
+      {{ someAdmin }}
+      <div class="">
+	<button class="btn btn-xs " ng-click="admin.delete(someAdmin)">delete</button>
+    </div>
+    </li>
+  </ul>
  
-    <!-- REGISTER FORM -->
-    <button class="btn btn-warning btn-lg" ng-click="admin.editToggle()" >add an admin</button>
-    <form ng-show="admin.edit" name="addAdminForm" novalidate>
+  <!-- REGISTER FORM -->
+  <button class="btn" ng-click="admin.editToggle()" >add an admin</button>
+  <form ng-show="admin.edit" name="addAdminForm" novalidate>
       
-      <div class="form-group" ng-class="{ 'has-error' : addAdminForm.email.$invalid && !addAdminForm.email.$pristine}">
-	<label>Email</label>
-	<input type="email" class="form-control" name="email" ng-model="admin.email" required>
-	<p ng-show="addAdminForm.email.$invalid && !addAdminForm.email.$pristine" class="help-block">enter a valid email.</p>
-      </div>
+    <div class="form-group" ng-class="{ 'has-error' : addAdminForm.email.$invalid && !addAdminForm.email.$pristine}">
+      <label>Email</label>
+      <input type="email" class="form-control" name="email" ng-model="admin.email" required>
+      <p ng-show="addAdminForm.email.$invalid && !addAdminForm.email.$pristine" class="help-block">enter a valid email.</p>
+    </div>
       
-      <div class="form-group" ng-class="{ 'has-error' : addAdminForm.password.$invalid && !addAdminForm.password.$pristine }">
-	<label>Password</label>
-	<input type="password" class="form-control" name="password" ng-model="admin.password" ng-minlength="3" ng-maxlength="20" required>
-	<p ng-show="addAdminForm.password.$error.minlength" class="help-block">Password is too short.</p>
-        <p ng-show="addAdminForm.password.$error.maxlength" class="help-block">Password is too long.</p>
-      </div>
+    <div class="form-group" ng-class="{ 'has-error' : addAdminForm.password.$invalid && !addAdminForm.password.$pristine }">
+      <label>Password</label>
+      <input type="password" class="form-control" name="password" ng-model="admin.password" ng-minlength="3" ng-maxlength="20" required>
+      <p ng-show="addAdminForm.password.$error.minlength" class="help-block">Password is too short.</p>
+      <p ng-show="addAdminForm.password.$error.maxlength" class="help-block">Password is too long.</p>
+    </div>
 
-      <button type="submit" class="btn btn-warning btn-lg" ng-click="admin.submit(addAdminForm.$valid)" ng-disabled="addAdminForm.$invalid">Register</button>
-    </form>
+    <button type="submit" class="btn" ng-click="admin.submit(addAdminForm.$valid)" ng-disabled="addAdminForm.$invalid">Register</button>
+  </form>
 
+  <!-- HOME FORM --> 
 
-<!-- -->
-<br>
-<!-- HOME FORM --> 
+  <button class="btn" ng-click="home.editToggle()" >edit home</button> 
+  <form ng-show="home.edit" name="homeForm" novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : homeForm.hometext.$invalid && !homeForm.hometext.$pristine} ">
+      <label>Home</label>
+      <input type="text" class="form-control" name="hometext" ng-model="home.homeText" required>
+    </div>
 
-<button class="btn btn-warning btn-lg" ng-click="home.editToggle()" >edit home</button> 
-<form ng-show="home.edit" name="homeForm" novalidate>
-  <div class="form-group" ng-class="{ 'has-error' : homeForm.hometext.$invalid && !homeForm.hometext.$pristine} ">
-    <label>Home</label>
-    <input type="text" class="form-control" name="hometext" ng-model="home.homeText" required>
-  </div>
-
-  <div class="form-group" ng-class="{ 'has-error' : homeForm.homeUrl.$invalid && !homeForm.homeUrl.$pristine} ">
-    <label>Home image</label>
-    <input type="text" class="form-control" name="homeUrl" ng-model="home.homeUrl" required>
-  </div>
+    <div class="form-group" ng-class="{ 'has-error' : homeForm.homeUrl.$invalid && !homeForm.homeUrl.$pristine} ">
+      <label>Home image</label>
+      <input type="text" class="form-control" name="homeUrl" ng-model="home.homeUrl" required>
+    </div>
   
-  <button type="submit" class="btn btn-warning btn-lg" ng-click="home.submit(homeForm.$valid)" ng-disabled="homeForm.$invalid">Submit</button>  
-</form>
+    <button type="submit" class="btn" ng-click="home.submit(homeForm.$valid)" ng-disabled="homeForm.$invalid">Submit</button>  
+  </form>
 
-<br>
-
-<!-- ABOUT FORM -->
-<button class="btn btn-warning btn-lg" ng-click="about.editToggle()" >edit about</button>
-<form  ng-show="about.edit" name="aboutForm" novalidate>
-  <div class="form-group" ng-class="{ 'has-error' : aboutForm.abouttext.$invalid && !aboutForm.abouttext.$pristine }">
-    <label>About-Text</label>
-    <input type="text" class="form-control" name="abouttext" ng-model="about.aboutText" required>
-  </div>
-
-  <div class="form-group" ng-class="{ 'has-error' : aboutForm.aboutUrl.$invalid && !aboutForm.aboutUrl.$pristine }">
-    <label>About-imaget</label>
+  <!-- ABOUT FORM -->
+  <button class="btn" ng-click="about.editToggle()" >edit about</button>
+  <form  ng-show="about.edit" name="aboutForm" novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : aboutForm.abouttext.$invalid && !aboutForm.abouttext.$pristine }">
+      <label>About-Text</label>
+      <input type="text" class="form-control" name="abouttext" ng-model="about.aboutText" required>
+    </div>
+    
+    <div class="form-group" ng-class="{ 'has-error' : aboutForm.aboutUrl.$invalid && !aboutForm.aboutUrl.$pristine }">
+      <label>About-imaget</label>
     <input type="text" class="form-control" name="aboutUrl" ng-model="about.aboutUrl" required>
-  </div>
+    </div>
+    
+    <button type="submit" class="btn" ng-click="about.submit(aboutForm.$valid)" ng-disabled="aboutForm.$invalid">Submit</button>
+  </form>
 
-  <button type="submit" class="btn btn-warning btn-lg" ng-click="about.submit(aboutForm.$valid)" ng-disabled="aboutForm.$invalid">Submit</button>
-</form>
+  <!-- CONTACT FORM-->
 
-<br>
-<!-- CONTACT FORM-->
+  <button class="btn" ng-click="contact.editToggle()" >edit contact</button>
+  <form  ng-show="contact.edit" name="contactForm" novalidate>
+    <div class="form-group"  ng-class="{'has-error' : contactForm.contacttext.$invalid && !contactForm.contacttext.$pristine }"> 
+      <label>Contact</label>
+      <input type="text" class="form-control" name="contacttext" ng-model="contact.contactText" required>
+    </div>
 
-<button class="btn btn-warning btn-lg" ng-click="contact.editToggle()" >edit contact</button>
-<form  ng-show="contact.edit" name="contactForm" novalidate>
-  <div class="form-group"  ng-class="{'has-error' : contactForm.contacttext.$invalid && !contactForm.contacttext.$pristine }"> 
-    <label>Contact</label>
-    <input type="text" class="form-control" name="contacttext" ng-model="contact.contactText" required>
-  </div>
-
-  <div class="form-group"  ng-class="{'has-error' : contactForm.contactPhone.$invalid && !contactForm.contactPhone.$pristine }"> 
-    <label>Contact-image</label>
-    <input type="text" class="form-control" name="contactPhone" ng-model="contact.contactPhone" required>
-  </div>
-
-  <div class="form-group"  ng-class="{'has-error' : contactForm.contactEmail.$invalid && !contactForm.contactEmail.$pristine }"> 
-    <label>Contact-image</label>
-    <input type="text" class="form-control" name="contactEmail" ng-model="contact.contactEmail" required>
-  </div>
+    <div class="form-group"  ng-class="{'has-error' : contactForm.contactPhone.$invalid && !contactForm.contactPhone.$pristine }"> 
+      <label>Contact-image</label>
+      <input type="text" class="form-control" name="contactPhone" ng-model="contact.contactPhone" required>
+    </div>
+    
+    <div class="form-group"  ng-class="{'has-error' : contactForm.contactEmail.$invalid && !contactForm.contactEmail.$pristine }"> 
+      <label>Contact-image</label>
+      <input type="text" class="form-control" name="contactEmail" ng-model="contact.contactEmail" required>
+    </div>
   
-  <div class="form-group"  ng-class="{'has-error' : contactForm.contactAddress.$invalid && !contactForm.contactAddress.$pristine }"> 
-    <label>Contact-image</label>
-    <input type="text" class="form-control" name="contactAddress" ng-model="contact.contactAddress" required>
-  </div>
+    <div class="form-group"  ng-class="{'has-error' : contactForm.contactAddress.$invalid && !contactForm.contactAddress.$pristine }"> 
+      <label>Contact-image</label>
+      <input type="text" class="form-control" name="contactAddress" ng-model="contact.contactAddress" required>
+    </div>
 
-  <div class="form-group"  ng-class="{'has-error' : contactForm.contactUrl.$invalid && !contactForm.contactUrl.$pristine }"> 
-    <label>Contact-image</label>
-    <input type="text" class="form-control" name="contactUrl" ng-model="contact.contactUrl" required>
-  </div>
-  <button type="submit" class="btn btn-warning btn-lg" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">Submit</button>
+    <div class="form-group"  ng-class="{'has-error' : contactForm.contactUrl.$invalid && !contactForm.contactUrl.$pristine }"> 
+      <label>Contact-image</label>
+      <input type="text" class="form-control" name="contactUrl" ng-model="contact.contactUrl" required>
+    </div>
+    <button type="submit" class="btn" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">Submit</button>
   
-</form>
+  </form>
 
-<br>
-<!-- PRODUCT--> 
 
-<ul>Product List
-  <li ng-repeat="someProduct in products" >{{ someProduct.name }}  <button class="btn btn-warning" ng-click="product.delete(someProduct)">delete</button></li>
-</ul>
+  <!-- PRODUCT--> 
 
-<!-- FORM-->
-<button class="btn btn-warning btn-lg" ng-click="product.editToggle()"> add  product </button>
-<form ng-show="product.edit" name="productForm" novalidate>
-  <div class="form-group" ng-class="{ 'has-error' : productForm.produttext.$invalid && !productForm.produttext.$pristine }">
-    <label>Product</label>
-    <input type="text" class="form-control" name="producttext" ng-model="product.name" required>
-  </div>
+  <ul class="row-fluid">Product List
+    <li class="span4" ng-repeat="someProduct in products" >
+      {{ someProduct.name }}
+      <div>
+	<button class="btn btn-xs" ng-click="product.delete(someProduct)">delete</button>
+      </div>
+    </li>
+  </ul>
 
-  <div class="form-group" ng-class="{ 'has-error' : productForm.produtDescription.$invalid && !productForm.produtDescription.$pristine }">
-    <label>Product-description</label>
-    <input type="text" class="form-control" name="productDescription" ng-model="product.description" required>
-  </div>
+  <!-- FORM-->
+  <button class="btn  btn-lg" ng-click="product.editToggle()"> add  product </button>
+  <form ng-show="product.edit" name="productForm" novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : productForm.produttext.$invalid && !productForm.produttext.$pristine }">
+      <label>Product</label>
+      <input type="text" class="form-control" name="producttext" ng-model="product.name" required>
+    </div>
 
-  <div class="form-group" ng-class="{ 'has-error' : productForm.produtUrl.$invalid && !productForm.produtUrl.$pristine }">
-    <label>Product-image</label>
-    <input type="text" class="form-control" name="productUrl" ng-model="product.url" required>
-  </div>
+    <div class="form-group" ng-class="{ 'has-error' : productForm.produtDescription.$invalid && !productForm.produtDescription.$pristine }">
+      <label>Product-description</label>
+      <input type="text" class="form-control" name="productDescription" ng-model="product.description" required>
+    </div>
 
-  <button type="submit" class="btn btn-warning btn-lg" ng-click="product.submit(productForm.$valid)" ng-disabled="productForm.$invalid">Submit</button>
+    <div class="form-group" ng-class="{ 'has-error' : productForm.produtUrl.$invalid && !productForm.produtUrl.$pristine }">
+      <label>Product-image</label>
+      <input type="text" class="form-control" name="productUrl" ng-model="product.url" required>
+    </div>
+
+    <button type="submit" class="btn  btn-lg" ng-click="product.submit(productForm.$valid)" ng-disabled="productForm.$invalid">Submit</button>
  
-</form>
+  </form>
 
-<br>
-<!-- Client-->
+  <!-- Client-->
 
- <ul>Client List
-      <li ng-repeat="someClient in clients" >{{ someClient.name }}<button class="btn btn-warning" ng-click="client.delete(someClient)">delete</button></li>
- </ul>
+  <ul class="">Client List
+    <li class="" ng-repeat="someClient in clients" >
+      {{ someClient.name }}
+      <div>
+	<button class="btn btn-xs" ng-click="client.delete(someClient)">delete</button>
+    </li>
+    </div>
+  </ul>
 
-<!-- Form-->
-<button class="btn btn-warning btn-lg" ng-click="client.editToggle()"> add client </button>
-<form ng-show="client.edit" name="clientForm" novalidate>
-  <div class="form-group" ng-class="{ 'has-error' : clientForm.clienttext.$invalid && !clientForm.clienttext.$pristine }">
-    <label>Client</label>
-    <input type="text" class="form-control" name="clienttext" ng-model="client.name" required>
-  </div>
+  <!-- Form-->
+  <button class="btn btn-lg" ng-click="client.editToggle()"> add client </button>
+  <form ng-show="client.edit" name="clientForm" novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : clientForm.clienttext.$invalid && !clientForm.clienttext.$pristine }">
+      <label>Client</label>
+      <input type="text" class="form-control" name="clienttext" ng-model="client.name" required>
+    </div>
 
-  <div class="form-group" ng-class="{ 'has-error' : clientForm.clientDescription.$invalid && !clientForm.clientDescription.$pristine }">
-    <label>Product-description</label>
-    <input type="text" class="form-control" name="clientDescription" ng-model="client.description" required>
-  </div>
+    <div class="form-group" ng-class="{ 'has-error' : clientForm.clientDescription.$invalid && !clientForm.clientDescription.$pristine }">
+      <label>Product-description</label>
+      <input type="text" class="form-control" name="clientDescription" ng-model="client.description" required>
+    </div>
+    
+    <div class="form-group" ng-class="{ 'has-error' : clientForm.clientUrl.$invalid && !clientForm.clientUrl.$pristine }">
+      <label>Product-image</label>
+      <input type="text" class="form-control" name="clientUrl" ng-model="client.url" required>
+    </div>
 
-  <div class="form-group" ng-class="{ 'has-error' : clientForm.clientUrl.$invalid && !clientForm.clientUrl.$pristine }">
-    <label>Product-image</label>
-    <input type="text" class="form-control" name="clientUrl" ng-model="client.url" required>
-  </div>
-
-  <button type="submit" class="btn btn-warning btn-lg" ng-click="client.submit(clientForm.$valid)" ng-disabled="clientForm.$invalid">Submit</button>
+    <button type="submit" class="btn  btn-lg" ng-click="client.submit(clientForm.$valid)" ng-disabled="clientForm.$invalid">Submit</button>
  
-</form>
+  </form>
 
-
+  </div>
 </div>
+

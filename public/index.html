@@ -35,13 +35,13 @@
   <script src="js/app.js"></script>
 </head>
 <body ng-app="cmsApp" ng-controller="MainController">
-<div class="container">
+<div class="">
 	
   <!-- HEADER -->
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">HOME</a>
-    </div>
+      <a class="navbar-brand" href="/">BRAND-NAME</a>
+   </div>
     <ul class="nav navbar-nav">
       <li><a href="/about">About</a></li>
       <li><a href="/contact">Contact</a></li>
@@ -51,8 +51,9 @@
   </nav>
   
   <!-- ANGULAR DYNAMIC CONTENT -->
-  <div ng-view></div>
+  
+  <div class =""ng-view></div>
+  </div>
 
-</div>
 </body>
 </html>
