@@ -18,15 +18,18 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
     var page = Object.create(Object);    
     page.edit = false;
     page.editToggle = function () {
+	
 	if (this.edit == false)
 	    this.edit = true;
 	else
 	    this.edit = false;	
+    
     };
    
     $scope.admin = Object.create(page);
     $scope.admin.list = function () {
 	
+	// using Admin service to GET admin-list
 	Admin.getAdmin(function (data) {
     		       
     			   if (data.message === 'restricted area')
@@ -35,6 +38,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			   $scope.admins = data;
 			  
 		       });    
+    
     };
     $scope.admin.logout = function (){
 	
@@ -44,10 +48,12 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			    if (data.message === 'OK')
 				window.location = "http://localhost:8080/about";			     
 			});
+    
     };
     $scope.admin.submit = function (isValid) {
 	    
 	if (isValid){
+	   
 	    // using Admin service to POST new admin details
 	    Admin.postAdmin(
 		{
@@ -60,10 +66,12 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		    }
 	    );
 	}
+   
     };
     $scope.admin.delete =  function (admin) {
 	 
 	var user_id = $scope.admins.getKeyByValue(admin);
+	
 	//using Admin Service to DELETE specified admin
 	Admin.deleteAdmin(
 	    {
@@ -74,12 +82,14 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		if (data.message === 'OK')
 		    $scope.admin.list();	
 	    });
+   
     };		           
     
     $scope.home = Object.create(page);
     $scope.home.submit = function (isValid) {
 	    
 	if (isValid){
+	    
 	    // using Main service to POST homepage data
 	    Main.postHome(
 		{ 
@@ -91,12 +101,14 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			window.location = "http://localhost:8080/";
 		});
 	}
+    
     };	
    
     $scope.about = Object.create(page);		
     $scope.about.submit = function (isValid) {
 	    
 	if (isValid){			    
+	    
 	    // using About service to POST aboutpage data
 	    About.postAbout(
 		{ 
@@ -108,12 +120,14 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			window.location = "http://localhost:8080/about";
 		});
 	} 
+    
     };
 	
     $scope.contact = Object.create(page);
     $scope.contact.submit = function (isValid) {
 	    
 	if (isValid){
+	    
 	    // using Contact service to POST contactpage data
 	    Contact.postContact(
 		{
@@ -128,19 +142,23 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			window.location = "http://localhost:8080/contact";			    
 		});
 	} 
+    
     };	
     
     $scope.product = Object.create(page, {name : {writable: true, configurable: true} });
     $scope.product.list = function () {
-	    
+	
+	// Product service to GET product-list    
 	Product.getProduct(function (data) {
 			       $scope.products = data;
 			   });
+    
     };
     
     $scope.product.submit = function (isValid) {
 	    
 	if (isValid){
+	   
 	    // using Product service to POST productpage data
 	    Product.postProduct(
 		{
@@ -155,13 +173,15 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			$scope.product.list();
 		});
 	}
+    
     };   
     $scope.product.delete = function (product) {
 	    
-	//var product_id = $scope.products.getKeyByVlaue(product);
 	var productKeys = Object.keys($scope.products);
 	for(var i=0; i<= productKeys.length -1; i++){
 	    if ($scope.products[productKeys[i]]['name'] === product['name']){
+		
+		// Product service to DELETE product
 		Product.deleteProduct(
 		    {
 			id : productKeys[i]
@@ -171,19 +191,23 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		    });
 	    }
 	}		
+    
     };		 	
   
     $scope.client = Object.create(page, {name : {writable: true, configurable: true}} );
     $scope.client.list =  function (){
-	      
+	
+	// Client service to GET client-list
 	Client.getClient(function (data){			 
 			     $scope.clients = data;		 
 			 });
+    
     };
     $scope.client.submit = function(isValid) {
 	    
 	if (isValid){
-		
+	    
+	    // Client service to POST new client data 
 	    Client.postClient(
 		{
 		    name : this.name,
@@ -196,13 +220,15 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 			$scope.client.list();
 		});
 	}
+    
     };    
     $scope.client.delete = function (client) {
 	    
-	//var product_id = $scope.products.getKeyByVlaue(product);
 	var clientKeys = Object.keys($scope.clients);
 	for(var i=0; i<= clientKeys.length -1; i++){
 	    if ($scope.clients[clientKeys[i]]['name'] === client['name']){
+		
+		// Client service to DELETE client
 		Client.deleteClient(
 		    {
 			id : clientKeys[i]

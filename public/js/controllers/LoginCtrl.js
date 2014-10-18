@@ -1,9 +1,9 @@
 function LoginController($scope, Admin) {
-								   
-    $scope.login = {
-	submit : function (isValid) {
-	    
-	    if(isValid){
+
+    $scope.login = Object.create(Object);
+    $scope.login.submit = function (isValid) {
+	
+	 if(isValid){
 		//using Admin service to POST login data
 		Admin.postLogin(
 		    {
@@ -14,9 +14,10 @@ function LoginController($scope, Admin) {
 			if (data.message === 'OK')
 			    window.location = "http://localhost:8080/admin";
 		    });
-	    }	    
-	}
+	    }	
+
     };	    
+
 }
 
 angular

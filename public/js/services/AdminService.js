@@ -10,7 +10,6 @@ function Admin($http) {
 			 
 	},
 	
-
 	// to POST info of new admin
 	postAdmin : function (msg, callBack) {		    
 	    

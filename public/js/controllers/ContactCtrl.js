@@ -1,13 +1,11 @@
 function ContactController($scope, Contact) {
 		    
-    Contact.getContact(function (data) {
-			   console.log(data);			   
+    Contact.getContact(function (data) {			   
 			   $scope.contactImgUrl = data['contactImgUrl'];
 			   delete data['contactImgUrl'];
-			   console.log(data);
-			   $scope.contactData = data;
-			   
+			   $scope.contactData = data;   
 		       });
+
 }
 
 angular
