@@ -1,4 +1,5 @@
 // configuring redis
+// including redis
 var redis = require('redis');
 var client = redis.createClient();
 
@@ -16,7 +17,7 @@ function isLoggedIn(req, res, next) {
     return undefined;	    	 
 }
  
-// routes     
+// main routes function     
 function routes(app, passport) {
     
     // helper function : implements mappings for content routes
@@ -88,7 +89,8 @@ function routes(app, passport) {
 			 });
 		 });	
 	app.delete('/api/' + type + '/:id', isLoggedIn, function (req, res) {
-		       productOrClient.remove({ _id : req.params.id }, function (err, someThing){
+		       productOrClient.remove({ _id : req.params.id },
+					      function (err, someThing){
 						  if (err)
 						      res.send(err);
 						  res.json({message : 'OK'});
@@ -101,7 +103,8 @@ function routes(app, passport) {
     function adminRoutes(){
 	
 	// url map to POST login details
-	app.post('/api/login/' ,passport.authenticate('local-login'), function (req, res) {
+	app.post('/api/login/' ,passport.authenticate('local-login'),
+		 function (req, res) {
 		     res.json( {message: 'OK'} );
 		 });
 	
@@ -127,13 +130,15 @@ function routes(app, passport) {
 			      });		    
 		});
 	// url map to add a new admin
-	app.post('/api/admin/',isLoggedIn, passport.authenticate('local-signup'), function (req, res) {
+	app.post('/api/admin/',isLoggedIn, passport.authenticate('local-signup'),
+		 function (req, res) {
 		     res.json( {message: 'OK'} );
 		 });
 	   		
 	// url map to DELETE a admin
 	app.delete('/api/admin/:user_id', isLoggedIn, function (req, res) {
-		       User.remove({_id : req.params.user_id}, function (err, user) {
+		       User.remove({_id : req.params.user_id},
+				   function (err, user) {
 				       if (err)
 					   res.send(err);
 				       res.json({message : 'OK'});
@@ -141,7 +146,8 @@ function routes(app, passport) {
 		   });
    
     }
-
+    
+    // helper function for default-route GET request
     function generalRoutes(){	
 	
 	// default GET
