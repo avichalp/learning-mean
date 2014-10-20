@@ -31,12 +31,10 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	
 	// using Admin service to GET admin-list
 	Admin.getAdmin(function (data) {
-    		       
-    			   if (data.message === 'restricted area')
+    		    	   if (data.message === 'restricted area')
     			       window.location = "http://localhost:8080/login";					  	
     			   
 			   $scope.admins = data;
-			  
 		       });    
     
     };
@@ -44,7 +42,6 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	
 	// using Admin service to send GET request on /logout
 	Admin.getLogout(function (data) {
-			    
 			    if (data.message === 'OK')
 				window.location = "http://localhost:8080/about";			     
 			});
@@ -78,7 +75,6 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		user_id : user_id
 	    },
 	    function (data){
-		
 		if (data.message === 'OK')
 		    $scope.admin.list();	
 	    });
