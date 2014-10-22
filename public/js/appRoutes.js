@@ -5,14 +5,6 @@ function config($routeProvider, $locationProvider) {
 		  templateUrl: 'views/home.html',
 		  controller: 'MainController'
 	      })
-	.when('/about', {
-		  templateUrl: 'views/about.html',
-		  controller: 'AboutController'
-	      })
-	.when('/contact', {
-		  templateUrl: 'views/contact.html',
-		  controller: 'ContactController'	
-	      })
 	.when('/product', {
 		  templateUrl: 'views/product.html',
 		  controller: 'ProductController'

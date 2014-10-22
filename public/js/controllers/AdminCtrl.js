@@ -43,7 +43,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	// using Admin service to send GET request on /logout
 	Admin.getLogout(function (data) {
 			    if (data.message === 'OK')
-				window.location = "http://localhost:8080/about";			     
+				window.location = "http://localhost:8080/";			     
 			});
     
     };
@@ -113,7 +113,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		},
 		function (data){
 		    if (data)
-			window.location = "http://localhost:8080/about";
+			window.location = "http://localhost:8080/";
 		});
 	} 
     
@@ -135,7 +135,7 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 		},
 		function (data) {
 		    if (data)
-			window.location = "http://localhost:8080/contact";			    
+			window.location = "http://localhost:8080/";			    
 		});
 	} 
     

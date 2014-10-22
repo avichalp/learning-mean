@@ -1,6 +1,18 @@
 <div class="col-sm-12 col-sm-offset-0 text-center">
  
-    <p class="text-primary">{{ data.homeText }}</p>
-    <img src={{data.homeImgUrl}}>
+    <p class="text-primary">{{ homeData.homeText }}</p>
+    <img src={{homeData.homeImgUrl}}>
   
+</div>
+
+<div class="col-sm-12 col-sm-offset-0 text-center">
+  <p class="text-justify text-info"> {{ aboutData.aboutText }}</p>
+  <img src={{aboutData.aboutImgUrl}}>
+</div>
+
+<div class="col-sm-12 col-sm-offset-1">
+ 
+    <img  src={{contactImgUrl}}>
+    <p class="row text-justify text-info" ng-repeat="someData in contactData">{{ someData  }}</p>
+ 
 </div>
