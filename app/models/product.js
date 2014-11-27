@@ -1,6 +1,4 @@
-// including required modules
-var bcrypt   = require('bcrypt-nodejs');
-var mongoose = require( 'mongoose' );
+var mongoose = require('mongoose');
 
 // Schema defination
 var Schema = mongoose.Schema;    

@@ -1,5 +1,4 @@
-// configuring redis
-// including redis
+// configuring redis & including redis
 var redis = require('redis');
 var client = redis.createClient();
 
@@ -24,7 +23,8 @@ function routes(app, passport) {
     function contentRoutes(contentType){
 	
 	//client.del(contentType+'Key');
-	app.get('/api/'+ contentType + '/', function (req, res){
+	app.get('/api/'+ contentType + '/',
+		function (req, res){
 		    client.hgetall(contentType + 'Key',
 				   function (err, reply) {
 				       if (err)
@@ -32,8 +32,8 @@ function routes(app, passport) {
 				       res.json(reply);
 				   });
 		});
-	app.post('/api/' + contentType + '/', function (req, res) {
-		     console.log(req.body);
+	app.post('/api/' + contentType + '/', isLoggedIn,
+		 function (req, res) {
 		     client.HMSET(contentType + 'Key', req.body,
 				  function (err, reply) {
 				      if (err)
@@ -45,28 +45,30 @@ function routes(app, passport) {
     }
 
     // helper function : implemnts product and client mapping
-    function contentHelperRoutes(type, productOrClient){
+    function contentHelperRoutes(contentType, content){
 	
-	app.get('/api/' + type + '/', function (req, res) {
-		    productOrClient.find(function (err, list) {
-					     if(err)
-						 res.send(err);
-					     var anObject = {};
-					     
-					     for(var i in list)
-						 anObject[list[i]["id"]] = {
-						     name : list[i]["name"],
-						     description : list[i]["description"],
-						     imgUrl : list[i]["imgUrl"]
-						 };
-					     
-					 res.json(anObject);    
-					 });
+	app.get('/api/' + contentType + '/',
+		function (req, res) {
+		    content.find(
+			function (err, list) {
+			    if(err)
+				res.send(err);
+			    
+			    var contentObject = {};
+			    for(var i in list)
+				contentObject[list[i]["id"]] = {
+				    name : list[i]["name"],
+				    description : list[i]["description"],
+				    imgUrl : list[i]["imgUrl"]
+				};
+			    
+			    res.json(contentObject);    
+			});
 		    
 		});
-	app.post('/api/' + type + '/', isLoggedIn, function (req, res) {
-		     console.log(req.body);
-		     productOrClient.findOne(
+	app.post('/api/' + contentType + '/', isLoggedIn,
+		 function (req, res) {
+		     content.findOne(
 			 {
 			     'name' : req.body.name
 			 },
@@ -76,25 +78,27 @@ function routes(app, passport) {
 			     if (someThing)
 				 res.json({ message : 'already exist'});
 			     else{
-				 var newObject = new productOrClient;
+				 var newObject = new content;
 				 newObject.name = req.body.name;
 				 newObject.description = req.body.description;
 				 newObject.imgUrl = req.body.imgUrl;
-				 newObject.save(function (err) {
-						    if (err)  
-							throw err;
-			        		    res.json({ message: 'OK' });
-						});
+				 newObject.save(
+				     function (err) {
+					 if (err)  
+					     throw err;
+			        	 res.json({ message: 'OK' });
+				     });
 			     }					
 			 });
 		 });	
-	app.delete('/api/' + type + '/:id', isLoggedIn, function (req, res) {
-		       productOrClient.remove({ _id : req.params.id },
-					      function (err, someThing){
-						  if (err)
-						      res.send(err);
-						  res.json({message : 'OK'});
-					      });
+	app.delete('/api/' + contentType + '/:id', isLoggedIn,
+		   function (req, res) {
+		       content.remove({ _id : req.params.id },
+				      function (err, someThing){
+					  if (err)
+					      res.send(err);
+					  res.json({message : 'OK'});
+				      });
 		   });
 	
     }
@@ -109,34 +113,37 @@ function routes(app, passport) {
 		 });
 	
 	//  logging-out
-	app.get('/api/logout/', isLoggedIn, function (req, res){
+	app.get('/api/logout/', isLoggedIn,
+		function (req, res){
 		    req.logout();
 		    res.json({message : 'OK'});
 		});
 	
 	// url map to GET  admin page(list of admins)
-	app.get('/api/admin/', isLoggedIn, function (req, res) {
-		    User.find(function (err, admins) {
-			  	  if (err)
-				      res.send(err);
+	app.get('/api/admin/', isLoggedIn,
+		function (req, res) {
+		    User.find(
+			function (err, admins) {
+			    if (err)
+				res.send(err);
 				  
-				  var adminList = {};
+			    var adminList = {};
+			    for (var i in admins)
+				adminList[admins[i]["id"]] = admins[i]["local"]["email"]; 
 				  
-				  //for (var i =0; i<= admins.length -1; i++)
-				  for (var i in admins)
-				      adminList[admins[i]["id"]] = admins[i]["local"]["email"]; 
-				  
-				  res.json(adminList);
-			      });		    
+			    res.json(adminList);
+			});		    
 		});
 	// url map to add a new admin
-	app.post('/api/admin/',isLoggedIn, passport.authenticate('local-signup'),
+	app.post('/api/admin/',isLoggedIn,
+		 passport.authenticate('local-signup'),
 		 function (req, res) {
 		     res.json( {message: 'OK'} );
 		 });
 	   		
 	// url map to DELETE a admin
-	app.delete('/api/admin/:user_id', isLoggedIn, function (req, res) {
+	app.delete('/api/admin/:user_id', isLoggedIn,
+		   function (req, res) {
 		       User.remove({_id : req.params.user_id},
 				   function (err, user) {
 				       if (err)
@@ -144,14 +151,15 @@ function routes(app, passport) {
 				       res.json({message : 'OK'});
 				   });
 		   });
-   
+	
     }
     
     // helper function for default-route GET request
     function generalRoutes(){	
 	
 	// default GET
-	app.get('*', function (req, res) {
+	app.get('*',
+		function (req, res) {
 		    res.sendfile('./public/index.html');
 		});
     
