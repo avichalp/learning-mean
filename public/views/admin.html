@@ -19,10 +19,11 @@
      
     <!-- REGISTER FORM -->
     <div class="row top-buffer">
-     <div class="col-sm-4 col-sm-offset-4">
-       <button class="btn btn-sm" ng-click="admin.editToggle()" >add an admin</button>
-     
-       <form ng-show="admin.edit" name="addAdminForm" novalidate>
+      <div class="col-sm-4 col-sm-offset-4">
+
+	<button class="btn btn-sm" togglemouseenteradmin >add an admin</button>
+	
+	<form ng-show="admin.edit" name="addAdminForm" novalidate>
       
 	 <div class="form-group" ng-class="{ 'has-error' : addAdminForm.email.$invalid && !addAdminForm.email.$pristine}">
 	   <label>Email</label>
@@ -37,7 +38,7 @@
 	   <p ng-show="addAdminForm.password.$error.maxlength" class="help-block">Password is too long.</p>
 	 </div>
 
-	 <button type="submit" class="btn" ng-click="admin.submit(addAdminForm.$valid)" ng-disabled="addAdminForm.$invalid">Register</button>
+	 <button type="submit" toggleclickadmin class="btn" ng-click="admin.submit(addAdminForm.$valid)" ng-disabled="addAdminForm.$invalid">Register</button>
        </form>
      </div>
     </div>
@@ -47,7 +48,7 @@
     <div class="row top-buffer">
      
       <div class="col-sm-4">
-	<button class="btn btn-sm" ng-click="home.editToggle()" >edit home</button> 
+	<button class="btn btn-sm" togglemouseenterhome>edit home</button> 
 	<form ng-show="home.edit" name="homeForm" novalidate>
 	  <div class="form-group" ng-class="{ 'has-error' : homeForm.hometext.$invalid && !homeForm.hometext.$pristine} ">
 	    <label>Home</label>
@@ -59,13 +60,13 @@
 	    <input type="text" class="form-control" name="homeUrl" ng-model="home.homeUrl" required>
 	  </div>
   
-	  <button type="submit" class="btn" ng-click="home.submit(homeForm.$valid)" ng-disabled="homeForm.$invalid">Submit</button>  
+	  <button type="submit" toggleclickhome class="btn" ng-click="home.submit(homeForm.$valid)" ng-disabled="homeForm.$invalid">Submit</button>  
 	</form>
       </div>
 
       <!-- ABOUT FORM -->
       <div class="col-sm-4">
-	<button class="btn btn-sm" ng-click="about.editToggle()" >edit about</button>
+	<button class="btn btn-sm" togglemouseenterabout>edit about</button>
 	<form  ng-show="about.edit" name="aboutForm" novalidate>
 	  <div class="form-group" ng-class="{ 'has-error' : aboutForm.abouttext.$invalid && !aboutForm.abouttext.$pristine }">
 	    <label>About-Text</label>
@@ -73,17 +74,17 @@
 	  </div>
     
 	  <div class="form-group" ng-class="{ 'has-error' : aboutForm.aboutUrl.$invalid && !aboutForm.aboutUrl.$pristine }">
-	    <label>About-imaget</label>
+	    <label>About-image</label>
 	    <input type="text" class="form-control" name="aboutUrl" ng-model="about.aboutUrl" required>
 	  </div>
     
-	  <button type="submit" class="btn" ng-click="about.submit(aboutForm.$valid)" ng-disabled="aboutForm.$invalid">Submit</button>
+	  <button type="submit" toggleclickabout class="btn" ng-click="about.submit(aboutForm.$valid)" ng-disabled="aboutForm.$invalid">Submit</button>
 	</form>
       </div>
 
       <!-- CONTACT FORM-->
       <div class="col-sm-4" >
-	<button class="btn btn-sm" ng-click="contact.editToggle()" >edit contact</button>
+	<button class="btn btn-sm" togglemouseentercontact>edit contact</button>
 	<form  ng-show="contact.edit" name="contactForm" novalidate>
 	  <div class="form-group"  ng-class="{'has-error' : contactForm.contacttext.$invalid && !contactForm.contacttext.$pristine }"> 
 	    <label>Contact</label>
@@ -109,25 +110,16 @@
 	    <label>Contact-image</label>
 	    <input type="text" class="form-control" name="contactUrl" ng-model="contact.contactUrl" required>
 	  </div>
-	  <button type="submit" class="btn" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">Submit</button>
+	  <button type="submit" toggleclickcontact class="btn" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">
+	    Submit
+	  </button>
 	  
 	</form>
       </div>
     </div>
 
     <div class="row top-buffer">  
-      <!-- PRODUCT-->   
-    <!--  <ul ng-repeat="someProduct in products">
-	<div class="row top-buffer"> 
-	  <div class="col-sm-4">   
-	    <li> {{ someProduct.name }} </li>
-	  </div>
-	  <div class="col-sm-4">
-	    <button class="btn btn-xs" ng-click="product.delete(someProduct)">delete</button>
-	  </div>
-	</div>
-      </ul>
--->
+      
       <!-- FORM-->
       <div class="col-sm-6">
 

@@ -21,6 +21,8 @@
   <script src="js/controllers/AdminCtrl.js"></script>
   <script src="js/controllers/LoginCtrl.js"></script>
   <script src="js/controllers/ClientCtrl.js"></script>
+  
+  
   <!-- SERVICES -->
   <script src="js/services/MainService.js"></script>  
   <script src="js/services/AboutService.js"></script>
@@ -29,11 +31,16 @@
   <script src="js/services/AdminService.js"></script>
   <script src="js/services/ClientService.js"></script>
 
+  <!-- DIRECTIVES -->
+  <script src="js/appDirectives.js"></script>
+
+  
   <script src="js/appRoutes.js"></script>
   <script src="js/app.js"></script>
 </head>
 <body ng-app="cmsApp" ng-controller="MainController">
-<div class="">
+  
+  <div class="">
 	
   <!-- HEADER -->
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -45,11 +52,11 @@
       <li><a href="/client">Clients<a></li>
     </ul>
   </nav>
-  
+  <toggledirective></toggledirective>
   <!-- ANGULAR DYNAMIC CONTENT -->
   
   <div class =""ng-view></div>
   </div>
-
+  
 </body>
 </html>

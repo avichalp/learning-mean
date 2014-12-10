@@ -17,14 +17,6 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 
     var page = Object.create(Object);    
     page.edit = false;
-    page.editToggle = function () {
-	
-	if (this.edit == false)
-	    this.edit = true;
-	else
-	    this.edit = false;	
-    
-    };
    
     $scope.admin = Object.create(page);
     $scope.admin.list = function () {
