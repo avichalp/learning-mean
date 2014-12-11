@@ -8,44 +8,9 @@ function partial(func /*, 0..n args */) {
 
 }
 
-function toggleAdmin(scope){
+function toggle(scope, arg){
 
-    scope.admin.edit ? scope.admin.edit=false : scope.admin.edit=true;
-    scope.$apply();
-
-}
-
-function toggleHome(scope){
-
-    scope.home.edit ? scope.home.edit=false : scope.home.edit=true;
-    scope.$apply();
-
-}
-
-function toggleAbout(scope){
-
-    scope.about.edit ? scope.about.edit=false : scope.about.edit=true;
-    scope.$apply();
-
-}
-
-function toggleContact(scope){
-
-    scope.contact.edit ? scope.contact.edit=false : scope.contact.edit=true;
-    scope.$apply();
-
-}
-
-function toggleProduct(scope){
-
-    scope.product.edit ? scope.product.edit=false : scope.product.edit=true;
-    scope.$apply();
-
-}
-
-function toggleClient(scope){
-
-    scope.client.edit ? scope.client.edit=false : scope.client.edit=true;
+    arg.edit ? arg.edit=false : arg.edit=true;
     scope.$apply();
 
 }
@@ -53,9 +18,10 @@ function toggleClient(scope){
 function toggleMouseEnterAdmin(){
 
     return {
-	restrict: "A", 
+	restrict: "A",
 	link : function(scope, element, attrs){
-	    element.bind("mouseenter", partial(toggleAdmin, scope));	    
+	    console.log(typeof scope.edit);
+	    element.bind("mouseenter", partial(toggle, scope, scope.admin));	    
 	}
     };
 
@@ -66,7 +32,7 @@ function toggleClickAdmin(){
     return {
 	restrict : "A",
 	link : function(scope, element, attrs){
-	    element.bind("click", partial(toggleAdmin, scope));
+	    element.bind("click", partial(toggle, scope, scope.admin));
 	} 
     };
 
@@ -77,7 +43,7 @@ function toggleMouseEnterHome(){
     return {
 	restrict : "A",
 	link : function(scope, element, attrs){
-	    element.bind("mouseenter", partial(toggleHome, scope));
+	    element.bind("mouseenter", partial(toggle, scope, scope.home));
 	}
     };
 
@@ -88,7 +54,7 @@ function toggleClickHome(){
     return {
 	restrict : "A",
 	link : function(scope, element, attrs){
-	    element.bind("click", partial(toggleHome, scope));
+	    element.bind("click", partial(toggle, scope, scope.home));
 	}
     };
 
@@ -99,7 +65,7 @@ function toggleMouseEnterAbout(){
     return {
 	restrict : "A",
 	link : function(scope, element, attrs){
-	    element.bind("mouseenter", partial(toggleAbout, scope));
+	    element.bind("mouseenter", partial(toggle, scope, scope.about));
 	}
     };
 
@@ -110,7 +76,7 @@ function toggleClickAbout(){
     return {
 	restrict : "A",
 	link : function(scope, element, attrs){
-	    element.bind("click", partial(toggleAbout, scope));
+	    element.bind("click", partial(toggle, scope, scope.about));
 	}
     };
 
@@ -121,7 +87,7 @@ function toggleMouseEnterContact(){
     return {
 	restrict : "A",
 	link : function(scope, element, attrs){
-	    element.bind("mouseenter", partial(toggleContact, scope));
+	    element.bind("mouseenter", partial(toggle, scope, scope.contact));
 	}
     };
 
@@ -132,7 +98,7 @@ function toggleClickContact(){
     return {
 	restrict : "A",
 	link : function(scope, element, attrs){
-	    element.bind("click", partial(toggleContact, scope));
+	    element.bind("click", partial(toggle, scope, scope.contact));
 	}
     };
 
@@ -143,7 +109,7 @@ function toggleMouseEnterProduct(){
     return {
 	restrict : "A",
 	link : function(scope,element,attrs){
-	    element.bind("mouseenter", partial(toggleProduct, scope));
+	    element.bind("mouseenter", partial(toggle, scope, scope.product));
 	}
     };
 }
@@ -153,7 +119,7 @@ function toggleClickProduct(){
     return {
 	restrict : "A",
 	link : function(scope,element,attrs){
-	    element.bind("click", partial(toggleProduct, scope));
+	    element.bind("click", partial(toggle, scope, scope.product));
 	}
     };
 }
@@ -163,7 +129,7 @@ function toggleMouseEnterClient(){
     return {
 	restrict : "A",
 	link : function(scope, element, attrs){
-	    element.bind("mouseenter", partial(toggleClient, scope));
+	    element.bind("mouseenter", partial(toggle, scope, scope.client));
 	}
     };
 
@@ -174,7 +140,7 @@ function toggleClickClient(){
     return {
 	restrict : "A",
 	link : function(scope, element, attrs){
-	    element.bind("click", partial(toggleClient, scope));
+	    element.bind("click", partial(toggle, scope, scope.client));
 	}
     };
 

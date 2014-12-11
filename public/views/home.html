@@ -1,17 +1,17 @@
 <div class="col-sm-12 col-sm-offset-0 text-center">
  
-    <p class="overlay text-primary">{{ homeData.homeText }}</p>
+    <p class="overlay text-primary text-font">{{ homeData.homeText }}</p>
     <img src={{homeData.homeImgUrl}} class="fullscreen background parallax" data-img-width="1600" data-img-height="1064" data-diff="100">
   
 </div>
 
-<div class="col-sm-12 col-sm-offset-0 text-center">
-  <p class="overlay text-justify text-info"> {{ aboutData.aboutText }}</p>
+<div class="col-sm-12 col-sm-offset-0 text-center top-buffer">
+  <p class="overlay text-justify text-info text-font"> {{ aboutData.aboutText }}</p>
   <img src={{aboutData.aboutImgUrl}} class="fullscreen background parallax" data-img-width="1600" data-img-height="1064" data-diff="100">
 </div>
 
-<div class="col-sm-12 col-sm-offset-0">
+<div class="col-sm-12 col-sm-offset-0 top-buffer">
  
-    <p class=" row text-justify text-info" ng-repeat="someData in contactData">{{ someData  }}</p>
+    <p class=" row text-justify text-info text-name" ng-repeat="someData in contactData">{{ someData  }}</p>
     <img  src={{contactImgUrl}} class="not-fullscreen background parallax" data-img-width="1600" data-img-height="1064" data-diff="100">
 </div>

@@ -2,19 +2,14 @@ function Product($http) {
     
     return {
 	
-	getProduct : function (callBack) {
-			
-	    $http.get('http://localhost:8080/api/product/')
-		.success(callBack);
+	getProduct : function () {	
+	    return $http.get('http://localhost:8080/api/product/');
 	},
-	postProduct : function (msg, callBack) {
-			 
-	    $http.post('http://localhost:8080/api/product/', msg)
-		.success(callBack);
+	postProduct : function (msg){
+	    return $http.post('http://localhost:8080/api/product/', msg);
 	},
-	deleteProduct : function (msg, callBack) {
-	    $http.delete('http://localhost:8080/api/product/' + msg.id)
-		.success(callBack);
+	deleteProduct : function (msg){
+	    return $http.delete('http://localhost:8080/api/product/' + msg.id);
 	}
 		
     };

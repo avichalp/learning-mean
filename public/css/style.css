@@ -13,14 +13,44 @@
 html, body {
     /* give this to all tags from html to .fullscreen */
    height:100%;
-   padding-top:40px;/
+   padding-top:40px;
    position:relative;
+   font-size:20px;
+}
+
+
+.text-font{
+    color : white;
+    font-size: 40px;
+    line-height:40px;
+    padding-top: 25px;
+    padding-right: 50px;
+    padding-bottom: 25px;
+    padding-left: 50px; 
+}
+
+.text-name{
+    color : black;
+    font-size: 20px;
+    line-height:10px;
+    padding-left: 25px;
+}
+
+.text-description{
+    color : black;
+    font-size: 20px;
+    line-height:20px;
+    padding-top: 25px;
+    padding-right: 50px;
+    padding-bottom: 25px;
+    padding-left: 50px;
 }
 .fullscreen,
 .content-a {
     width:100%;
     min-height:100%;
 }
+
 .not-fullscreen,
 .not-fullscreen .content-a,
 .fullscreen.not-overflow,
@@ -40,18 +70,10 @@ html, body {
 }
 
 /* visual styles */
-body{
-   margin:0;
-   font-family:sans-serif;
-   font-size:20px;
-   line-height:20px;
-   color:#ffffff;
-   text-align:center;
-}
 
 section {
    background:#9ed100;
 }
 .not-fullscreen {
-    height:50%;
+    height:50%;;
 }

@@ -5,15 +5,16 @@ function LoginController($scope, Admin) {
 	
 	 if(isValid){
 		//using Admin service to POST login data
-		Admin.postLogin(
-		    {
-			email : $scope.login.email,
-			password : $scope.login.password
-		    },
-		    function (data) {		
-			if (data.message === 'OK')
-			    window.location = "http://localhost:8080/admin";
-		    });
+		Admin.postLogin( {
+		    email : $scope.login.email,
+		    password : $scope.login.password})
+		 .success(function (data) {		
+		     if (data.message === 'OK')
+			 window.location = "http://localhost:8080/admin";
+		 })
+		 .error(function (data){
+		     console.log("error->" + data);
+		 });
 	    }	
 
     };	    

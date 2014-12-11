@@ -1,9 +1,13 @@
 function ProductController($scope, Product) {
 		     
-    Product.getProduct(function (data) {
-		   	   $scope.products = data;	    
-			   console.log(data);
-		       });
+    Product.getProduct()
+	.success(function (data) {
+	    $scope.products = data;	    
+	    console.log(data);
+	})
+	.error(function (data){
+	    console.log("error->" + data);
+	});
     
 }
 

@@ -1,18 +1,12 @@
 function Contact($http) {
 	    
     return {
-
-	getContact : function (callBack) {
-	    
-	    $http.get('http://localhost:8080/api/contact/')
-		.success(callBack);
+	getContact : function (){
+	   return  $http.get('http://localhost:8080/api/contact/');
 	},
 		    
-	postContact : function (msg, callBack) {
-			 
-	    $http.post('http://localhost:8080/api/contact/',  msg)
-		.success(callBack);
-	    
+	postContact : function (msg) {
+	   return  $http.post('http://localhost:8080/api/contact/',  msg);
 	}
     };
     

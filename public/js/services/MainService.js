@@ -2,17 +2,12 @@ function Main($http) {
     
     return {
 	
-	getHome : function (callBack) {
-	    
-	    $http.get('http://localhost:8080/api/home/')
-		.success(callBack);		    
-	    
+	getHome : function () {
+	    return $http.get('http://localhost:8080/api/home/');
 	},	
 		    
-	postHome : function (msg, callBack) {
-			
-	    $http.post('http://localhost:8080/api/home/', msg)
-		.success(callBack);
+	postHome : function (msg) {
+	    return $http.post('http://localhost:8080/api/home/', msg);
 	}
     };
     

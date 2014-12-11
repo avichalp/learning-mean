@@ -1,47 +1,53 @@
-<div class="col-sm-12 col-sm-offset-0">
+<!--<div class="col-sm-12 col-sm-offset-0"> -->
   
-  <div class="row top-buffer">
-    <div class="col-sm-4 col-sm-offset-10">
-      <button class="btn btn-xs" ng-click="admin.logout()" >logout</button>
-    </div>
+<div class="row top-buffer">
+  <div class="col-sm-1">
+    <button class="btn btn-xs" ng-click="admin.logout()" >logout</button>
   </div>
-  
-    <ul ng-repeat="someAdmin in admins">
-      <div class="row top-buffer">
-	<div class="col-sm-4">
-	  <li>{{ someAdmin }}</li>
-	</div>
-	<div class="col-sm-4">
-	  <button class="btn btn-xs " ng-click="admin.delete(someAdmin)">delete</button>
-	</div>
-      </div>      
-    </ul>
-     
-    <!-- REGISTER FORM -->
+</div>
+
+<div class="row top-buffer">
+  <div class="sm-col-6">
+  <ul ng-repeat="someAdmin in admins">
     <div class="row top-buffer">
-      <div class="col-sm-4 col-sm-offset-4">
+      <div class="col-sm-2">
+	<li>{{ someAdmin }}</li>
+      </div>
+      <div class="col-sm-2">
+	<button class="btn btn-xs " ng-click="admin.delete(someAdmin)">delete</button>
+      </div>
+    </div>      
+  </ul>
+  </div>
+</div>
 
-	<button class="btn btn-sm" togglemouseenteradmin >add an admin</button>
+<!-- REGISTER FORM -->
+<div class="row top-buffer">
+  <div class="col-sm-4 col-sm-offset-0">
+
+    <button class="btn btn-sm" togglemouseenteradmin>add an admin</button>
 	
-	<form ng-show="admin.edit" name="addAdminForm" novalidate>
+    <form  ng-show="admin.edit" name="addAdminForm" novalidate>
       
-	 <div class="form-group" ng-class="{ 'has-error' : addAdminForm.email.$invalid && !addAdminForm.email.$pristine}">
-	   <label>Email</label>
-	   <input type="email" class="form-control" name="email" ng-model="admin.email" required>
-	   <p ng-show="addAdminForm.email.$invalid && !addAdminForm.email.$pristine" class="help-block">enter a valid email.</p>
-	 </div>
+      <div class="form-group" ng-class="{ 'has-error' : addAdminForm.email.$invalid && !addAdminForm.email.$pristine}">
+	<label>Email</label>
+	<input type="email" class="form-control" name="email" ng-model="admin.email" required>
+	<p ng-show="addAdminForm.email.$invalid && !addAdminForm.email.$pristine" class="help-block">enter a valid email.</p>
+      </div>
       
-	 <div class="form-group" ng-class="{ 'has-error' : addAdminForm.password.$invalid && !addAdminForm.password.$pristine }">
-	   <label>Password</label>
-	   <input type="password" class="form-control" name="password" ng-model="admin.password" ng-minlength="3" ng-maxlength="20" required>
-	   <p ng-show="addAdminForm.password.$error.minlength" class="help-block">Password is too short.</p>
-	   <p ng-show="addAdminForm.password.$error.maxlength" class="help-block">Password is too long.</p>
-	 </div>
+      <div class="form-group" ng-class="{ 'has-error' : addAdminForm.password.$invalid && !addAdminForm.password.$pristine }">
+	<label>Password</label>
+	<input type="password" class="form-control" name="password" ng-model="admin.password" ng-minlength="3" ng-maxlength="20" required>
+	<p ng-show="addAdminForm.password.$error.minlength" class="help-block">Password is too short.</p>
+	<p ng-show="addAdminForm.password.$error.maxlength" class="help-block">Password is too long.</p>
+      </div>
 
-	 <button type="submit" toggleclickadmin class="btn" ng-click="admin.submit(addAdminForm.$valid)" ng-disabled="addAdminForm.$invalid">Register</button>
-       </form>
-     </div>
-    </div>
+      <button type="submit" toggleclickadmin class="btn" ng-click="admin.submit(addAdminForm.$valid)" ng-disabled="addAdminForm.$invalid">
+	Register
+      </button>
+    </form>
+  </div>
+</div>
   
     <!-- HOME FORM -->
     
@@ -64,71 +70,77 @@
 	</form>
       </div>
 
-      <!-- ABOUT FORM -->
-      <div class="col-sm-4">
-	<button class="btn btn-sm" togglemouseenterabout>edit about</button>
-	<form  ng-show="about.edit" name="aboutForm" novalidate>
-	  <div class="form-group" ng-class="{ 'has-error' : aboutForm.abouttext.$invalid && !aboutForm.abouttext.$pristine }">
-	    <label>About-Text</label>
-	    <input type="text" class="form-control" name="abouttext" ng-model="about.aboutText" required>
-	  </div>
-    
-	  <div class="form-group" ng-class="{ 'has-error' : aboutForm.aboutUrl.$invalid && !aboutForm.aboutUrl.$pristine }">
-	    <label>About-image</label>
-	    <input type="text" class="form-control" name="aboutUrl" ng-model="about.aboutUrl" required>
-	  </div>
-    
-	  <button type="submit" toggleclickabout class="btn" ng-click="about.submit(aboutForm.$valid)" ng-disabled="aboutForm.$invalid">Submit</button>
-	</form>
-      </div>
-
-      <!-- CONTACT FORM-->
-      <div class="col-sm-4" >
-	<button class="btn btn-sm" togglemouseentercontact>edit contact</button>
-	<form  ng-show="contact.edit" name="contactForm" novalidate>
-	  <div class="form-group"  ng-class="{'has-error' : contactForm.contacttext.$invalid && !contactForm.contacttext.$pristine }"> 
-	    <label>Contact</label>
-	    <input type="text" class="form-control" name="contacttext" ng-model="contact.contactText" required>
-	  </div>
-
-	  <div class="form-group"  ng-class="{'has-error' : contactForm.contactPhone.$invalid && !contactForm.contactPhone.$pristine }"> 
-	    <label>Contact-image</label>
-	    <input type="text" class="form-control" name="contactPhone" ng-model="contact.contactPhone" required>
-	  </div>
-    
-	  <div class="form-group"  ng-class="{'has-error' : contactForm.contactEmail.$invalid && !contactForm.contactEmail.$pristine }"> 
-	    <label>Contact-image</label>
-	    <input type="text" class="form-control" name="contactEmail" ng-model="contact.contactEmail" required>
-	  </div>
-  
-	  <div class="form-group"  ng-class="{'has-error' : contactForm.contactAddress.$invalid && !contactForm.contactAddress.$pristine }"> 
-	    <label>Contact-image</label>
-	    <input type="text" class="form-control" name="contactAddress" ng-model="contact.contactAddress" required>
-	  </div>
-
-	  <div class="form-group"  ng-class="{'has-error' : contactForm.contactUrl.$invalid && !contactForm.contactUrl.$pristine }"> 
-	    <label>Contact-image</label>
-	    <input type="text" class="form-control" name="contactUrl" ng-model="contact.contactUrl" required>
-	  </div>
-	  <button type="submit" toggleclickcontact class="btn" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">
-	    Submit
-	  </button>
-	  
-	</form>
-      </div>
     </div>
+      <!-- ABOUT FORM -->
+      <div class="row top-buffer">
 
-    <div class="row top-buffer">  
+	<div class="col-sm-4">
+	  <button class="btn btn-sm" togglemouseenterabout>edit about</button>
+	  <form  ng-show="about.edit" name="aboutForm" novalidate>
+	    <div class="form-group" ng-class="{ 'has-error' : aboutForm.abouttext.$invalid && !aboutForm.abouttext.$pristine }">
+	      <label>About-Text</label>
+	      <input type="text" class="form-control" name="abouttext" ng-model="about.aboutText" required>
+	    </div>
+    
+	    <div class="form-group" ng-class="{ 'has-error' : aboutForm.aboutUrl.$invalid && !aboutForm.aboutUrl.$pristine }">
+	      <label>About-image</label>
+	      <input type="text" class="form-control" name="aboutUrl" ng-model="about.aboutUrl" required>
+	    </div>
+	    
+	    <button type="submit" toggleclickabout class="btn" ng-click="about.submit(aboutForm.$valid)" ng-disabled="aboutForm.$invalid">Submit</button>
+	  </form>
+	</div>
+      </div>
+      
+      <!-- CONTACT FORM-->
+      <div class="row top-buffer">
+	
+	<div class="col-sm-4" >
+	  <button class="btn btn-sm" togglemouseentercontact>edit contact</button>
+	  <form  ng-show="contact.edit" name="contactForm" novalidate>
+	    <div class="form-group"  ng-class="{'has-error' : contactForm.contacttext.$invalid && !contactForm.contacttext.$pristine }"> 
+	      <label>Contact</label>
+	      <input type="text" class="form-control" name="contacttext" ng-model="contact.contactText" required>
+	    </div>
+
+	    <div class="form-group"  ng-class="{'has-error' : contactForm.contactPhone.$invalid && !contactForm.contactPhone.$pristine }"> 
+	      <label>Contact-image</label>
+	      <input type="text" class="form-control" name="contactPhone" ng-model="contact.contactPhone" required>
+	    </div>
+    
+	    <div class="form-group"  ng-class="{'has-error' : contactForm.contactEmail.$invalid && !contactForm.contactEmail.$pristine }"> 
+	      <label>Contact-image</label>
+	      <input type="text" class="form-control" name="contactEmail" ng-model="contact.contactEmail" required>
+	    </div>
+	    
+	    <div class="form-group"  ng-class="{'has-error' : contactForm.contactAddress.$invalid && !contactForm.contactAddress.$pristine }"> 
+	      <label>Contact-image</label>
+	      <input type="text" class="form-control" name="contactAddress" ng-model="contact.contactAddress" required>
+	    </div>
+	    
+	    <div class="form-group"  ng-class="{'has-error' : contactForm.contactUrl.$invalid && !contactForm.contactUrl.$pristine }"> 
+	      <label>Contact-image</label>
+	      <input type="text" class="form-control" name="contactUrl" ng-model="contact.contactUrl" required>
+	    </div>
+	    <button type="submit" toggleclickcontact class="btn" ng-click="contact.submit(contactForm.$valid)" ng-disabled="contactForm.$invalid ">
+	      Submit
+	    </button>
+	    
+	  </form>
+	</div>
+      </div>
+
+      <div class="row top-buffer">  
       
       <!-- FORM-->
       <div class="col-sm-6">
 
 	<ul ng-repeat="someProduct in products">
 	  <div class="row top-buffer"> 
-	    <div class="col-sm-4">   
+	    <div class="col-sm-2">   
 	      <li> {{ someProduct.name }} </li>
 	    </div>
-	    <div class="col-sm-4">
+	    <div class="col-sm-2">
 	      <button class="btn btn-xs" ng-click="product.delete(someProduct)">delete</button>
 	    </div>
 	  </div>
@@ -157,8 +169,10 @@
 	  
 	</form>
       </div>
+    </div>
+    <!-- Form-->
+    <div class="row top-buffer">
 
-      <!-- Form-->
       <div class="col-sm-6">
 	
 	 <ul ng-repeat="someClient in clients">
@@ -196,4 +210,4 @@
 	</form>
       </div>
     </div>
-</div>
+<!--</div>-->

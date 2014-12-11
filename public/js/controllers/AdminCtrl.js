@@ -22,21 +22,28 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
     $scope.admin.list = function () {
 	
 	// using Admin service to GET admin-list
-	Admin.getAdmin(function (data) {
-    		    	   if (data.message === 'restricted area')
-    			       window.location = "http://localhost:8080/login";					  	
-    			   
-			   $scope.admins = data;
-		       });    
-    
+	Admin.getAdmin()
+	    .success(function (data) {
+    		if (data.message === 'restricted area')
+    		    window.location = "http://localhost:8080/login";					  	
+    		
+		$scope.admins = data;
+	    })
+	    .error(function(data){
+		console.log("error->" + data);
+	    });
     };
     $scope.admin.logout = function (){
 	
 	// using Admin service to send GET request on /logout
-	Admin.getLogout(function (data) {
-			    if (data.message === 'OK')
-				window.location = "http://localhost:8080/";			     
-			});
+	Admin.getLogout()
+	    .success(function (data) {
+		if (data.message === 'OK')
+		    window.location = "http://localhost:8080/";			     
+	    })
+	    .error(function (data){
+		console.log("error->" + data);
+	    });
     
     };
     $scope.admin.submit = function (isValid) {
@@ -44,16 +51,16 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	if (isValid){
 	   
 	    // using Admin service to POST new admin details
-	    Admin.postAdmin(
-		{
-		    email : this.email,
-		    password : this.password
-		},
-		function (data) {				
+	    Admin.postAdmin({
+		email : this.email,
+		password : this.password})
+		.success(function (data) {				
 		    if (data.message === 'OK')
 			$scope.admin.list();				
-		    }
-	    );
+		})
+		.error(function (data){
+		    console.log("error->" + data);
+		});
 	}
    
     };
@@ -62,13 +69,13 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	var user_id = $scope.admins.getKeyByValue(admin);
 	
 	//using Admin Service to DELETE specified admin
-	Admin.deleteAdmin(
-	    {
-		user_id : user_id
-	    },
-	    function (data){
+	Admin.deleteAdmin({user_id : user_id})
+	    .success(function (data){
 		if (data.message === 'OK')
 		    $scope.admin.list();	
+	    })
+	    .error(function (data){
+		console.log("error->" + data);
 	    });
    
     };		           
@@ -79,15 +86,16 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	if (isValid){
 	    
 	    // using Main service to POST homepage data
-	    Main.postHome(
-		{ 
-		    homeText: this.homeText,
-		    homeImgUrl: this.homeUrl
-		},
-		function (data) {
+	    Main.postHome({ 
+		homeText: this.homeText,
+		homeImgUrl: this.homeUrl})
+		.success(function (data) {
 		    if (data)
 			window.location = "http://localhost:8080/";
-		});
+		})
+		.error(function (data){
+		    console.log("error->" + data);
+		});	
 	}
     
     };	
@@ -98,14 +106,15 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	if (isValid){			    
 	    
 	    // using About service to POST aboutpage data
-	    About.postAbout(
-		{ 
-		    aboutText: this.aboutText,
-		    aboutImgUrl: this.aboutUrl 
-		},
-		function (data){
+	    About.postAbout({ 
+		aboutText: this.aboutText,
+		aboutImgUrl: this.aboutUrl})
+		.success(function (data){
 		    if (data)
 			window.location = "http://localhost:8080/";
+		})
+		.error(function (data){
+		    console.log("error->" + data);
 		});
 	} 
     
@@ -117,17 +126,18 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	if (isValid){
 	    
 	    // using Contact service to POST contactpage data
-	    Contact.postContact(
-		{
-		    contactText : this.contactText,
-		    contactPhone : this.contactPhone,
-		    contactEmail : this.contactEmail,
-		    contactAddress : this.contactAddress,
-		    contactImgUrl : this.contactUrl
-		},
-		function (data) {
+	    Contact.postContact({
+		contactText : this.contactText,
+		contactPhone : this.contactPhone,
+		contactEmail : this.contactEmail,
+		contactAddress : this.contactAddress,
+		contactImgUrl : this.contactUrl})
+		.success(function (data) {
 		    if (data)
 			window.location = "http://localhost:8080/";			    
+		})
+		.error(function (data){
+		    console.log("error->" + data); 
 		});
 	} 
     
@@ -137,9 +147,13 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
     $scope.product.list = function () {
 	
 	// Product service to GET product-list    
-	Product.getProduct(function (data) {
-			       $scope.products = data;
-			   });
+	Product.getProduct()
+	    .success(function (data) {
+		$scope.products = data;
+	    })
+	    .error(function (data) {
+		console.log("error ->" + data);
+	    });
     
     };
     
@@ -148,17 +162,16 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	if (isValid){
 	   
 	    // using Product service to POST productpage data
-	    Product.postProduct(
-		{
-		    name : this.name,
-		    description : this.description,
-		    imgUrl : this.url
-		    
-		},
-		function (data) {
-		    console.log(data);
+	    Product.postProduct({
+		name : this.name,
+		description : this.description,
+		imgUrl : this.url})
+		.success(function (data) {
 		    if (data.message === 'OK')   
 			$scope.product.list();
+		})
+		.error(function (data) {
+		    console.log("error->" + data);
 		});
 	}
     
@@ -170,12 +183,13 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	    if ($scope.products[productKeys[i]]['name'] === product['name']){
 		
 		// Product service to DELETE product
-		Product.deleteProduct(
-		    {
-			id : productKeys[i]
-		    }, function (data) {
+		Product.deleteProduct({ id : productKeys[i]})
+		    .success(function (data) {
 			if (data.message === 'OK')
 			    $scope.product.list();
+		    })
+		    .error(function (data){
+			console.log("error->" + data);
 		    });
 	    }
 	}		
