@@ -134,7 +134,7 @@
 	  </div>
 	</ul>
 
-	<button class="btn btn-sm" ng-click="product.editToggle()"> add  product </button>
+	<button class="btn btn-sm" togglemouseenterproduct> add  product </button>
 	<form ng-show="product.edit" name="productForm" novalidate>
 	  <div class="form-group" ng-class="{ 'has-error' : productForm.produttext.$invalid && !productForm.produttext.$pristine }">
 	    <label>Product</label>
@@ -151,24 +151,13 @@
 	    <input type="text" class="form-control" name="productUrl" ng-model="product.url" required>
 	  </div>
 
-	  <button type="submit" class="btn  btn-lg" ng-click="product.submit(productForm.$valid)" ng-disabled="productForm.$invalid">Submit</button>
+	  <button type="submit" toggleclickproduct class="btn  btn-lg" ng-click="product.submit(productForm.$valid)" ng-disabled="productForm.$invalid">
+	    Submit
+	  </button>
 	  
 	</form>
       </div>
 
-      <!-- Client-->
-
-<!--      <ul ng-repeat="someClient in clients">
-	<div class="row top-buffer">
-	  <div class="col-sm-2">
-	    <li>{{ someClient.name }}</li>
-	  </div>
-	  <div class="col-sm-2">
-	    <button class="btn btn-xs" ng-click="client.delete(someClient)">delete</button>    
-	  </div>
-	</div>
-      </ul>
-    -->  
       <!-- Form-->
       <div class="col-sm-6">
 	
@@ -183,7 +172,7 @@
 	   </div>
 	 </ul>
 
-	<button class="btn btn-sm" ng-click="client.editToggle()"> add client </button>
+	<button class="btn btn-sm" togglemouseenterclient> add client </button>
 	<form ng-show="client.edit" name="clientForm" novalidate>
 	  <div class="form-group" ng-class="{ 'has-error' : clientForm.clienttext.$invalid && !clientForm.clienttext.$pristine }">
 	    <label>Client</label>
@@ -200,7 +189,9 @@
 	    <input type="text" class="form-control" name="clientUrl" ng-model="client.url" required>
 	  </div>
 
-	  <button type="submit" class="btn  btn-lg" ng-click="client.submit(clientForm.$valid)" ng-disabled="clientForm.$invalid">Submit</button>
+	  <button type="submit" toggleclickclient class="btn  btn-lg" ng-click="client.submit(clientForm.$valid)" ng-disabled="clientForm.$invalid">
+	    Submit
+	  </button>
  
 	</form>
       </div>

@@ -1,78 +1,97 @@
 function partial(func /*, 0..n args */) {
+
     var args = Array.prototype.slice.call(arguments, 1);
     return function() {
 	var allArguments = args.concat(Array.prototype.slice.call(arguments));
 	return func.apply(this, allArguments);
     };
+
 }
 
 function toggleAdmin(scope){
 
     scope.admin.edit ? scope.admin.edit=false : scope.admin.edit=true;
     scope.$apply();
+
 }
 
 function toggleHome(scope){
 
     scope.home.edit ? scope.home.edit=false : scope.home.edit=true;
     scope.$apply();
+
 }
 
 function toggleAbout(scope){
 
     scope.about.edit ? scope.about.edit=false : scope.about.edit=true;
     scope.$apply();
+
 }
 
 function toggleContact(scope){
 
     scope.contact.edit ? scope.contact.edit=false : scope.contact.edit=true;
     scope.$apply();
+
+}
+
+function toggleProduct(scope){
+
+    scope.product.edit ? scope.product.edit=false : scope.product.edit=true;
+    scope.$apply();
+
+}
+
+function toggleClient(scope){
+
+    scope.client.edit ? scope.client.edit=false : scope.client.edit=true;
+    scope.$apply();
+
 }
 
 function toggleMouseEnterAdmin(){
 
     return {
-
 	restrict: "A", 
 	link : function(scope, element, attrs){
-	    element.bind("mouseenter", partial(toggleAdmin, scope));
-	    
+	    element.bind("mouseenter", partial(toggleAdmin, scope));	    
 	}
-    }
+    };
+
 }
 
 function toggleClickAdmin(){
 
     return {
-	
 	restrict : "A",
 	link : function(scope, element, attrs){
 	    element.bind("click", partial(toggleAdmin, scope));
-	}, 
-    }
+	} 
+    };
+
 }
 
 function toggleMouseEnterHome(){
 
     return {
-
 	restrict : "A",
 	link : function(scope, element, attrs){
 	    element.bind("mouseenter", partial(toggleHome, scope));
-	},
-    }
+	}
+    };
+
 }
 
 function toggleClickHome(){
 
     return {
-
 	restrict : "A",
 	link : function(scope, element, attrs){
 	    element.bind("click", partial(toggleHome, scope));
 	}
-    }
+    };
+
 }
 
 function toggleMouseEnterAbout(){
@@ -82,7 +101,8 @@ function toggleMouseEnterAbout(){
 	link : function(scope, element, attrs){
 	    element.bind("mouseenter", partial(toggleAbout, scope));
 	}
-    }
+    };
+
 }
 
 function toggleClickAbout(){
@@ -92,7 +112,8 @@ function toggleClickAbout(){
 	link : function(scope, element, attrs){
 	    element.bind("click", partial(toggleAbout, scope));
 	}
-    }
+    };
+
 }
 
 function toggleMouseEnterContact(){
@@ -102,7 +123,8 @@ function toggleMouseEnterContact(){
 	link : function(scope, element, attrs){
 	    element.bind("mouseenter", partial(toggleContact, scope));
 	}
-    }
+    };
+
 }
 
 function toggleClickContact(){
@@ -112,7 +134,50 @@ function toggleClickContact(){
 	link : function(scope, element, attrs){
 	    element.bind("click", partial(toggleContact, scope));
 	}
-    }
+    };
+
+}
+
+function toggleMouseEnterProduct(){
+
+    return {
+	restrict : "A",
+	link : function(scope,element,attrs){
+	    element.bind("mouseenter", partial(toggleProduct, scope));
+	}
+    };
+}
+
+function toggleClickProduct(){
+
+    return {
+	restrict : "A",
+	link : function(scope,element,attrs){
+	    element.bind("click", partial(toggleProduct, scope));
+	}
+    };
+}
+
+function toggleMouseEnterClient(){
+
+    return {
+	restrict : "A",
+	link : function(scope, element, attrs){
+	    element.bind("mouseenter", partial(toggleClient, scope));
+	}
+    };
+
+}
+
+function toggleClickClient(){
+
+    return {
+	restrict : "A",
+	link : function(scope, element, attrs){
+	    element.bind("click", partial(toggleClient, scope));
+	}
+    };
+
 }
 
 angular
@@ -146,3 +211,19 @@ angular
 angular
     .module("appDirectives")
     .directive("toggleclickcontact", toggleClickContact);
+
+angular
+    .module("appDirectives")
+    .directive("togglemouseenterclient", toggleMouseEnterClient);
+
+angular
+    .module("appDirectives")
+    .directive("toggleclickclient", toggleClickClient);
+
+angular
+    .module("appDirectives")
+    .directive("togglemouseenterproduct", toggleMouseEnterProduct);
+
+angular
+    .module("appDirectives")
+    .directive("toggleclickproduct", toggleClickProduct);

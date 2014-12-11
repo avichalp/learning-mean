@@ -186,26 +186,31 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
     $scope.client.list =  function (){
 	
 	// Client service to GET client-list
-	Client.getClient(function (data){			 
+	Client.getClient()
+	    .success(function (data){			 
 			     $scope.clients = data;		 
-			 });
-    
+	    })
+	    .error(function (data){
+		console.log("error->" + data);
+	    });
+	    
     };
     $scope.client.submit = function(isValid) {
 	    
 	if (isValid){
 	    
 	    // Client service to POST new client data 
-	    Client.postClient(
-		{
+	    Client.postClient({
 		    name : this.name,
 		    description : this.description,
-		    imgUrl : this.url
-		},
-		function (data) {
+		    imgUrl : this.url})
+		.success(function (data) {
 		    console.log(data);
 		    if (data.message === 'OK')
 			$scope.client.list();
+		})
+		.error(function (data){
+		    console.log("error->" + data);
 		});
 	}
     
@@ -217,12 +222,13 @@ function AdminController($scope,  Admin, Main, About, Contact, Product, Client) 
 	    if ($scope.clients[clientKeys[i]]['name'] === client['name']){
 		
 		// Client service to DELETE client
-		Client.deleteClient(
-		    {
-			id : clientKeys[i]
-		    }, function (data) {
+		Client.deleteClient({ id : clientKeys[i]})
+		    .success(function (data) {
 			if (data.message === 'OK')
 			    $scope.client.list();
+		    })
+		    .error(function (data){
+			console.log('error->' + data);
 		    });
 	    }
 	}		

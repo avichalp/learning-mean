@@ -2,20 +2,17 @@ function Client($http) {
     
     return {
 	
-	getClient : function (callBack) {
-			
-	    $http.get('http://localhost:8080/api/client/')
-		.success(callBack);
-	},
-	postClient : function (msg, callBack) {
-			 
-	    $http.post('http://localhost:8080/api/client/', msg)
-		.success(callBack);
-	},
-	deleteClient : function (msg, callBack) {
+	getClient : function () {
 	    
-	    $http.delete('http://localhost:8080/api/client/' + msg.id)
-		.success(callBack);
+	    return $http.get('http://localhost:8080/api/client/');
+	},
+	postClient : function (msg) {
+			 
+	    return $http.post('http://localhost:8080/api/client/', msg);
+	},
+	deleteClient : function (msg) {
+	    
+	    return $http.delete('http://localhost:8080/api/client/' + msg.id);
 	}
 		
     };
